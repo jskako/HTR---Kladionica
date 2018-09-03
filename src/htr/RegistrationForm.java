@@ -58,6 +58,10 @@ public class RegistrationForm extends javax.swing.JFrame {
     boolean prog_Adresa;
     boolean prog_PPT;
 
+    //Spajanje na bazu
+    ResultSet RS = null;
+    IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
+
     /**
      * Creates new form LoginForm
      *
@@ -837,10 +841,9 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void txt_KorisnickoImeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_KorisnickoImeFocusLost
         // TODO add your handling code here:
         try {
-            String SQL = "select * from users where F01USR = '" + txt_KorisnickoIme.getText().trim() + "'";
-            Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery(SQL);
-            if (result.next()) {
+            RS  = CALIzb.main(conn, "select * from users where F01USR = '" + txt_KorisnickoIme.getText().trim() + "'");
+
+            if (RS.next()) {
                 userFound.setVisible(true);
                 userNotFound.setVisible(false);
 
@@ -891,39 +894,6 @@ public class RegistrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_BrojTeleActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-//        if (userPostoji == false) {
-//            if (!txt_KorisnickoIme.getText().trim().equals("")) {
-//                if (!txt_Ime.getText().trim().equals("")) {
-//                    if (!txt_Prezime.getText().trim().equals("")) {
-//                        if (!txt_Password.getText().trim().equals("")) {
-//                            if (!txt_Password.getText().trim().equals("")) {
-//                                if (!txt_PonoviPassword.getText().trim().equals("")) {
-//                                    if (PasswordNijeIsti == true) {
-//                                        if (!txt_Mail.getText().trim().equals("")) {
-//                                            if (!txt_BrojTele.getText().trim().equals("")) {
-//                                                if (!txt_Drzava.getText().trim().equals("")) {
-//                                                    if (!txt_GradRode.getText().trim().equals("")) {
-//                                                        if (!txt_Adresa.getText().trim().equals("")) {
-//                                                            if (!txt_PBR.getText().trim().equals("")) {
-//                                                                if (godRazlika > 18) {                                                                    
-//                                                                   System.out.println("Sve u redu!");
-//                                                                }
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
-//        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

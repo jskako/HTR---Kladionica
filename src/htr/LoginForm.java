@@ -19,6 +19,10 @@ public class LoginForm extends javax.swing.JFrame {
 
     private Connection Conn;
 
+    //Spajanje na bazu
+    ResultSet RS = null;
+    IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
+
     //Init potrebnih parametara
     int MyFirstLogUsername = 0;
     int MyFirstLogPassword = 0;
@@ -330,38 +334,32 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Da li postoji user?
         try {
-            String SQL = "select * from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'";
-            Statement stmt = Conn.createStatement();
-            ResultSet result = stmt.executeQuery(SQL);
-            if (result.next()) {
+            RS = CALIzb.main(Conn, "select * from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'");
+
+            if (RS.next()) {
                 System.out.println("Uspjeh");
                 // Provjera da li je user aktivan
-                SQL = "select F01AKT from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'";
-                result = stmt.executeQuery(SQL);
+                RS = CALIzb.main(Conn, "select F01AKT from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'");
                 String isUserActive = null;
                 String isUserAdmin = null;
-                while (result.next()) {
-                    isUserActive = result.getString("F01AKT");
+                while (RS.next()) {
+                    isUserActive = RS.getString("F01AKT");
                     if (Integer.parseInt(isUserActive.trim()) == 1) {
                         // Logiram se te idem dalje
                         System.out.println("User je aktivan!");
                         // Gledam da li je user Admin
-                        SQL = "select F01NIV from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'";
-                        result = stmt.executeQuery(SQL);
-                        while (result.next()) {
-                            isUserAdmin = result.getString("F01NIV");
+                        RS = CALIzb.main(Conn, "select F01NIV from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'");
+                        while (RS.next()) {
+                            isUserAdmin = RS.getString("F01NIV");
                             if (Integer.parseInt(isUserAdmin.trim()) == 5) {
                                 // User je admin
                                 //Upisujemo zadnji login date-time
-                                SQL = "update users set F01DVL = GETDATE() where F01USR = '" + TB_myUsername.getText().trim() + "'";
-                                result = stmt.executeQuery(SQL);
+                                RS = CALIzb.main(Conn, "update users set F01DVL = GETDATE() where F01USR = '" + TB_myUsername.getText().trim() + "'");
                                 //Provjeravamo da li postoje podaci za naredni tjedan te ako ne upisujemo
                             } else {
                                 // User nije admin
                                 //Upisujemo zadnji login date-time
-                                SQL = "update users set F01DVL = GETDATE() where F01USR = '" + TB_myUsername.getText().trim() + "'";
-                                result = stmt.executeQuery(SQL);
-                                System.out.println("User nije admin!");
+                                RS = CALIzb.main(Conn, "update users set F01DVL = GETDATE() where F01USR = '" + TB_myUsername.getText().trim() + "'");
                                 //Provjeravamo da li postoje podaci za naredni tjedan te ako ne upisujemo
                             }
                         }

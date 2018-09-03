@@ -7,6 +7,7 @@ package htr;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -38,6 +39,12 @@ public class DatabaseConnection {
             // 3. Otvaranje i testiranje konekcije
             conn = DriverManager.getConnection(DB_URL);
             System.out.println("Connected to the database");
+            
+            //4. Generiranje parova i zvanje log-in screen
+            ResultSet RS = null;
+            IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
+            RS = CALIzb.main(conn, "EXEC Generiranje_Parova");
+            
             LoginForm CALLogin = new LoginForm(conn);
             CALLogin.setLocationRelativeTo(null);
             CALLogin.setVisible(true);
