@@ -355,7 +355,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="htruser"/>
+                <Property name="text" type="java.lang.String" value="example"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_KorisnickoImeFocusGained"/>
@@ -382,7 +382,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Ivan"/>
+                <Property name="text" type="java.lang.String" value="example"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_ImeFocusGained"/>
@@ -395,7 +395,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Ivani&#x107;"/>
+                <Property name="text" type="java.lang.String" value="example"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrezimeFocusGained"/>
@@ -566,7 +566,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="htruser@htruser.htr"/>
+                <Property name="text" type="java.lang.String" value="example@example.com"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_MailFocusGained"/>
@@ -579,7 +579,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="0989876543"/>
+                <Property name="text" type="java.lang.String" value="111111111"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_BrojTeleFocusGained"/>
@@ -593,7 +593,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Hrvatska"/>
+                <Property name="text" type="java.lang.String" value="example"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_DrzavaFocusGained"/>
@@ -606,7 +606,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Split"/>
+                <Property name="text" type="java.lang.String" value="example"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
@@ -620,7 +620,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Splitska"/>
+                <Property name="text" type="java.lang.String" value="example"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_AdresaFocusGained"/>
@@ -633,7 +633,7 @@
                   <Font name="Segoe UI" size="14" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="21000"/>
+                <Property name="text" type="java.lang.String" value="11111"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PBRFocusGained"/>
@@ -688,6 +688,9 @@
             <Component class="javax.swing.JLabel" name="jLabel16">
             </Component>
             <Component class="com.toedter.calendar.JYearChooser" name="myYearBirth">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="myYearBirthFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>

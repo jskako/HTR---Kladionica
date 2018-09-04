@@ -149,7 +149,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_KorisnickoIme.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_KorisnickoIme.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_KorisnickoIme.setText("htruser");
+        txt_KorisnickoIme.setText("example");
         txt_KorisnickoIme.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_KorisnickoImeFocusGained(evt);
@@ -176,7 +176,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_Ime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Ime.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_Ime.setText("Ivan");
+        txt_Ime.setText("example");
         txt_Ime.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_ImeFocusGained(evt);
@@ -188,7 +188,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_Prezime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Prezime.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_Prezime.setText("Ivanić");
+        txt_Prezime.setText("example");
         txt_Prezime.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_PrezimeFocusGained(evt);
@@ -279,7 +279,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_Mail.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Mail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_Mail.setText("htruser@htruser.htr");
+        txt_Mail.setText("example@example.com");
         txt_Mail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_MailFocusGained(evt);
@@ -291,7 +291,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_BrojTele.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_BrojTele.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_BrojTele.setText("0989876543");
+        txt_BrojTele.setText("111111111");
         txt_BrojTele.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_BrojTeleFocusGained(evt);
@@ -308,7 +308,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_Drzava.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Drzava.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_Drzava.setText("Hrvatska");
+        txt_Drzava.setText("example");
         txt_Drzava.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_DrzavaFocusGained(evt);
@@ -320,7 +320,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_GradRode.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_GradRode.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_GradRode.setText("Split");
+        txt_GradRode.setText("example");
         txt_GradRode.setToolTipText("");
         txt_GradRode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -333,7 +333,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_Adresa.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Adresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_Adresa.setText("Splitska");
+        txt_Adresa.setText("example");
         txt_Adresa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_AdresaFocusGained(evt);
@@ -345,7 +345,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         txt_PBR.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_PBR.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_PBR.setText("21000");
+        txt_PBR.setText("11111");
         txt_PBR.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_PBRFocusGained(evt);
@@ -371,6 +371,12 @@ public class RegistrationForm extends javax.swing.JFrame {
         lbl_maxUserChar.setForeground(new java.awt.Color(255, 255, 255));
         lbl_maxUserChar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_maxUserChar.setText("/ 20");
+
+        myYearBirth.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                myYearBirthFocusLost(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -732,6 +738,94 @@ public class RegistrationForm extends javax.swing.JFrame {
                 myMonthBirth.setEnabled(false);
             }
 
+            if (txt_KorisnickoIme.getText().equals("")|| txt_KorisnickoIme.getText().equals("example")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite korisnicko ime!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_Ime.getText().equals("")|| txt_Ime.getText().equals("example")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite ime!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_Prezime.getText().equals("")|| txt_Prezime.getText().equals("example")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite prezime!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_Password.getText().equals("")|| txt_Password.getText().equals("mytestpassword")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite šifru!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_PonoviPassword.getText().equals("")|| txt_PonoviPassword.getText().equals("mytestpassword")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite šifru!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_Mail.getText().equals("")|| txt_Mail.getText().equals("example@example.com")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite mail!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_BrojTele.getText().equals("")|| txt_BrojTele.getText().equals("111111111")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite korisnicko ime!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite broj telefona"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_Drzava.getText().equals("")|| txt_Drzava.getText().equals("example")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite korisnicko ime!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite drzavu"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_GradRode.getText().equals("")|| txt_GradRode.getText().equals("example")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite korisnicko ime!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite grad rodenja"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_Adresa.getText().equals("")|| txt_Adresa.getText().equals("example")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite adresu");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite grad rodenja"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            if (txt_PBR.getText().equals("")|| txt_PBR.getText().equals("11111")) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite adresu");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite postanski broj"));
+                timer.setRepeats(false);
+                timer.start();
+            }
+
         } else {
             txt_KorisnickoIme.setEditable(true);
             txt_Ime.setEditable(true);
@@ -841,7 +935,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         try {
             RS = CALIzb.main(conn, "select * from users where F01USR = '" + txt_KorisnickoIme.getText().trim() + "'");
 
-            if (RS.next()) {
+            if (RS.next() || txt_KorisnickoIme.getText().isEmpty()) {
                 userFound.setVisible(true);
                 userNotFound.setVisible(false);
 
@@ -894,7 +988,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void btn_RegistrirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrirajActionPerformed
         LoginForm CALLogin = new LoginForm(conn);
         CALLogin.setLocationRelativeTo(null);
-        if (PasswordNijeIsti) {
+        if (PasswordNijeIsti && cbx_AgreeUSR.isSelected()) {
             try {
                 RS = CALIzb.main(conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F01ID FROM users ORDER BY F01ID DESC); select F01ID from users where F01ID = @lastNumb");
                 while (RS.next()) {
@@ -920,10 +1014,17 @@ public class RegistrationForm extends javax.swing.JFrame {
 
             }
         } else {
-            lbl_MainRegistration.setText("Šifre nisu iste!");
-            Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
-            timer.setRepeats(false);
-            timer.start();
+            if (!PasswordNijeIsti) {
+                lbl_MainRegistration.setText("Šifre nisu iste!");
+                Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            } else {
+                lbl_MainRegistration.setText("Niste prihvatili sporazume!");
+                Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+            }
         }
     }//GEN-LAST:event_btn_RegistrirajActionPerformed
 
@@ -1030,6 +1131,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                 prog_Ime = true;
             }
         }
+
     }//GEN-LAST:event_txt_ImeFocusLost
 
     private void txt_PrezimeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_PrezimeFocusLost
@@ -1067,6 +1169,19 @@ public class RegistrationForm extends javax.swing.JFrame {
                 prog_Mail = true;
             }
         }
+
+        if (!txt_Mail.getText().toLowerCase().contains("@")) {
+            lbl_MainRegistration.setText("Mail nije ispravan!");
+            Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+            timer.setRepeats(false);
+            timer.start();
+            txt_Mail.setText(null);
+            progress -= 10;
+        }
+        else{
+            progress += 10;
+        }
+
     }//GEN-LAST:event_txt_MailFocusLost
 
     private void txt_BrojTeleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_BrojTeleFocusLost
@@ -1157,7 +1272,13 @@ public class RegistrationForm extends javax.swing.JFrame {
                 prog_PPT = true;
             }
         }
+
     }//GEN-LAST:event_txt_PBRFocusLost
+
+    private void myYearBirthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_myYearBirthFocusLost
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_myYearBirthFocusLost
 
     /**
      * @param args the command line arguments
