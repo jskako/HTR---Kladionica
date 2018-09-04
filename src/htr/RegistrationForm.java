@@ -7,9 +7,7 @@ package htr;
 
 import java.awt.Color;
 import java.sql.Connection;
-//import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Arrays;
 import javax.swing.Timer;
 import java.util.Calendar;
@@ -31,6 +29,10 @@ public class RegistrationForm extends javax.swing.JFrame {
     boolean PasswordNijeIsti;
     int godRazlika = 0;
     int progress = 0;
+    int godinaRodenja;
+    int mjesecRodenja;
+    int danRodenja;
+    int MyIDNumber = 0;
 
     // Prvo Punjenje
     int MyFirstLogUsername = 0;
@@ -131,7 +133,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         userNotFound = new javax.swing.JLabel();
         img_PasswordCheck = new javax.swing.JLabel();
         img_Registration = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_Registriraj = new javax.swing.JButton();
         myRegProgress = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -425,13 +427,13 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         img_Registration.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/user_registration.png"))); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(0, 126, 167));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 0));
-        jButton1.setText("Registriraj se");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_Registriraj.setBackground(new java.awt.Color(0, 126, 167));
+        btn_Registriraj.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        btn_Registriraj.setForeground(new java.awt.Color(255, 255, 0));
+        btn_Registriraj.setText("Registriraj se");
+        btn_Registriraj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_RegistrirajActionPerformed(evt);
             }
         });
 
@@ -544,7 +546,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                         .addComponent(cbx_AgreeUSR))
                     .addGroup(txt_BrTelLayout.createSequentialGroup()
                         .addGap(277, 277, 277)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_Registriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txt_BrTelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -646,7 +648,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                     .addComponent(txt_agreem2)
                     .addComponent(cbx_AgreeUSR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Registriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -686,10 +688,6 @@ public class RegistrationForm extends javax.swing.JFrame {
         if (cbx_AgreeUSR.isSelected()) {
 
             //BIRTH DAY, MONTH, YEAR
-            int godinaRodenja;
-            int mjesecRodenja;
-            int danRodenja;
-
             danRodenja = Integer.parseInt(myDayBirth.getSelectedItem().toString());
             mjesecRodenja = Integer.parseInt(myMonthBirth.getSelectedItem().toString());
             godinaRodenja = myYearBirth.getValue();
@@ -841,7 +839,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void txt_KorisnickoImeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_KorisnickoImeFocusLost
         // TODO add your handling code here:
         try {
-            RS  = CALIzb.main(conn, "select * from users where F01USR = '" + txt_KorisnickoIme.getText().trim() + "'");
+            RS = CALIzb.main(conn, "select * from users where F01USR = '" + txt_KorisnickoIme.getText().trim() + "'");
 
             if (RS.next()) {
                 userFound.setVisible(true);
@@ -893,9 +891,41 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_BrojTeleActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_RegistrirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrirajActionPerformed
+        LoginForm CALLogin = new LoginForm(conn);
+        CALLogin.setLocationRelativeTo(null);
+        if (PasswordNijeIsti) {
+            try {
+                RS = CALIzb.main(conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F01ID FROM users ORDER BY F01ID DESC); select F01ID from users where F01ID = @lastNumb");
+                while (RS.next()) {
+                    MyIDNumber = RS.getInt("F01ID");
+                    MyIDNumber += 1;
+                }
+                if (MyIDNumber == 0) {
+                    MyIDNumber += 1;
+                }
+                danRodenja = Integer.parseInt(myDayBirth.getSelectedItem().toString());
+                mjesecRodenja = Integer.parseInt(myMonthBirth.getSelectedItem().toString());
+                godinaRodenja = myYearBirth.getValue();
+                String datumRodenja = Integer.toString(godinaRodenja) + "-" + Integer.toString(danRodenja) + "-" + Integer.toString(mjesecRodenja);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+                RS = CALIzb.main(conn, "INSERT INTO Users VALUES ('" + MyIDNumber + "','" + txt_KorisnickoIme.getText().trim() + "','" + txt_Ime.getText().trim() + "','" + txt_Prezime.getText().trim() + "','" + txt_Password.getText().trim() + "','" + txt_Mail.getText().trim() + "','" + datumRodenja.trim() + "','" + txt_GradRode.getText().trim() + "','" + txt_Drzava.getText().trim() + "','" + txt_Adresa.getText().trim() + "','" + txt_PBR.getText().trim() + "','" + txt_BrojTele.getText().trim() + "','1'," + "GETDATE ( )  " + "," + "GETDATE ( )  " + ",'1','0')");
+                PopError CALError = new PopError();
+                CALError.infoBox("Registracija uspješna!", "Success!");
+
+                CALLogin.setVisible(true);
+                dispose();
+
+            } catch (Exception e) {
+
+            }
+        } else {
+            lbl_MainRegistration.setText("Šifre nisu iste!");
+            Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+            timer.setRepeats(false);
+            timer.start();
+        }
+    }//GEN-LAST:event_btn_RegistrirajActionPerformed
 
     private void txt_KorisnickoImeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_KorisnickoImeFocusGained
         // TODO add your handling code here:
@@ -1134,10 +1164,10 @@ public class RegistrationForm extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Registriraj;
     private javax.swing.JCheckBox cbx_AgreeUSR;
     private javax.swing.JLabel img_PasswordCheck;
     private javax.swing.JLabel img_Registration;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

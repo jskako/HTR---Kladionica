@@ -19,11 +19,9 @@ public class IzvrsavanjeSkriptiNaBazi {
     private Connection CONN;
     private String SQL;
     ResultSet rs;
-
     public  ResultSet main(Connection conn, String sql) {
         this.CONN = conn;
         this.SQL = sql;
-
         try {
             Statement stmt = CONN.createStatement();
             rs = stmt.executeQuery(SQL);

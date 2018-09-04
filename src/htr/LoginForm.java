@@ -66,7 +66,7 @@ public class LoginForm extends javax.swing.JFrame {
         TB_myPassword = new javax.swing.JPasswordField();
         RegistrationButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        passVisib = new javax.swing.JLabel();
+        img_passVisible = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -173,12 +173,13 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        passVisib.addMouseListener(new java.awt.event.MouseAdapter() {
+        img_passVisible.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/rsz_visible.png"))); // NOI18N
+        img_passVisible.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                passVisibMousePressed(evt);
+                img_passVisibleMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                passVisibMouseReleased(evt);
+                img_passVisibleMouseReleased(evt);
             }
         });
 
@@ -207,7 +208,7 @@ public class LoginForm extends javax.swing.JFrame {
                                             .addComponent(TB_myPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                                             .addComponent(TB_myUsername, javax.swing.GroupLayout.Alignment.TRAILING))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(passVisib)))))
+                                        .addComponent(img_passVisible)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -247,10 +248,11 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(TB_myUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(passVisib, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TB_myPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TB_myPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                    .addComponent(img_passVisible))
                 .addGap(18, 18, 18)
                 .addComponent(BT_login, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -382,16 +384,6 @@ public class LoginForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_BT_loginActionPerformed
 
-    private void passVisibMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passVisibMousePressed
-        // TODO add your handling code here:
-        TB_myPassword.setEchoChar((char) 0);
-    }//GEN-LAST:event_passVisibMousePressed
-
-    private void passVisibMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passVisibMouseReleased
-        // TODO add your handling code here:
-        TB_myPassword.setEchoChar('*');
-    }//GEN-LAST:event_passVisibMouseReleased
-
     private void TB_myUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TB_myUsernameFocusGained
         // TODO add your handling code here:
         if (MyFirstLogUsername == 0) {
@@ -408,6 +400,16 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TB_myPasswordFocusGained
 
+    private void img_passVisibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img_passVisibleMousePressed
+        // TODO add your handling code here:
+        TB_myPassword.setEchoChar((char) 0);
+    }//GEN-LAST:event_img_passVisibleMousePressed
+
+    private void img_passVisibleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img_passVisibleMouseReleased
+        // TODO add your handling code here:
+        TB_myPassword.setEchoChar('*');
+    }//GEN-LAST:event_img_passVisibleMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -419,6 +421,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JButton RegistrationButton;
     private javax.swing.JPasswordField TB_myPassword;
     private javax.swing.JTextField TB_myUsername;
+    private javax.swing.JLabel img_passVisible;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -429,6 +432,5 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbl_mainUserLogin;
-    private javax.swing.JLabel passVisib;
     // End of variables declaration//GEN-END:variables
 }

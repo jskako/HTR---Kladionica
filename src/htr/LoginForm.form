@@ -116,13 +116,13 @@
                                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="BT_login" alignment="0" min="-2" pref="365" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="TB_myPassword" alignment="1" pref="365" max="32767" attributes="0"/>
                                                   <Component id="TB_myUsername" alignment="1" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="passVisib" min="-2" max="-2" attributes="0"/>
+                                              <Component id="img_passVisible" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -180,10 +180,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="TB_myUsername" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="passVisib" pref="35" max="32767" attributes="0"/>
-                          <Component id="jLabel1" max="32767" attributes="0"/>
-                          <Component id="TB_myPassword" pref="35" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel1" max="32767" attributes="0"/>
+                              <Component id="TB_myPassword" pref="35" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="img_passVisible" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="BT_login" min="-2" pref="52" max="-2" attributes="0"/>
@@ -335,10 +337,15 @@
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseReleased"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="passVisib">
+            <Component class="javax.swing.JLabel" name="img_passVisible">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/htr/Images/rsz_visible.png"/>
+                </Property>
+              </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="passVisibMousePressed"/>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="passVisibMouseReleased"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="img_passVisibleMousePressed"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="img_passVisibleMouseReleased"/>
               </Events>
             </Component>
           </SubComponents>
