@@ -1136,6 +1136,25 @@ public class RegistrationForm extends javax.swing.JFrame {
             txt_Mail.setText(null);
         }
 
+        try {
+            RS = CALIzb.main(conn, "select * from users where F01EMA = '" + txt_Mail.getText().trim() + "'");
+
+            if (RS.next() || txt_Mail.getText().isEmpty()) {
+
+                lbl_MainRegistration.setText("Mail postoji!");
+                txt_Mail.setText("");
+                Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+                userPostoji = true;
+
+            } else {
+                
+            }
+        } catch (Exception e) {
+
+        }
+
 
     }//GEN-LAST:event_txt_MailFocusLost
 
