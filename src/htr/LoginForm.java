@@ -8,7 +8,6 @@ package htr;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.Timer;
 
 /**
@@ -26,6 +25,7 @@ public class LoginForm extends javax.swing.JFrame {
     //Init potrebnih parametara
     int MyFirstLogUsername = 0;
     int MyFirstLogPassword = 0;
+    int KorisnikNeaktivan = 0;
 
     /**
      * Creates new form LoginForm
@@ -377,6 +377,20 @@ public class LoginForm extends javax.swing.JFrame {
                 Timer timer = new Timer(2000, e -> lbl_mainUserLogin.setText("USER LOGIN"));
                 timer.setRepeats(false);
                 timer.start();
+
+                KorisnikNeaktivan += 1;
+                if (KorisnikNeaktivan == 3) {
+                    BT_login.setEnabled(false);
+                    timer = new Timer(10000, e -> BT_login.setEnabled(true));
+                    timer.setRepeats(false);
+                    timer.start();
+                    KorisnikNeaktivan = 0;
+                    lbl_mainUserLogin.setText("Too many login attempts!");
+                    timer = new Timer(10000, e -> lbl_mainUserLogin.setText("USER LOGIN"));
+                    timer.setRepeats(false);
+                    timer.start();
+
+                }
             }
         } catch (Exception e) {
 
