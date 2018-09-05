@@ -6,6 +6,7 @@
 package htr;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Arrays;
@@ -170,6 +171,11 @@ public class RegistrationForm extends javax.swing.JFrame {
                 txt_ImeFocusLost(evt);
             }
         });
+        txt_Ime.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_ImeKeyTyped(evt);
+            }
+        });
 
         txt_Prezime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Prezime.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -180,6 +186,11 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_PrezimeFocusLost(evt);
+            }
+        });
+        txt_Prezime.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_PrezimeKeyTyped(evt);
             }
         });
 
@@ -290,6 +301,11 @@ public class RegistrationForm extends javax.swing.JFrame {
                 txt_BrojTeleActionPerformed(evt);
             }
         });
+        txt_BrojTele.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_BrojTeleKeyTyped(evt);
+            }
+        });
 
         txt_Drzava.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txt_Drzava.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -300,6 +316,11 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_DrzavaFocusLost(evt);
+            }
+        });
+        txt_Drzava.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_DrzavaKeyTyped(evt);
             }
         });
 
@@ -313,6 +334,11 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_GradRodeFocusLost(evt);
+            }
+        });
+        txt_GradRode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_GradRodeKeyTyped(evt);
             }
         });
 
@@ -339,6 +365,11 @@ public class RegistrationForm extends javax.swing.JFrame {
                 txt_PBRFocusLost(evt);
             }
         });
+        txt_PBR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_PBRKeyTyped(evt);
+            }
+        });
 
         jLabel13.setToolTipText("");
 
@@ -360,6 +391,11 @@ public class RegistrationForm extends javax.swing.JFrame {
         myYearBirth.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 myYearBirthFocusLost(evt);
+            }
+        });
+        myYearBirth.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                myYearBirthKeyTyped(evt);
             }
         });
 
@@ -957,7 +993,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
                 //Dohvacanje zadnjeg ID-a za sredstava na racun
                 int myLastIDSredstva = 0;
-                
+
                 RS = CALIzb.main(conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F03IDS FROM User_Stanje ORDER BY F03IDS DESC); select F03IDS from User_Stanje where F03IDS = @lastNumb");
                 while (RS.next()) {
                     myLastIDSredstva = RS.getInt("F03IDS");
@@ -966,10 +1002,9 @@ public class RegistrationForm extends javax.swing.JFrame {
                 if (myLastIDSredstva == 0) {
                     myLastIDSredstva += 1;
                 }
-                
+
                 //Dodavanje besplatnih sredstava na racun
                 RS = CALIzb.main(conn, "INSERT INTO User_Stanje VALUES ('" + myLastIDSredstva + "','100','100','0','Bonus 100','" + MyIDNumber + "')");
-                
 
                 PopError CALError = new PopError();
                 CALError.infoBox("Registracija uspješna!", "Success!");
@@ -1130,6 +1165,58 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_myYearBirthFocusLost
+
+    private void txt_BrojTeleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_BrojTeleKeyTyped
+        // TODO add your handling code here:
+        ZabraniSlova(evt);
+    }//GEN-LAST:event_txt_BrojTeleKeyTyped
+
+    private void txt_PBRKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PBRKeyTyped
+        // TODO add your handling code here:
+        ZabraniSlova(evt);
+    }//GEN-LAST:event_txt_PBRKeyTyped
+
+    private void myYearBirthKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_myYearBirthKeyTyped
+
+    }//GEN-LAST:event_myYearBirthKeyTyped
+
+    private void txt_ImeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ImeKeyTyped
+        // TODO add your handling code here:
+        ZabraniBrojeve(evt);
+    }//GEN-LAST:event_txt_ImeKeyTyped
+
+    private void txt_PrezimeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PrezimeKeyTyped
+        // TODO add your handling code here:
+        ZabraniBrojeve(evt);
+    }//GEN-LAST:event_txt_PrezimeKeyTyped
+
+    private void txt_DrzavaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_DrzavaKeyTyped
+        // TODO add your handling code here:
+        ZabraniBrojeve(evt);
+    }//GEN-LAST:event_txt_DrzavaKeyTyped
+
+    private void txt_GradRodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_GradRodeKeyTyped
+        // TODO add your handling code here:
+        ZabraniBrojeve(evt);
+    }//GEN-LAST:event_txt_GradRodeKeyTyped
+
+    public void ZabraniBrojeve(java.awt.event.KeyEvent evt) {
+        char vChar = evt.getKeyChar();
+        if ((Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }
+
+    public void ZabraniSlova(java.awt.event.KeyEvent evt) {
+        char vChar = evt.getKeyChar();
+        if ((!Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }
 
     /**
      * @param args the command line arguments
