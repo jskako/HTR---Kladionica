@@ -5,6 +5,8 @@
  */
 package htr;
 
+import java.sql.Connection;
+
 /**
  *
  * @author josips
@@ -14,7 +16,12 @@ public class AdminView extends javax.swing.JFrame {
     /**
      * Creates new form AdminView
      */
-    public AdminView() {
+    private Connection Con;
+    private String User;
+
+    public AdminView(Connection con, String user) {
+        this.Con = con;
+        this.User = user;
         initComponents();
     }
 
@@ -46,7 +53,6 @@ public class AdminView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

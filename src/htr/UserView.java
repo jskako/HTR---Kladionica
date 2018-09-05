@@ -5,16 +5,24 @@
  */
 package htr;
 
+import java.sql.Connection;
+
 /**
  *
  * @author josips
  */
 public class UserView extends javax.swing.JFrame {
-
+     
     /**
      * Creates new form UserView
      */
-    public UserView() {
+    
+    private Connection Con;
+    private String User;
+    
+    public UserView(Connection con, String user) {
+        this.Con = con;
+        this.User = user;
         initComponents();
     }
 

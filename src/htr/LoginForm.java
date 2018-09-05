@@ -357,12 +357,22 @@ public class LoginForm extends javax.swing.JFrame {
                                 // User je admin
                                 //Upisujemo zadnji login date-time
                                 RS = CALIzb.main(Conn, "update users set F01DVL = GETDATE() where F01USR = '" + TB_myUsername.getText().trim() + "'");
-                                //Provjeravamo da li postoje podaci za naredni tjedan te ako ne upisujemo
+
+                                AdminView CALAdmin = new AdminView(Conn, TB_myUsername.getText().trim());
+                                CALAdmin.setLocationRelativeTo(null);
+                                CALAdmin.setVisible(true);
+                                dispose();
+
                             } else {
                                 // User nije admin
                                 //Upisujemo zadnji login date-time
                                 RS = CALIzb.main(Conn, "update users set F01DVL = GETDATE() where F01USR = '" + TB_myUsername.getText().trim() + "'");
                                 //Provjeravamo da li postoje podaci za naredni tjedan te ako ne upisujemo
+
+                                UserView CALUser = new UserView(Conn, TB_myUsername.getText().trim());
+                                CALUser.setLocationRelativeTo(null);
+                                CALUser.setVisible(true);
+                                dispose();
                             }
                         }
                     } else {
