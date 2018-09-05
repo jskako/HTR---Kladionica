@@ -28,7 +28,6 @@ public class RegistrationForm extends javax.swing.JFrame {
     boolean userPostoji;
     boolean PasswordNijeIsti;
     int godRazlika = 0;
-    int progress = 0;
     int godinaRodenja;
     int mjesecRodenja;
     int danRodenja;
@@ -46,19 +45,6 @@ public class RegistrationForm extends javax.swing.JFrame {
     int MyFirstLogGradRodenja = 0;
     int MyFirstLogAdresa = 0;
     int MyFirstLogPostBroj = 0;
-
-    //Progress Bar
-    boolean prog_KorisnickoIme;
-    boolean prog_Ime;
-    boolean prog_Prezime;
-    boolean prog_Sifra;
-    boolean prog_PonSifra;
-    boolean prog_Mail;
-    boolean prog_BrTel;
-    boolean prog_Drz;
-    boolean prog_GradRod;
-    boolean prog_Adresa;
-    boolean prog_PPT;
 
     //Spajanje na bazu
     ResultSet RS = null;
@@ -134,7 +120,6 @@ public class RegistrationForm extends javax.swing.JFrame {
         img_PasswordCheck = new javax.swing.JLabel();
         img_Registration = new javax.swing.JLabel();
         btn_Registriraj = new javax.swing.JButton();
-        myRegProgress = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("formRegistration"); // NOI18N
@@ -443,11 +428,6 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
         });
 
-        myRegProgress.setBackground(new java.awt.Color(0, 126, 167));
-        myRegProgress.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        myRegProgress.setForeground(new java.awt.Color(255, 255, 0));
-        myRegProgress.setStringPainted(true);
-
         javax.swing.GroupLayout txt_BrTelLayout = new javax.swing.GroupLayout(txt_BrTel);
         txt_BrTel.setLayout(txt_BrTelLayout);
         txt_BrTelLayout.setHorizontalGroup(
@@ -490,7 +470,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txt_Mail, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(txt_BrTelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                                     .addComponent(txt_BrojTele)
@@ -556,30 +536,25 @@ public class RegistrationForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txt_BrTelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(txt_BrTelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_MainRegistration, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
-                    .addComponent(myRegProgress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(lbl_MainRegistration, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         txt_BrTelLayout.setVerticalGroup(
             txt_BrTelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(txt_BrTelLayout.createSequentialGroup()
                 .addGroup(txt_BrTelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txt_BrTelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(txt_BrTelLayout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(txt_BrTelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(img_Registration)
-                            .addComponent(lbl_ExitReg))
-                        .addGap(1, 1, 1))
+                            .addComponent(lbl_ExitReg)))
                     .addGroup(txt_BrTelLayout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(lbl_MainRegistration)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(myRegProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGap(23, 23, 23)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
@@ -722,125 +697,110 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
 
             if (godRazlika > 18) {
-                txt_KorisnickoIme.setEditable(false);
-                txt_Ime.setEditable(false);
-                txt_Prezime.setEditable(false);
-                txt_Password.setEditable(false);
-                txt_PonoviPassword.setEditable(false);
-                txt_Mail.setEditable(false);
-                txt_BrojTele.setEditable(false);
-                txt_Drzava.setEditable(false);
-                txt_GradRode.setEditable(false);
-                txt_Adresa.setEditable(false);
-                txt_PBR.setEditable(false);
-                myYearBirth.setEnabled(false);
-                myDayBirth.setEnabled(false);
-                myMonthBirth.setEnabled(false);
+               setFieldsDisabled();
             }
 
-            if (txt_KorisnickoIme.getText().equals("")|| txt_KorisnickoIme.getText().equals("example")) {
+            if ((txt_KorisnickoIme.getText().equals("") || txt_KorisnickoIme.getText().equals("example"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite korisnicko ime!");
                 Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_Ime.getText().equals("")|| txt_Ime.getText().equals("example")) {
+            if ((txt_Ime.getText().equals("") || txt_Ime.getText().equals("example"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite ime!");
                 Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_Prezime.getText().equals("")|| txt_Prezime.getText().equals("example")) {
+            if ((txt_Prezime.getText().equals("") || txt_Prezime.getText().equals("example"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite prezime!");
                 Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_Password.getText().equals("")|| txt_Password.getText().equals("mytestpassword")) {
+            if ((txt_Password.getText().equals("") || txt_Password.getText().equals("mytestpassword"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite šifru!");
                 Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_PonoviPassword.getText().equals("")|| txt_PonoviPassword.getText().equals("mytestpassword")) {
+            if ((txt_PonoviPassword.getText().equals("") || txt_PonoviPassword.getText().equals("mytestpassword"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite šifru!");
                 Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_Mail.getText().equals("")|| txt_Mail.getText().equals("example@example.com")) {
+            if ((txt_Mail.getText().equals("") || txt_Mail.getText().equals("example@example.com"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite mail!");
                 Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_BrojTele.getText().equals("")|| txt_BrojTele.getText().equals("111111111")) {
+            if ((txt_BrojTele.getText().equals("") || txt_BrojTele.getText().equals("111111111"))) {
                 cbx_AgreeUSR.setSelected(false);
-                lbl_MainRegistration.setText("Popunite korisnicko ime!");
-                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite broj telefona"));
+                lbl_MainRegistration.setText("Popunite broj telefona!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_Drzava.getText().equals("")|| txt_Drzava.getText().equals("example")) {
+            if ((txt_Drzava.getText().equals("") || txt_Drzava.getText().equals("example"))) {
                 cbx_AgreeUSR.setSelected(false);
-                lbl_MainRegistration.setText("Popunite korisnicko ime!");
-                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite drzavu"));
+                lbl_MainRegistration.setText("Popunite drzavu!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_GradRode.getText().equals("")|| txt_GradRode.getText().equals("example")) {
+            if ((txt_GradRode.getText().equals("") || txt_GradRode.getText().equals("example"))) {
                 cbx_AgreeUSR.setSelected(false);
-                lbl_MainRegistration.setText("Popunite korisnicko ime!");
-                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite grad rodenja"));
+                lbl_MainRegistration.setText("Popunite grad rodenja!");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
             }
 
-            if (txt_Adresa.getText().equals("")|| txt_Adresa.getText().equals("example")) {
-                cbx_AgreeUSR.setSelected(false);
-                lbl_MainRegistration.setText("Popunite adresu");
-                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite grad rodenja"));
-                timer.setRepeats(false);
-                timer.start();
-            }
-
-            if (txt_PBR.getText().equals("")|| txt_PBR.getText().equals("11111")) {
+            if ((txt_Adresa.getText().equals("") || txt_Adresa.getText().equals("example"))) {
                 cbx_AgreeUSR.setSelected(false);
                 lbl_MainRegistration.setText("Popunite adresu");
-                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("Popunite postanski broj"));
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
+                setFieldsEnabled();
+            }
+
+            if ((txt_PBR.getText().equals("") || txt_PBR.getText().equals("11111"))) {
+                cbx_AgreeUSR.setSelected(false);
+                lbl_MainRegistration.setText("Popunite postanski broj");
+                Timer timer = new Timer(1000, e -> lbl_MainRegistration.setText("REGISTRATION"));
+                timer.setRepeats(false);
+                timer.start();
+                setFieldsEnabled();
             }
 
         } else {
-            txt_KorisnickoIme.setEditable(true);
-            txt_Ime.setEditable(true);
-            txt_Prezime.setEditable(true);
-            txt_Password.setEditable(true);
-            txt_PonoviPassword.setEditable(true);
-            txt_Mail.setEditable(true);
-            txt_BrojTele.setEditable(true);
-            txt_Drzava.setEditable(true);
-            txt_GradRode.setEditable(true);
-            txt_Adresa.setEditable(true);
-            txt_PBR.setEditable(true);
-            myYearBirth.setEnabled(true);
-            myDayBirth.setEnabled(true);
-            myMonthBirth.setEnabled(true);
+            setFieldsEnabled();
         }
     }//GEN-LAST:event_cbx_AgreeUSRActionPerformed
 
@@ -860,23 +820,42 @@ public class RegistrationForm extends javax.swing.JFrame {
             timer.start();
             userPostoji = true;
         }
-
-        if (txt_PonoviPassword.getText().isEmpty()) {
-            if (prog_PonSifra == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_PonSifra = false;
-            }
-
-        } else {
-            if (prog_PonSifra == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_PonSifra = true;
-            }
-        }
-
     }//GEN-LAST:event_txt_PonoviPasswordFocusLost
+
+    public void setFieldsEnabled() {
+        txt_KorisnickoIme.setEditable(true);
+        txt_Ime.setEditable(true);
+        txt_Prezime.setEditable(true);
+        txt_Password.setEditable(true);
+        txt_PonoviPassword.setEditable(true);
+        txt_Mail.setEditable(true);
+        txt_BrojTele.setEditable(true);
+        txt_Drzava.setEditable(true);
+        txt_GradRode.setEditable(true);
+        txt_Adresa.setEditable(true);
+        txt_PBR.setEditable(true);
+        myYearBirth.setEnabled(true);
+        myDayBirth.setEnabled(true);
+        myMonthBirth.setEnabled(true);
+    }
+
+    public void setFieldsDisabled() {
+        txt_KorisnickoIme.setEditable(false);
+        txt_Ime.setEditable(false);
+        txt_Prezime.setEditable(false);
+        txt_Password.setEditable(false);
+        txt_PonoviPassword.setEditable(false);
+        txt_Mail.setEditable(false);
+        txt_BrojTele.setEditable(false);
+        txt_Drzava.setEditable(false);
+        txt_GradRode.setEditable(false);
+        txt_Adresa.setEditable(false);
+        txt_PBR.setEditable(false);
+        myYearBirth.setEnabled(false);
+        myDayBirth.setEnabled(false);
+        myMonthBirth.setEnabled(false);
+    }
+
 
     private void txt_PasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_PasswordFocusLost
         // TODO add your handling code here:
@@ -893,22 +872,6 @@ public class RegistrationForm extends javax.swing.JFrame {
             timer.start();
             userPostoji = true;
         }
-
-        if (txt_Password.getText().isEmpty()) {
-            if (prog_Sifra == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_Sifra = false;
-            }
-
-        } else {
-            if (prog_Sifra == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_Sifra = true;
-            }
-        }
-
 
     }//GEN-LAST:event_txt_PasswordFocusLost
 
@@ -949,21 +912,6 @@ public class RegistrationForm extends javax.swing.JFrame {
                 userNotFound.setVisible(true);
                 userFound.setVisible(false);
                 userPostoji = false;
-
-                if (txt_KorisnickoIme.getText().isEmpty()) {
-                    if (prog_KorisnickoIme == true) {
-                        progress -= 10;
-                        myRegProgress.setValue(progress);
-                        prog_KorisnickoIme = false;
-                    }
-
-                } else {
-                    if (prog_KorisnickoIme == false) {
-                        progress += 10;
-                        myRegProgress.setValue(progress);
-                        prog_KorisnickoIme = true;
-                    }
-                }
 
             }
         } catch (Exception e) {
@@ -1019,7 +967,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                 Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
                 timer.start();
-            } else {
+            } else if (!cbx_AgreeUSR.isSelected()) {
                 lbl_MainRegistration.setText("Niste prihvatili sporazume!");
                 Timer timer = new Timer(2000, e -> lbl_MainRegistration.setText("REGISTRATION"));
                 timer.setRepeats(false);
@@ -1117,58 +1065,14 @@ public class RegistrationForm extends javax.swing.JFrame {
 
     private void txt_ImeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_ImeFocusLost
         // TODO add your handling code here:
-        if (txt_Ime.getText().isEmpty()) {
-            if (prog_Ime == true) {
-                progress -= 5;
-                myRegProgress.setValue(progress);
-                prog_Ime = false;
-            }
-
-        } else {
-            if (prog_Ime == false) {
-                progress += 5;
-                myRegProgress.setValue(progress);
-                prog_Ime = true;
-            }
-        }
-
     }//GEN-LAST:event_txt_ImeFocusLost
 
     private void txt_PrezimeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_PrezimeFocusLost
         // TODO add your handling code here:
-        if (txt_Prezime.getText().isEmpty()) {
-            if (prog_Prezime == true) {
-                progress -= 5;
-                myRegProgress.setValue(progress);
-                prog_Prezime = false;
-            }
-
-        } else {
-            if (prog_Prezime == false) {
-                progress += 5;
-                myRegProgress.setValue(progress);
-                prog_Prezime = true;
-            }
-        }
     }//GEN-LAST:event_txt_PrezimeFocusLost
 
     private void txt_MailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_MailFocusLost
         // TODO add your handling code here:
-
-        if (txt_Mail.getText().isEmpty()) {
-            if (prog_Mail == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_Mail = false;
-            }
-
-        } else {
-            if (prog_Mail == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_Mail = true;
-            }
-        }
 
         if (!txt_Mail.getText().toLowerCase().contains("@")) {
             lbl_MainRegistration.setText("Mail nije ispravan!");
@@ -1176,103 +1080,31 @@ public class RegistrationForm extends javax.swing.JFrame {
             timer.setRepeats(false);
             timer.start();
             txt_Mail.setText(null);
-            progress -= 10;
         }
-        else{
-            progress += 10;
-        }
+
 
     }//GEN-LAST:event_txt_MailFocusLost
 
     private void txt_BrojTeleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_BrojTeleFocusLost
         // TODO add your handling code here:
-        if (txt_BrojTele.getText().isEmpty()) {
-            if (prog_BrTel == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_BrTel = false;
-            }
-
-        } else {
-            if (prog_BrTel == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-
-            }
-        }
     }//GEN-LAST:event_txt_BrojTeleFocusLost
 
     private void txt_DrzavaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DrzavaFocusLost
         // TODO add your handling code here:
-        if (txt_Drzava.getText().isEmpty()) {
-            if (prog_Drz == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_Drz = false;
-            }
 
-        } else {
-            if (prog_Drz == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_Drz = true;
-            }
-        }
     }//GEN-LAST:event_txt_DrzavaFocusLost
 
     private void txt_GradRodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_GradRodeFocusLost
         // TODO add your handling code here:
-        if (txt_GradRode.getText().isEmpty()) {
-            if (prog_GradRod == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_GradRod = false;
-            }
-
-        } else {
-            if (prog_GradRod == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_GradRod = true;
-            }
-        }
     }//GEN-LAST:event_txt_GradRodeFocusLost
 
     private void txt_AdresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_AdresaFocusLost
         // TODO add your handling code here:
-        if (txt_Adresa.getText().isEmpty()) {
-            if (prog_Adresa == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_Adresa = false;
-            }
 
-        } else {
-            if (prog_Adresa == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_Adresa = true;
-            }
-        }
     }//GEN-LAST:event_txt_AdresaFocusLost
 
     private void txt_PBRFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_PBRFocusLost
         // TODO add your handling code here:
-        if (txt_PBR.getText().isEmpty()) {
-            if (prog_PPT == true) {
-                progress -= 10;
-                myRegProgress.setValue(progress);
-                prog_PPT = false;
-            }
-
-        } else {
-            if (prog_PPT == false) {
-                progress += 10;
-                myRegProgress.setValue(progress);
-                prog_PPT = true;
-            }
-        }
-
     }//GEN-LAST:event_txt_PBRFocusLost
 
     private void myYearBirthFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_myYearBirthFocusLost
@@ -1315,7 +1147,6 @@ public class RegistrationForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_maxUserChar;
     private javax.swing.JComboBox<String> myDayBirth;
     private javax.swing.JComboBox<String> myMonthBirth;
-    private javax.swing.JProgressBar myRegProgress;
     private com.toedter.calendar.JYearChooser myYearBirth;
     private javax.swing.JTextField txt_Adresa;
     private javax.swing.JPanel txt_BrTel;
