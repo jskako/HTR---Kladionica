@@ -697,7 +697,7 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
 
             if (godRazlika > 18) {
-               setFieldsDisabled();
+                setFieldsDisabled();
             }
 
             if ((txt_KorisnickoIme.getText().equals("") || txt_KorisnickoIme.getText().equals("example"))) {
@@ -938,6 +938,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         CALLogin.setLocationRelativeTo(null);
         if (PasswordNijeIsti && cbx_AgreeUSR.isSelected()) {
             try {
+                //Dohvacanje zadnjeg ID-a
                 RS = CALIzb.main(conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F01ID FROM users ORDER BY F01ID DESC); select F01ID from users where F01ID = @lastNumb");
                 while (RS.next()) {
                     MyIDNumber = RS.getInt("F01ID");
@@ -946,12 +947,30 @@ public class RegistrationForm extends javax.swing.JFrame {
                 if (MyIDNumber == 0) {
                     MyIDNumber += 1;
                 }
+                //Postavljanje datuma rodenja
                 danRodenja = Integer.parseInt(myDayBirth.getSelectedItem().toString());
                 mjesecRodenja = Integer.parseInt(myMonthBirth.getSelectedItem().toString());
                 godinaRodenja = myYearBirth.getValue();
                 String datumRodenja = Integer.toString(godinaRodenja) + "-" + Integer.toString(danRodenja) + "-" + Integer.toString(mjesecRodenja);
-
+                //Kreiranje korisnika
                 RS = CALIzb.main(conn, "INSERT INTO Users VALUES ('" + MyIDNumber + "','" + txt_KorisnickoIme.getText().trim() + "','" + txt_Ime.getText().trim() + "','" + txt_Prezime.getText().trim() + "','" + txt_Password.getText().trim() + "','" + txt_Mail.getText().trim() + "','" + datumRodenja.trim() + "','" + txt_GradRode.getText().trim() + "','" + txt_Drzava.getText().trim() + "','" + txt_Adresa.getText().trim() + "','" + txt_PBR.getText().trim() + "','" + txt_BrojTele.getText().trim() + "','1'," + "GETDATE ( )  " + "," + "GETDATE ( )  " + ",'1','0')");
+
+                //Dohvacanje zadnjeg ID-a za sredstava na racun
+                int myLastIDSredstva = 0;
+                
+                RS = CALIzb.main(conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F03IDS FROM User_Stanje ORDER BY F03IDS DESC); select F03IDS from User_Stanje where F03IDS = @lastNumb");
+                while (RS.next()) {
+                    myLastIDSredstva = RS.getInt("F03IDS");
+                    myLastIDSredstva += 1;
+                }
+                if (myLastIDSredstva == 0) {
+                    myLastIDSredstva += 1;
+                }
+                
+                //Dodavanje besplatnih sredstava na racun
+                RS = CALIzb.main(conn, "INSERT INTO User_Stanje VALUES ('" + myLastIDSredstva + "','100','100','0','Bonus 100','" + MyIDNumber + "')");
+                
+
                 PopError CALError = new PopError();
                 CALError.infoBox("Registracija uspješna!", "Success!");
 

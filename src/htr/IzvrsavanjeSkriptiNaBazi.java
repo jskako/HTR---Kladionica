@@ -22,6 +22,7 @@ public class IzvrsavanjeSkriptiNaBazi {
     public  ResultSet main(Connection conn, String sql) {
         this.CONN = conn;
         this.SQL = sql;
+        System.out.println(SQL);
         try {
             Statement stmt = CONN.createStatement();
             rs = stmt.executeQuery(SQL);
