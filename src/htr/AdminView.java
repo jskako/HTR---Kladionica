@@ -23,6 +23,7 @@ public class AdminView extends javax.swing.JFrame {
         this.Con = con;
         this.User = user;
         initComponents();
+       
     }
 
     /**
