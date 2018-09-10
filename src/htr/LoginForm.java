@@ -371,6 +371,7 @@ public class LoginForm extends javax.swing.JFrame {
 
                                 UserView CALUser = new UserView(Conn, TB_myUsername.getText().trim());
                                 CALUser.setLocationRelativeTo(null);
+                                //CALUser.setExtendedState(Frame.MAXIMIZED_BOTH);
                                 CALUser.setVisible(true);
                                 dispose();
                             }
