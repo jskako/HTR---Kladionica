@@ -8,6 +8,7 @@ package htr;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -34,14 +35,21 @@ public class UserView extends javax.swing.JFrame {
         this.User = user;
 
         initComponents();
- 
-       //Dohvacanje vrijednosti
+
+        //Punjenje tablica podacima
+        try {
+            RS = CALIzb.main(Conn, "select * from parovi where F07SPO = '1' and F07DTI = '2018-08-30' ORDER BY F07VRI ASC");
+            tableNogomet.setModel(DbUtils.resultSetToTableModel(RS));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //Dohvacanje vrijednosti
         getUserID();
         getUserBalance();
 
         lbl_UserName.setText(User);
         lbl_UserName.setHorizontalAlignment(lbl_UserName.CENTER);
-        lbl_Balance.setText("| "+MyUserBalance+"kn");
+        lbl_Balance.setText("| " + MyUserBalance + "kn");
         lbl_Balance.setHorizontalAlignment(lbl_UserName.CENTER);
         //Brišemo title bar
         Frame UserView = new Frame();
@@ -50,7 +58,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void getUserID() {
         try {
-            RS = CALIzb.main(Conn, "select F01ID from Users where F01USR = '"+User+"'");
+            RS = CALIzb.main(Conn, "select F01ID from Users where F01USR = '" + User + "'");
             while (RS.next()) {
                 MyUserID = RS.getInt("F01ID");
             }
@@ -61,7 +69,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void getUserBalance() {
         try {
-            RS = CALIzb.main(Conn, "Select F03STA from User_Stanje where F03UID = '"+MyUserID+"'");
+            RS = CALIzb.main(Conn, "Select F03STA from User_Stanje where F03UID = '" + MyUserID + "'");
             while (RS.next()) {
                 MyUserBalance = RS.getDouble("F03STA");
             }
@@ -460,8 +468,6 @@ public class UserView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MyBasketPanel;
