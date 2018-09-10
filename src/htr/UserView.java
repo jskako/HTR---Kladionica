@@ -38,7 +38,7 @@ public class UserView extends javax.swing.JFrame {
 
         //Punjenje tablica podacima
         try {
-            RS = CALIzb.main(Conn, "select * from parovi where F07SPO = '1' and F07DTI = '2018-08-30' ORDER BY F07VRI ASC");
+            RS = CALIzb.main(Conn, "select F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '1' and F07DTI = '2018-08-30' ORDER BY F07VRI ASC");
             tableNogomet.setModel(DbUtils.resultSetToTableModel(RS));
         } catch (Exception ex) {
             ex.printStackTrace();
