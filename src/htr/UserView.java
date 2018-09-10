@@ -8,6 +8,9 @@ package htr;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -21,6 +24,7 @@ public class UserView extends javax.swing.JFrame {
      */
     private Connection Conn;
     private String User;
+    //private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -29,15 +33,27 @@ public class UserView extends javax.swing.JFrame {
     int MyUserID;
     double MyUserBalance;
     ResultSet RS = null;
+    String sd = null;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date date = new Date();
 
     public UserView(Connection con, String user) {
         this.Conn = con;
         this.User = user;
 
         initComponents();
-        String d1  = ((jTextField1)pickDate.getDateEditor().getUiComponent()).getText();
+
+        try {
+            pickDate.setDate(date);
+
+            //Punjenje odabranim datumom    
+            sd = dateFormat.format(pickDate.getDate());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         //Punjenje tablica podacima
-        PunjenjeTablicePodacima("2018-09-10");
+        PunjenjeTablicePodacima(sd);
 
         //Dohvacanje vrijednosti
         getUserID();
@@ -141,6 +157,11 @@ public class UserView extends javax.swing.JFrame {
 
         pickDate.setDateFormatString("yyyy-MM-dd");
         pickDate.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        pickDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                pickDatePropertyChange(evt);
+            }
+        });
 
         jTextField1.setText("jTextField1");
 
@@ -488,6 +509,10 @@ public class UserView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pickDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_pickDatePropertyChange
+
+    }//GEN-LAST:event_pickDatePropertyChange
 
     /**
      * @param args the command line arguments

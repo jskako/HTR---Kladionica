@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/AdminView.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/UserView.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/IzvrsavanjeSkriptiNaBazi.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/DatabaseConnection.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/RegistrationForm.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/HTRMain.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/LoginForm.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/DatabaseConnection.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/HTRMain.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/UserView.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/LoginForm.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/IzvrsavanjeSkriptiNaBazi.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/RegistrationForm.java</file>
         </group>
     </open-files>
 </project-private>

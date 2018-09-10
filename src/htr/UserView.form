@@ -191,6 +191,9 @@
               <Font name="Segoe UI" size="14" style="3"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="pickDatePropertyChange"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1">
           <Properties>
