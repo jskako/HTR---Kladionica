@@ -6,6 +6,7 @@
 package htr;
 
 import java.awt.Frame;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.Timer;
@@ -151,6 +152,11 @@ public class LoginForm extends javax.swing.JFrame {
         TB_myPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TB_myPasswordMouseClicked(evt);
+            }
+        });
+        TB_myPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TB_myPasswordKeyPressed(evt);
             }
         });
 
@@ -434,6 +440,14 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         TB_myPassword.setEchoChar('*');
     }//GEN-LAST:event_img_passVisibleMouseReleased
+
+    private void TB_myPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TB_myPasswordKeyPressed
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (vChar == KeyEvent.VK_ENTER) {
+            BT_loginActionPerformed(null);
+        }
+    }//GEN-LAST:event_TB_myPasswordKeyPressed
 
     /**
      * @param args the command line arguments
