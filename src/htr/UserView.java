@@ -26,7 +26,6 @@ public class UserView extends javax.swing.JFrame {
      */
     private Connection Conn;
     private String User;
-    //private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -140,6 +139,12 @@ public class UserView extends javax.swing.JFrame {
         lbl_Balance = new javax.swing.JLabel();
         pickDate = new com.toedter.calendar.JDateChooser();
         btnPotvrdi = new javax.swing.JButton();
+        bUplatanaRacun = new javax.swing.JButton();
+        bIsplata = new javax.swing.JButton();
+        bMojiTicketi = new javax.swing.JButton();
+        bOdjava = new javax.swing.JButton();
+        lbl_Tip = new javax.swing.JLabel();
+        lbl_Balance1 = new javax.swing.JLabel();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
         lbl_Nogomet1 = new javax.swing.JLabel();
@@ -163,9 +168,33 @@ public class UserView extends javax.swing.JFrame {
         tableHokej = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableTenis = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableTenis1 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        lblParovi = new javax.swing.JLabel();
+        lblTecaj = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtIznosUplate = new javax.swing.JTextField();
+        lblPorezNaIznUplate = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblIsplata = new javax.swing.JLabel();
+        lblDobitak = new javax.swing.JLabel();
+        lblBonus = new javax.swing.JLabel();
+        lblPorez = new javax.swing.JLabel();
+        lblPrikazPorezaJedan = new javax.swing.JLabel();
+        lblPrikazPorezaDva = new javax.swing.JLabel();
+        lblPrikazPorezaTri = new javax.swing.JLabel();
+        lblPrikazPorezaCetri = new javax.swing.JLabel();
+        lblPrikazPorezaPet = new javax.swing.JLabel();
+        lblPrikazPorezaSest = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        bUplati = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(247, 255, 247));
+        setBackground(new java.awt.Color(153, 153, 153));
         setName("UserView"); // NOI18N
         setUndecorated(true);
 
@@ -199,7 +228,7 @@ public class UserView extends javax.swing.JFrame {
             }
         });
 
-        btnPotvrdi.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        btnPotvrdi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btnPotvrdi.setText("Potvrdi");
         btnPotvrdi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,38 +236,91 @@ public class UserView extends javax.swing.JFrame {
             }
         });
 
+        bUplatanaRacun.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        bUplatanaRacun.setText("Uplata");
+
+        bIsplata.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        bIsplata.setText("Isplata");
+
+        bMojiTicketi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        bMojiTicketi.setText("Moji ticketi");
+
+        bOdjava.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        bOdjava.setText("Odjava");
+        bOdjava.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOdjavaActionPerformed(evt);
+            }
+        });
+
+        lbl_Tip.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        lbl_Tip.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_Tip.setText("Preporuka: ");
+
+        lbl_Balance1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lbl_Balance1.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_Balance1.setText("Uplatom četri para istog tipa sporta dobijate 10% više!");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(759, Short.MAX_VALUE)
-                .addComponent(lbl_UserName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_Balance)
-                .addGap(621, 621, 621)
-                .addComponent(img_Logo)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pickDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPotvrdi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(bUplatanaRacun, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bIsplata, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bMojiTicketi)
+                .addGap(18, 18, 18)
+                .addComponent(bOdjava)
+                .addGap(170, 170, 170)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_UserName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_Balance)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(img_Logo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_Tip)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Balance1)
+                        .addGap(87, 87, 87))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Balance))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_UserName)
-                        .addComponent(lbl_Balance))
-                    .addComponent(img_Logo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 61, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bUplatanaRacun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bIsplata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bMojiTicketi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bOdjava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(img_Logo)
+                        .addContainerGap(26, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_Tip, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Balance1))
                 .addContainerGap())
         );
 
@@ -349,7 +431,7 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(imgTennis)
                 .addGap(51, 51, 51)
                 .addComponent(lbl_Tenis)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         MyTennisPanelLayout.setVerticalGroup(
             MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,9 +458,9 @@ public class UserView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(90, 90, 90)
                 .addComponent(lbl_MojTicket)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,6 +575,206 @@ public class UserView extends javax.swing.JFrame {
         tableTenis.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane4.setViewportView(tableTenis);
 
+        tableTenis1.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        tableTenis1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Domaćin", "Protivnik", "Vrijeme", "1", "X", "2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableTenis1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane5.setViewportView(tableTenis1);
+
+        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+
+        lblParovi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblParovi.setForeground(new java.awt.Color(255, 255, 255));
+        lblParovi.setText("4 PARA");
+
+        lblTecaj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTecaj.setForeground(new java.awt.Color(255, 255, 255));
+        lblTecaj.setText("TEČAJ: 192,2");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Ulog");
+
+        txtIznosUplate.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txtIznosUplate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIznosUplate.setText("67");
+
+        lblPorezNaIznUplate.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPorezNaIznUplate.setForeground(new java.awt.Color(255, 255, 255));
+        lblPorezNaIznUplate.setText("-3,35 kn (5% mt) = 63,65 kn");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Isplata");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Dobitak");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Bonus");
+        jLabel7.setToolTipText("");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Porez *");
+        jLabel8.setToolTipText("");
+
+        lblIsplata.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblIsplata.setForeground(new java.awt.Color(255, 255, 255));
+        lblIsplata.setText("10.908,05 kn");
+
+        lblDobitak.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblDobitak.setForeground(new java.awt.Color(255, 255, 255));
+        lblDobitak.setText("12.233,53 kn");
+
+        lblBonus.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblBonus.setForeground(new java.awt.Color(255, 255, 255));
+        lblBonus.setText("2.342,48 kn");
+        lblBonus.setToolTipText("");
+
+        lblPorez.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblPorez.setForeground(new java.awt.Color(255, 255, 255));
+        lblPorez.setText("1.325,48 kn");
+        lblPorez.setToolTipText("");
+
+        lblPrikazPorezaJedan.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPrikazPorezaJedan.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrikazPorezaJedan.setText("0 - 10.000 kn\t");
+
+        lblPrikazPorezaDva.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPrikazPorezaDva.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrikazPorezaDva.setText("10%");
+
+        lblPrikazPorezaTri.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPrikazPorezaTri.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrikazPorezaTri.setText("1000kn");
+
+        lblPrikazPorezaCetri.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPrikazPorezaCetri.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrikazPorezaCetri.setText("10.000 - 30.000 kn");
+
+        lblPrikazPorezaPet.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPrikazPorezaPet.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrikazPorezaPet.setText("15%");
+
+        lblPrikazPorezaSest.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPrikazPorezaSest.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrikazPorezaSest.setText("325,48 kn");
+
+        bUplati.setText("Uplati");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bUplati, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblParovi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTecaj, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblPorezNaIznUplate)
+                                .addGap(0, 76, Short.MAX_VALUE))
+                            .addComponent(txtIznosUplate)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(lblPrikazPorezaCetri)
+                            .addComponent(lblPrikazPorezaJedan))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPrikazPorezaPet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblPrikazPorezaSest))
+                            .addComponent(lblPrikazPorezaTri, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPrikazPorezaDva)
+                            .addComponent(lblIsplata, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(lblDobitak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPorez, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBonus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblParovi)
+                    .addComponent(lblTecaj))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtIznosUplate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPorezNaIznUplate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblIsplata))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblDobitak))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblBonus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(lblPorez))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrikazPorezaJedan)
+                    .addComponent(lblPrikazPorezaDva)
+                    .addComponent(lblPrikazPorezaTri))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrikazPorezaCetri)
+                    .addComponent(lblPrikazPorezaPet)
+                    .addComponent(lblPrikazPorezaSest))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bUplati, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -503,7 +785,7 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MySoccerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MyBasketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -513,12 +795,15 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                     .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -534,16 +819,20 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(MyHockeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -584,6 +873,14 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tableNogometMouseClicked
 
+    private void bOdjavaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOdjavaActionPerformed
+        // TODO add your handling code here:
+        LoginForm CALLogin = new LoginForm(Conn);
+        CALLogin.setLocationRelativeTo(null);
+        CALLogin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bOdjavaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -593,30 +890,60 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JPanel MyHockeyPanel;
     private javax.swing.JPanel MySoccerPanel;
     private javax.swing.JPanel MyTennisPanel;
+    private javax.swing.JButton bIsplata;
+    private javax.swing.JButton bMojiTicketi;
+    private javax.swing.JButton bOdjava;
+    private javax.swing.JButton bUplatanaRacun;
+    private javax.swing.JButton bUplati;
     private javax.swing.JButton btnPotvrdi;
     private javax.swing.JLabel imgHockey;
     private javax.swing.JLabel imgTennis;
     private javax.swing.JLabel img_Logo;
     private javax.swing.JLabel img_Soccer;
     private javax.swing.JLabel img_basketball;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblBonus;
+    private javax.swing.JLabel lblDobitak;
+    private javax.swing.JLabel lblIsplata;
+    private javax.swing.JLabel lblParovi;
+    private javax.swing.JLabel lblPorez;
+    private javax.swing.JLabel lblPorezNaIznUplate;
+    private javax.swing.JLabel lblPrikazPorezaCetri;
+    private javax.swing.JLabel lblPrikazPorezaDva;
+    private javax.swing.JLabel lblPrikazPorezaJedan;
+    private javax.swing.JLabel lblPrikazPorezaPet;
+    private javax.swing.JLabel lblPrikazPorezaSest;
+    private javax.swing.JLabel lblPrikazPorezaTri;
+    private javax.swing.JLabel lblTecaj;
     private javax.swing.JLabel lbl_Balance;
+    private javax.swing.JLabel lbl_Balance1;
     private javax.swing.JLabel lbl_Hokej;
     private javax.swing.JLabel lbl_Kosarka;
     private javax.swing.JLabel lbl_MojTicket;
     private javax.swing.JLabel lbl_Nogomet1;
     private javax.swing.JLabel lbl_Tenis;
+    private javax.swing.JLabel lbl_Tip;
     private javax.swing.JLabel lbl_UserName;
     private com.toedter.calendar.JDateChooser pickDate;
     private javax.swing.JTable tableHokej;
     private javax.swing.JTable tableKosarka;
     private javax.swing.JTable tableNogomet;
     private javax.swing.JTable tableTenis;
+    private javax.swing.JTable tableTenis1;
+    private javax.swing.JTextField txtIznosUplate;
     // End of variables declaration//GEN-END:variables
 }
