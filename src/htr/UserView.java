@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -42,6 +44,15 @@ public class UserView extends javax.swing.JFrame {
         this.User = user;
 
         initComponents();
+
+        //OVO JE TESTNI DIO KODA KOJI CE BITI ACTION LISTENER
+       /* tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString());
+            }
+        });*/
 
         try {
             pickDate.setDate(date);
@@ -93,19 +104,19 @@ public class UserView extends javax.swing.JFrame {
     private void PunjenjeTablicePodacima(String Time) {
         try {
             //Nogomet
-            RS = CALIzb.main(Conn, "select F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '1' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
+            RS = CALIzb.main(Conn, "select F07IDP ID, F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '1' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
             tableNogomet.setModel(DbUtils.resultSetToTableModel(RS));
 
             //Kosarka
-            RS = CALIzb.main(Conn, "select F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '2' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
+            RS = CALIzb.main(Conn, "select F07IDP ID, F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '2' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
             tableKosarka.setModel(DbUtils.resultSetToTableModel(RS));
 
             //Tenis
-            RS = CALIzb.main(Conn, "select F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '4' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
+            RS = CALIzb.main(Conn, "select F07IDP ID, F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '4' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
             tableHokej.setModel(DbUtils.resultSetToTableModel(RS));
 
             //Hokej
-            RS = CALIzb.main(Conn, "select F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '3' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
+            RS = CALIzb.main(Conn, "select F07IDP ID, F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '3' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
             tableTenis.setModel(DbUtils.resultSetToTableModel(RS));
 
         } catch (Exception ex) {
@@ -399,6 +410,11 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableNogomet.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableNogomet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableNogometMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableNogomet);
 
         tableKosarka.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
@@ -562,6 +578,10 @@ public class UserView extends javax.swing.JFrame {
     private void pickDateVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_pickDateVetoableChange
         // TODO add your handling code here:
     }//GEN-LAST:event_pickDateVetoableChange
+
+    private void tableNogometMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNogometMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableNogometMouseClicked
 
     /**
      * @param args the command line arguments
