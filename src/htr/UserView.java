@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -45,6 +46,12 @@ public class UserView extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
 
         initComponents();
+
+        //Postavljanje ROW-HEIGHT tablice
+        tableNogomet.setRowHeight(22);
+        tableKosarka.setRowHeight(22);
+        tableHokej.setRowHeight(22);
+        tableTenis.setRowHeight(22);
 
         //Sakrij Prikaz Poreza na listicu
         lblPrikazPorezaJedan.setVisible(false);
@@ -344,6 +351,7 @@ public class UserView extends javax.swing.JFrame {
         );
 
         MySoccerPanel.setBackground(new java.awt.Color(42, 157, 143));
+        MySoccerPanel.setMaximumSize(new java.awt.Dimension(32767, 86));
 
         img_Soccer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/football-ball.png"))); // NOI18N
 
@@ -355,23 +363,24 @@ public class UserView extends javax.swing.JFrame {
         MySoccerPanelLayout.setHorizontalGroup(
             MySoccerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MySoccerPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(65, 65, 65)
                 .addComponent(img_Soccer)
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_Nogomet1)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         MySoccerPanelLayout.setVerticalGroup(
             MySoccerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MySoccerPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(MySoccerPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(MySoccerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_Nogomet1)
                     .addComponent(img_Soccer))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MyBasketPanel.setBackground(new java.awt.Color(233, 196, 106));
+        MyBasketPanel.setMaximumSize(new java.awt.Dimension(32767, 86));
 
         img_basketball.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/basketball.png"))); // NOI18N
 
@@ -383,23 +392,23 @@ public class UserView extends javax.swing.JFrame {
         MyBasketPanelLayout.setHorizontalGroup(
             MyBasketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyBasketPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(61, 61, 61)
                 .addComponent(img_basketball)
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_Kosarka)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         MyBasketPanelLayout.setVerticalGroup(
             MyBasketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyBasketPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(MyBasketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_Kosarka)
-                    .addComponent(img_basketball))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(img_basketball)))
         );
 
         MyHockeyPanel.setBackground(new java.awt.Color(244, 162, 97));
+        MyHockeyPanel.setMaximumSize(new java.awt.Dimension(32767, 86));
 
         imgHockey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/hockey-stick.png"))); // NOI18N
 
@@ -411,23 +420,24 @@ public class UserView extends javax.swing.JFrame {
         MyHockeyPanelLayout.setHorizontalGroup(
             MyHockeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyHockeyPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(77, 77, 77)
                 .addComponent(imgHockey)
-                .addGap(70, 70, 70)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_Hokej)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         MyHockeyPanelLayout.setVerticalGroup(
             MyHockeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MyHockeyPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(MyHockeyPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(MyHockeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_Hokej)
                     .addComponent(imgHockey))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MyTennisPanel.setBackground(new java.awt.Color(231, 111, 81));
+        MyTennisPanel.setMaximumSize(new java.awt.Dimension(32767, 86));
 
         imgTennis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/tennis-racket.png"))); // NOI18N
 
@@ -439,9 +449,9 @@ public class UserView extends javax.swing.JFrame {
         MyTennisPanelLayout.setHorizontalGroup(
             MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyTennisPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(84, 84, 84)
                 .addComponent(imgTennis)
-                .addGap(70, 70, 70)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_Tenis)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -845,17 +855,17 @@ public class UserView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MyBasketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MyHockeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MySoccerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(MyHockeyPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(MySoccerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MyBasketPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(MyTennisPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
