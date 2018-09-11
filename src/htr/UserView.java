@@ -46,13 +46,14 @@ public class UserView extends javax.swing.JFrame {
         initComponents();
 
         //OVO JE TESTNI DIO KODA KOJI CE BITI ACTION LISTENER
-       /* tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
                 System.out.println(tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString());
+                System.out.println(tableNogomet.getSelectedColumn());
             }
-        });*/
+        });
 
         try {
             pickDate.setDate(date);
