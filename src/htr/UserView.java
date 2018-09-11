@@ -42,16 +42,25 @@ public class UserView extends javax.swing.JFrame {
     public UserView(Connection con, String user) {
         this.Conn = con;
         this.User = user;
-        this.setAlwaysOnTop(true);    
-        
+        this.setAlwaysOnTop(true);
+
         initComponents();
-        
+
+        //Sakrij Prikaz Poreza na listicu
+        lblPrikazPorezaJedan.setVisible(false);
+        lblPrikazPorezaDva.setVisible(false);
+        lblPrikazPorezaTri.setVisible(false);
+        lblPrikazPorezaCetri.setVisible(false);
+        lblPrikazPorezaPet.setVisible(false);
+        lblPrikazPorezaSest.setVisible(false);
+
         //Postavi Full-screen
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
         this.setSize(xsize, ysize);
 
+        //Postavljanje tablica
         //OVO JE TESTNI DIO KODA KOJI CE BITI ACTION LISTENER
         tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
@@ -200,6 +209,7 @@ public class UserView extends javax.swing.JFrame {
         lblPrikazPorezaSest = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         bUplati = new javax.swing.JButton();
+        btnPrikazPoreza = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -296,7 +306,7 @@ public class UserView extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(img_Logo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                         .addComponent(lbl_Tip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_Balance1)
@@ -347,20 +357,18 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(MySoccerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(img_Soccer)
-                .addGap(30, 30, 30)
+                .addGap(57, 57, 57)
                 .addComponent(lbl_Nogomet1)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         MySoccerPanelLayout.setVerticalGroup(
             MySoccerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MySoccerPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(img_Soccer)
+                .addGroup(MySoccerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_Nogomet1)
+                    .addComponent(img_Soccer))
                 .addContainerGap())
-            .addGroup(MySoccerPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lbl_Nogomet1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MyBasketPanel.setBackground(new java.awt.Color(233, 196, 106));
@@ -377,20 +385,17 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(MyBasketPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(img_basketball)
-                .addGap(41, 41, 41)
+                .addGap(55, 55, 55)
                 .addComponent(lbl_Kosarka)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         MyBasketPanelLayout.setVerticalGroup(
             MyBasketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MyBasketPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(MyBasketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MyBasketPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(img_basketball))
-                    .addGroup(MyBasketPanelLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lbl_Kosarka)))
+                    .addComponent(lbl_Kosarka)
+                    .addComponent(img_basketball))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -408,20 +413,18 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(MyHockeyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgHockey)
-                .addGap(43, 43, 43)
+                .addGap(70, 70, 70)
                 .addComponent(lbl_Hokej)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         MyHockeyPanelLayout.setVerticalGroup(
             MyHockeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MyHockeyPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(imgHockey)
+                .addGroup(MyHockeyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_Hokej)
+                    .addComponent(imgHockey))
                 .addContainerGap())
-            .addGroup(MyHockeyPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lbl_Hokej)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MyTennisPanel.setBackground(new java.awt.Color(231, 111, 81));
@@ -438,20 +441,18 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(MyTennisPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgTennis)
-                .addGap(51, 51, 51)
+                .addGap(70, 70, 70)
                 .addComponent(lbl_Tenis)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MyTennisPanelLayout.setVerticalGroup(
             MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MyTennisPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(imgTennis)
+                .addGroup(MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_Tenis)
+                    .addComponent(imgTennis))
                 .addContainerGap())
-            .addGroup(MyTennisPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lbl_Tenis)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -479,7 +480,7 @@ public class UserView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tableNogomet.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        tableNogomet.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         tableNogomet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -502,6 +503,8 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableNogomet.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableNogomet.setFillsViewportHeight(true);
+        tableNogomet.setSelectionBackground(new java.awt.Color(42, 157, 143));
         tableNogomet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableNogometMouseClicked(evt);
@@ -509,7 +512,7 @@ public class UserView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableNogomet);
 
-        tableKosarka.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        tableKosarka.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         tableKosarka.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -532,9 +535,11 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableKosarka.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableKosarka.setFillsViewportHeight(true);
+        tableKosarka.setSelectionBackground(new java.awt.Color(233, 196, 106));
         jScrollPane2.setViewportView(tableKosarka);
 
-        tableHokej.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        tableHokej.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         tableHokej.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -557,9 +562,11 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableHokej.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableHokej.setFillsViewportHeight(true);
+        tableHokej.setSelectionBackground(new java.awt.Color(244, 162, 97));
         jScrollPane3.setViewportView(tableHokej);
 
-        tableTenis.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        tableTenis.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         tableTenis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -582,16 +589,14 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableTenis.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableTenis.setFillsViewportHeight(true);
+        tableTenis.setSelectionBackground(new java.awt.Color(231, 111, 81));
         jScrollPane4.setViewportView(tableTenis);
 
-        tableTenis1.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        tableTenis1.setBackground(new java.awt.Color(204, 204, 204));
+        tableTenis1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         tableTenis1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -607,6 +612,7 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableTenis1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableTenis1.setEnabled(false);
         jScrollPane5.setViewportView(tableTenis1);
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
@@ -649,6 +655,11 @@ public class UserView extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Porez *");
         jLabel8.setToolTipText("");
+        jLabel8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jLabel8KeyPressed(evt);
+            }
+        });
 
         lblIsplata.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblIsplata.setForeground(new java.awt.Color(255, 255, 255));
@@ -694,6 +705,14 @@ public class UserView extends javax.swing.JFrame {
 
         bUplati.setText("Uplati");
 
+        btnPrikazPoreza.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnPrikazPoreza.setText("?");
+        btnPrikazPoreza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrikazPorezaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -721,8 +740,11 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8)
                             .addComponent(lblPrikazPorezaCetri)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPrikazPoreza, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblPrikazPorezaJedan))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -766,7 +788,8 @@ public class UserView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(lblPorez))
+                    .addComponent(lblPorez)
+                    .addComponent(btnPrikazPoreza, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPrikazPorezaJedan)
@@ -823,10 +846,10 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MySoccerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MyBasketPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MyHockeyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(MySoccerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
@@ -834,15 +857,12 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))
+                    .addComponent(jSeparator1)))
         );
 
         pack();
@@ -890,6 +910,29 @@ public class UserView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bOdjavaActionPerformed
 
+    private void jLabel8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel8KeyPressed
+
+    }//GEN-LAST:event_jLabel8KeyPressed
+
+    private void btnPrikazPorezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrikazPorezaActionPerformed
+        // TODO add your handling code here:
+        if (btnPrikazPoreza.isSelected()) {
+            lblPrikazPorezaJedan.setVisible(true);
+            lblPrikazPorezaDva.setVisible(true);
+            lblPrikazPorezaTri.setVisible(true);
+            lblPrikazPorezaCetri.setVisible(true);
+            lblPrikazPorezaPet.setVisible(true);
+            lblPrikazPorezaSest.setVisible(true);
+        } else {
+            lblPrikazPorezaJedan.setVisible(false);
+            lblPrikazPorezaDva.setVisible(false);
+            lblPrikazPorezaTri.setVisible(false);
+            lblPrikazPorezaCetri.setVisible(false);
+            lblPrikazPorezaPet.setVisible(false);
+            lblPrikazPorezaSest.setVisible(false);
+        }
+    }//GEN-LAST:event_btnPrikazPorezaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -905,6 +948,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JButton bUplatanaRacun;
     private javax.swing.JButton bUplati;
     private javax.swing.JButton btnPotvrdi;
+    private javax.swing.JToggleButton btnPrikazPoreza;
     private javax.swing.JLabel imgHockey;
     private javax.swing.JLabel imgTennis;
     private javax.swing.JLabel img_Logo;
