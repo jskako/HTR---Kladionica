@@ -6,6 +6,7 @@
 package htr;
 
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -41,8 +42,15 @@ public class UserView extends javax.swing.JFrame {
     public UserView(Connection con, String user) {
         this.Conn = con;
         this.User = user;
-
+        this.setAlwaysOnTop(true);    
+        
         initComponents();
+        
+        //Postavi Full-screen
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xsize = (int) tk.getScreenSize().getWidth();
+        int ysize = (int) tk.getScreenSize().getHeight();
+        this.setSize(xsize, ysize);
 
         //OVO JE TESTNI DIO KODA KOJI CE BITI ACTION LISTENER
         tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -197,6 +205,7 @@ public class UserView extends javax.swing.JFrame {
         setBackground(new java.awt.Color(153, 153, 153));
         setName("UserView"); // NOI18N
         setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(26, 83, 92));
 
