@@ -164,6 +164,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void UpisivanjeNaTicket(int row, int col) {
         //Row nam je ID para
+        int myRowTemp = 0;
         //Col nam je ID kolone (1,x,2) <-> (3,4,5)
 
         //Provjera da li par na ticketu vec postoji
@@ -173,6 +174,26 @@ public class UserView extends javax.swing.JFrame {
         //Refreshamo pregled listica i dobitka
         //ZNANI PROBLEMI - Forma za slanje mail-a se suzi, mail se ne salje, napraviti placanje, napravidi admin formu, oznaciti upisane parove u tablici, 
         //napraviti uplatu i isplatu, napraviti pregled mojih racuna, napraviti bonuse
+        try {
+            RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '"+row+"'");
+            while (RS.next()) {
+                myRowTemp = RS.getInt("F09IDT");
+                
+                if(myRowTemp!=0){
+                    //Ako postoji
+                    
+                }
+                else{
+                    //Ako ne postoji
+                     RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
+                }
+                
+                
+            }
+        } catch (Exception e) {
+
+        }
+
         System.out.println("Row: " + row);
         System.out.println("Col: " + col);
 

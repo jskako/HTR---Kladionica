@@ -22,9 +22,9 @@ public class DatabaseConnection {
     String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     Connection conn = null;
     String DB_URL = null;
-    String ConnectionDB = "brik"; //DESKTOP-LAGU3T1
+    String ConnectionDB = "DESKTOP-LAGU3T1"; //DESKTOP-LAGU3T1
     int portDB = 1433;
-    String dataBaseName = "obuka"; //HTR
+    String dataBaseName = "HTR"; //HTR
     
     public void main() {
         
