@@ -166,6 +166,8 @@ public class UserView extends javax.swing.JFrame {
         //Row nam je ID para
         int myRowTemp = 0;
         //Col nam je ID kolone (1,x,2) <-> (3,4,5)
+        System.out.println(myRowTemp);
+        System.out.println(myRowTemp);
 
         //Provjera da li par na ticketu vec postoji
         //Ukoliko postoji replace ga ukoliko ima razlicitu Col ili brisemo ukoliko ima istu
@@ -175,33 +177,36 @@ public class UserView extends javax.swing.JFrame {
         //ZNANI PROBLEMI - Forma za slanje mail-a se suzi, mail se ne salje, napraviti placanje, napravidi admin formu, oznaciti upisane parove u tablici, 
         //napraviti uplatu i isplatu, napraviti pregled mojih racuna, napraviti bonuse
         try {
-            RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '"+row+"'");
+            RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '" + row + "'");
             while (RS.next()) {
                 myRowTemp = RS.getInt("F09IDT");
-                
-                if(myRowTemp!=0){
-                    //Ako postoji
-                    
-                }
-                else{
-                    //Ako ne postoji
-                     RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
-                }
-                
-                
+
             }
+            if (myRowTemp != 0) {
+                //Ako postoji
+                System.out.println("Usao u IF");
+
+            } else {
+                //Ako ne postoji
+                System.out.println("Usao u ELSE");
+                //Tip 1
+                if (col == 3) {
+                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
+                } //Tip 2
+                else if (col == 4) {
+                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
+                } //Tip 3
+                else if (col == 5) {
+                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
+                }
+
+            }
+
         } catch (Exception e) {
+            e.printStackTrace();
 
         }
 
-        System.out.println("Row: " + row);
-        System.out.println("Col: " + col);
-
-        //Ako je col = 3
-        RS = CALIzb.main(Conn, "Select F07KO1 from Parovi where F07IDP = '" + row + "'");
-
-        //Ako je col = 4
-        //Ako je col = 5
     }
 
     private void getUserID() {
