@@ -27,7 +27,7 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
 
     String myPassword;
     String myUserName;
-    
+
     public MailRecoveryGUI(Connection conn) {
 
         this.Conn = conn;
@@ -70,8 +70,9 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
 
         pic_MailRecovery.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/mail_recovery_avatar.png"))); // NOI18N
 
-        myMainLabel.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        myMainLabel.setFont(new java.awt.Font("Segoe UI", 3, 30)); // NOI18N
         myMainLabel.setForeground(new java.awt.Color(255, 255, 255));
+        myMainLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         myMainLabel.setText("Password Recovery");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
@@ -109,15 +110,6 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(myMainLabel))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(126, 126, 126)
-                                .addComponent(jLabel2)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_myMail, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -125,9 +117,17 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addComponent(pic_MailRecovery)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_Exit)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addComponent(lbl_Exit))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(myMainLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,8 +193,8 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
     private void btnSendMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendMailActionPerformed
         // TODO add your handling code here:
         if (!lbl_myMail.getText().toLowerCase().contains("@")) {
-            myMainLabel.setText("Mail nije ispravan!");
-            Timer timer = new Timer(1000, e -> myMainLabel.setText("REGISTRATION"));
+            myMainLabel.setText("Error!");
+            Timer timer = new Timer(1000, e -> myMainLabel.setText("Password Recovery"));
             timer.setRepeats(false);
             timer.start();
             lbl_myMail.setText(null);
@@ -217,12 +217,14 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
                     //Zovem funkciju
                     MailRecovery CALMRecovery = new MailRecovery();
                     CALMRecovery.MailRecovery(Conn, lbl_myMail.getText().trim(), myPassword, myUserName);
+                    PopError CALError = new PopError();
+                    CALError.infoBox("Podaci su poslani na mail!", "Success!");
                     dispose();
 
                 } else {
-                    myMainLabel.setText("Mail postoji!");
+                    myMainLabel.setText("Error!");
                     lbl_myMail.setText("");
-                    Timer timer = new Timer(2000, e -> myMainLabel.setText("REGISTRATION"));
+                    Timer timer = new Timer(2000, e -> myMainLabel.setText("Password Recovery"));
                     timer.setRepeats(false);
                     timer.start();
                 }

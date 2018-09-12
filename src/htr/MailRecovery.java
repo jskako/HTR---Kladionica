@@ -51,9 +51,6 @@ public class MailRecovery {
 
             Transport.send(message);
 
-            PopError CALError = new PopError();
-            CALError.infoBox("Podaci su poslani na mail!", "Success!");
-
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
