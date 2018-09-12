@@ -67,15 +67,8 @@ public class UserView extends javax.swing.JFrame {
         this.setSize(xsize, ysize);
 
         //Postavljanje tablica
-        //OVO JE TESTNI DIO KODA KOJI CE BITI ACTION LISTENER
-        tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                // do some actions here, for example
-                // print first column value from selected row
-                System.out.println(tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString());
-                System.out.println(tableNogomet.getSelectedColumn());
-            }
-        });
+        //ACTION LISTENER
+        AddActionListener();
 
         try {
             pickDate.setDate(date);
@@ -100,6 +93,50 @@ public class UserView extends javax.swing.JFrame {
         //Brišemo title bar
         Frame UserView = new Frame();
         UserView.setUndecorated(true);
+    }
+
+    //Provjera kliknutih polja
+    private void AddActionListener() {
+
+        //Nogomet
+        tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString());
+                System.out.println(tableNogomet.getSelectedColumn());
+            }
+        });
+
+        //Tenis
+        tableTenis.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(tableTenis.getValueAt(tableTenis.getSelectedRow(), 0).toString());
+                System.out.println(tableTenis.getSelectedColumn());
+            }
+        });
+
+        //Košarka
+        tableKosarka.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(tableKosarka.getValueAt(tableKosarka.getSelectedRow(), 0).toString());
+                System.out.println(tableKosarka.getSelectedColumn());
+            }
+        });
+
+        //Hokej
+        tableHokej.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(tableHokej.getValueAt(tableHokej.getSelectedRow(), 0).toString());
+                System.out.println(tableHokej.getSelectedColumn());
+            }
+        });
     }
 
     private void getUserID() {
