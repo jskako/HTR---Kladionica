@@ -1,15 +1,18 @@
+
 USE [HTR]
 
 CREATE TABLE [dbo].[Temp_Ticket](
-	F09IDT int NOT NULL PRIMARY KEY, -- ID Ticketa
-	F09PAR varchar(255) NOT NULL,    -- Odigrani par
-        F09TIP varchar(1) NOT NULL,      -- Odigrani tip
-	F09KOE int NOT NULL,             -- Koeficijent
-	F09DOB int NOT NULL,             -- Dobitak
-	F09POR int NOT NULL,             -- Porez
-	F09ULO int NOT NULL,             -- Ulog
-        F09DVT datetime NOT NULL,        -- Datum\Vrijeme kreiranja ticketa
-        F09UID int,                      -- UserID
+    F09PRK int NOT NULL PRIMARY KEY,   -- PK Ticketa
+	F09IDT int NOT NULL,               -- ID Para
+	F09TIM1 varchar(100) NOT NULL,     -- Odigrani par
+	F09TIM2 varchar(100) NOT NULL,     -- Odigrani par
+    F09TIP varchar(1) NOT NULL,        -- Tip koji smo igrali (1,X,2)
+	F09KOE int NOT NULL,               -- Koeficijent odabranog tipa
+	F09UID int NOT NULL,               -- User ID
+	F09TIS int NOT NULL,               -- Tip sporta
+	F09DVI datetime NOT NULL,          -- Datum i vrijeme kreiranja
+    F09DVT datetime NOT NULL,          -- Datum\Vrijeme kreiranja ticketa
         FOREIGN KEY (F09UID) REFERENCES Users(F01ID),
-        FOREIGN KEY (F09POR) REFERENCES Porezi(F06PID)
+        FOREIGN KEY (F09IDT) REFERENCES Parovi(F07IDP),
+		FOREIGN KEY (F09TIS) REFERENCES Sportovi(F02SID)
 	)
