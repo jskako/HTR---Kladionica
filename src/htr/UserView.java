@@ -171,11 +171,16 @@ public class UserView extends javax.swing.JFrame {
         //Ukoliko ne postoji dodajemo ga
         //Upisujemo koeficijente i preglede
         //Refreshamo pregled listica i dobitka
-        
         //ZNANI PROBLEMI - Forma za slanje mail-a se suzi, mail se ne salje, napraviti placanje, napravidi admin formu, oznaciti upisane parove u tablici, 
         //napraviti uplatu i isplatu, napraviti pregled mojih racuna, napraviti bonuse
         System.out.println("Row: " + row);
         System.out.println("Col: " + col);
+
+        //Ako je col = 3
+        RS = CALIzb.main(Conn, "Select F07KO1 from Parovi where F07IDP = '" + row + "'");
+
+        //Ako je col = 4
+        //Ako je col = 5
     }
 
     private void getUserID() {
