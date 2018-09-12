@@ -38,6 +38,9 @@ public class UserView extends javax.swing.JFrame {
     String sd = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
+    String rowClicked;
+    int rowClickedInt;
+    int colClickedInt;
 
     public UserView(Connection con, String user) {
         this.Conn = con;
@@ -103,8 +106,13 @@ public class UserView extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
-                System.out.println(tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString());
-                System.out.println(tableNogomet.getSelectedColumn());
+
+                //Get row to int
+                rowClicked = tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString();
+                rowClickedInt = Integer.parseInt(rowClicked);
+                //Get col to int
+                colClickedInt = tableNogomet.getSelectedColumn();
+                UpisivanjeNaTicket(rowClickedInt, colClickedInt);
             }
         });
 
@@ -113,8 +121,13 @@ public class UserView extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
-                System.out.println(tableTenis.getValueAt(tableTenis.getSelectedRow(), 0).toString());
-                System.out.println(tableTenis.getSelectedColumn());
+
+                //Get row to int
+                rowClicked = tableTenis.getValueAt(tableTenis.getSelectedRow(), 0).toString();
+                rowClickedInt = Integer.parseInt(rowClicked);
+                //Get col to int
+                colClickedInt = tableTenis.getSelectedColumn();
+                UpisivanjeNaTicket(rowClickedInt, colClickedInt);
             }
         });
 
@@ -123,8 +136,13 @@ public class UserView extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
-                System.out.println(tableKosarka.getValueAt(tableKosarka.getSelectedRow(), 0).toString());
-                System.out.println(tableKosarka.getSelectedColumn());
+
+                //Get row to int
+                rowClicked = tableKosarka.getValueAt(tableKosarka.getSelectedRow(), 0).toString();
+                rowClickedInt = Integer.parseInt(rowClicked);
+                //Get col to int
+                colClickedInt = tableKosarka.getSelectedColumn();
+                UpisivanjeNaTicket(rowClickedInt, colClickedInt);
             }
         });
 
@@ -133,10 +151,31 @@ public class UserView extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent event) {
                 // do some actions here, for example
                 // print first column value from selected row
-                System.out.println(tableHokej.getValueAt(tableHokej.getSelectedRow(), 0).toString());
-                System.out.println(tableHokej.getSelectedColumn());
+
+                //Get row to int
+                rowClicked = tableHokej.getValueAt(tableHokej.getSelectedRow(), 0).toString();
+                rowClickedInt = Integer.parseInt(rowClicked);
+                //Get col to int
+                colClickedInt = tableHokej.getSelectedColumn();
+                UpisivanjeNaTicket(rowClickedInt, colClickedInt);
             }
         });
+    }
+
+    private void UpisivanjeNaTicket(int row, int col) {
+        //Row nam je ID para
+        //Col nam je ID kolone (1,x,2) <-> (3,4,5)
+
+        //Provjera da li par na ticketu vec postoji
+        //Ukoliko postoji replace ga ukoliko ima razlicitu Col ili brisemo ukoliko ima istu
+        //Ukoliko ne postoji dodajemo ga
+        //Upisujemo koeficijente i preglede
+        //Refreshamo pregled listica i dobitka
+        
+        //ZNANI PROBLEMI - Forma za slanje mail-a se suzi, mail se ne salje, napraviti placanje, napravidi admin formu, oznaciti upisane parove u tablici, 
+        //napraviti uplatu i isplatu, napraviti pregled mojih racuna, napraviti bonuse
+        System.out.println("Row: " + row);
+        System.out.println("Col: " + col);
     }
 
     private void getUserID() {
