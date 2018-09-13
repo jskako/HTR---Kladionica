@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[Temp_Ticket](
 	F09TIM1 varchar(100) NOT NULL,     -- Odigrani par
 	F09TIM2 varchar(100) NOT NULL,     -- Odigrani par
     F09TIP varchar(1) NOT NULL,        -- Tip koji smo igrali (1,X,2)
-	F09KOE int NOT NULL,               -- Koeficijent odabranog tipa
+	F09KOE decimal (5,2) NOT NULL,      -- Koeficijent odabranog tipa
 	F09UID int NOT NULL,               -- User ID
 	F09TIS int NOT NULL,               -- Tip sporta
 	F09DIG date NOT NULL,          -- Datum igranja

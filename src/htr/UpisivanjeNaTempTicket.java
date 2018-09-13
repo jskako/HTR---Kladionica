@@ -37,33 +37,30 @@ public class UpisivanjeNaTempTicket {
         String myTipConv = null;
         String imeKoe = null;
 
+        //Dohvacanje zadnjeg ID-a
+        try {
+            RS = CALIzb.main(Conn, "SELECT TOP 1 F09PRK FROM temp_ticket ORDER BY F09PRK DESC");
+            while (RS.next()) {
+                myLastID = RS.getInt("F09PRK");
+                myLastID += 1;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        System.out.println(myLastID);
+        System.out.println(myLastID);
+        System.out.println(myLastID);
+
         if (col == 3) {
             imeKoe = "F07KO1";
             myTipConv = "1";
         } else if (col == 4) {
-            imeKoe = "F07KO2";
-            myTipConv = "2";
-        } else if (col == 5) {
             imeKoe = "F07KOX";
             myTipConv = "X";
-        }
-
-        //Col nam je ID kolone (1,2,x) <-> (3,4,5)
-        System.out.println(myRowTemp);
-        System.out.println(myRowTemp);
-
-        //Dohvacanje zadnjeg ID-a
-        try {
-            RS = CALIzb.main(Conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F09PRK FROM temp_ticket ORDER BY F09PRK DESC); select F09PRK from temp_ticket where F09PRK = @lastNumb");
-            while (RS.next()) {
-                myLastID = RS.getInt("F01ID");
-                myLastID += 1;
-            }
-            if (myLastID == 0) {
-                myLastID += 1;
-            }
-        } catch (Exception ex) {
-
+        } else if (col == 5) {
+            imeKoe = "F07KO2";
+            myTipConv = "2";
         }
 
         //Ukoliko postoji replace ga ukoliko ima razlicitu Col ili brisemo ukoliko ima istu
@@ -80,7 +77,6 @@ public class UpisivanjeNaTempTicket {
             }
             if (myRowTemp != 0) {
                 //Ako postoji
-                System.out.println("Usao u IF");
                 //Ako postoji s istim tipom
                 if (myTipTemp == col) {
                     RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
@@ -92,7 +88,6 @@ public class UpisivanjeNaTempTicket {
 
             } else {
                 //Ako ne postoji
-                System.out.println("Usao u ELSE");
                 //Tip 1
                 if (col == 3 || col == 4 || col == 5) {
                     RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");

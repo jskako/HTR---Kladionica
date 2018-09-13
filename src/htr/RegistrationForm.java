@@ -975,7 +975,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         if (PasswordNijeIsti && cbx_AgreeUSR.isSelected()) {
             try {
                 //Dohvacanje zadnjeg ID-a
-                RS = CALIzb.main(conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F01ID FROM users ORDER BY F01ID DESC); select F01ID from users where F01ID = @lastNumb");
+                RS = CALIzb.main(conn, "SELECT TOP 1 F01ID FROM users ORDER BY F01ID DESC");
                 while (RS.next()) {
                     MyIDNumber = RS.getInt("F01ID");
                     MyIDNumber += 1;
