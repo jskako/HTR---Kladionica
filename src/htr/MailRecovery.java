@@ -9,7 +9,6 @@ package htr;
  *
  * @author josips
  */
-import java.sql.Connection;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,28 +20,33 @@ import javax.mail.internet.MimeMessage;
 
 public class MailRecovery {
 
-    public void MailRecovery(Connection conn, String recoveryMail, String recoveryPassword, String recoveryUsername) {
+    private String recoveryMail;
+    private String recoveryPassword;
+    private String recoveryUsername;
 
+    public void MailRecovery(String RecoveryMail, String RecoveryPassword, String RecoveryUsername) {
+        this.recoveryMail = RecoveryMail;
+        this.recoveryPassword = RecoveryPassword;
+        this.recoveryUsername = RecoveryUsername;
         final String username = "htrprojectcompany@gmail.com";
         final String password = "HtRProjeCt1_";
 
-        Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
         try {
+            Properties props = new Properties();
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("htrprojectcompany@gmail.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(recoveryMail));
             message.setSubject("HTR - Password Recovery");
@@ -50,9 +54,9 @@ public class MailRecovery {
                     + "\n Password: " + recoveryPassword);
 
             Transport.send(message);
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 }
