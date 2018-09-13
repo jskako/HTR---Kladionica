@@ -15,10 +15,10 @@ public class HTRMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         DatabaseConnection CAL = new DatabaseConnection();
         CAL.main();
-        
+
     }
-    
+
 }

@@ -10,8 +10,8 @@ CREATE TABLE [dbo].[Temp_Ticket](
 	F09KOE int NOT NULL,               -- Koeficijent odabranog tipa
 	F09UID int NOT NULL,               -- User ID
 	F09TIS int NOT NULL,               -- Tip sporta
-	F09DIG datetime NOT NULL,          -- Datum igranja
-	F09VIG datetime NOT NULL,          -- Datum igranja
+	F09DIG date NOT NULL,          -- Datum igranja
+	F09VIG time NOT NULL,          -- Vrijeme igranja
     F09DVT datetime NOT NULL,          -- Datum\Vrijeme kreiranja ticketa
         FOREIGN KEY (F09UID) REFERENCES Users(F01ID),
         FOREIGN KEY (F09IDT) REFERENCES Parovi(F07IDP),

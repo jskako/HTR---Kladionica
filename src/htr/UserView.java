@@ -167,16 +167,18 @@ public class UserView extends javax.swing.JFrame {
         int myRowTemp = 0;
         int myTipTemp = 0;
         int myLastID = 0;
-        int TipSport = 0;
         String myTipConv = null;
         String imeKoe = null;
 
         if (col == 3) {
             imeKoe = "F07KO1";
+            myTipConv = "1";
         } else if (col == 4) {
             imeKoe = "F07KO2";
+            myTipConv = "2";
         } else if (col == 5) {
             imeKoe = "F07KOX";
+            myTipConv = "X";
         }
 
         //Col nam je ID kolone (1,2,x) <-> (3,4,5)
@@ -212,20 +214,6 @@ public class UserView extends javax.swing.JFrame {
             if (myRowTemp != 0) {
                 //Ako postoji
                 System.out.println("Usao u IF");
-                //Provjerajemo da li ima istu kolonu
-                RS = CALIzb.main(Conn, "select F09TIP from Temp_Ticket where (F09IDT = '" + row + "'");
-                while (RS.next()) {
-                    myTipConv = RS.getString("F09TIP");
-                }
-
-                //U F09TIP upisujemo 3,4,5 što bi znacilo 1,x,2
-                if (myTipConv.equals("1")) {
-                    myTipTemp = 3;
-                } else if (myTipConv.equals("2")) {
-                    myTipTemp = 4;
-                } else if (myTipConv.equals("X")) {
-                    myTipTemp = 5;
-                }
                 //Ako postoji s istim tipom
                 if (myTipTemp == col) {
                     RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
