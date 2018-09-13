@@ -37,8 +37,11 @@ public class UpisivanjeNaTempTicket {
         this.MyUserID = myUserID;
         this.Conn = conn;
 
+        //Generiranje varijabli vremena
         String myCurrentStringDate;
         String myCurrentStringTime;
+        String myTimDate = null;
+        String myTimTime = null;
 
         //Generiranje varijabli
         int myRowTemp = 0;
@@ -51,6 +54,29 @@ public class UpisivanjeNaTempTicket {
         Date date = new Date();
         myCurrentStringDate = (currentDate.format(date));
         myCurrentStringTime = (currentTime.format(date));
+
+        //Dohvacanje datuma od para
+        try {
+            RS = CALIzb.main(Conn, "SELECT F07DTI, F07VRI FROM parovi where F07IDP = '" + row + "'");
+            while (RS.next()) {
+                myTimDate = RS.getString("F07DTI");
+                myTimTime = RS.getString("F07VRI");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        //Remove ":" and "-" from 
+        int myCurrentStringDateInt = Integer.parseInt(myCurrentStringDate);
+        int myCurrentStringTimeInt = Integer.parseInt(myCurrentStringTime);
+        int myTimDateInt = Integer.parseInt(myTimDate);
+        int myTimTimeInt = Integer.parseInt(myTimTime);
+
+        //Test printanja
+        System.out.println("Trenutni datum: " + myCurrentStringDateInt);
+        System.out.println("Trenutno vrijeme: " + myCurrentStringTimeInt);
+        System.out.println("Datum igranja: " + myTimDateInt);
+        System.out.println("Vrijeme igranja: " + myTimTimeInt);
 
         if (myLastID == 0) {  //Ovdje cemo provjeriti da li su datum i vrijeme para odgovarajuci, myLastID je stavljen bezveze
             //Trebat ce izbrisati sve kojima je prosao datum nakon logiranja te prije uplate

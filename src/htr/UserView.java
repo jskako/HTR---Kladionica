@@ -49,6 +49,9 @@ public class UserView extends javax.swing.JFrame {
 
         initComponents();
 
+        //Brisanje starih parova iz temp tablice
+        RS = CALIzb.main(Conn, "Declare @currdate date;Declare @currtime time; Set @currdate = getdate(); Set @currtime = getdate(); delete from Temp_Ticket where F09DIG < @currdate OR (F09DIG = @currdate AND F09VIG < @currtime);");
+
         //Postavljanje ROW-HEIGHT tablice
         tableNogomet.setRowHeight(22);
         tableKosarka.setRowHeight(22);
