@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  *
@@ -21,6 +22,7 @@ public class UpisivanjeNaTempTicket {
     private int col;
     private int MyUserID;
     private Connection Conn;
+    boolean parIstekao;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -37,12 +39,6 @@ public class UpisivanjeNaTempTicket {
         this.MyUserID = myUserID;
         this.Conn = conn;
 
-        //Generiranje varijabli vremena
-        String myCurrentStringDate;
-        String myCurrentStringTime;
-        String myTimDate = null;
-        String myTimTime = null;
-
         //Generiranje varijabli
         int myRowTemp = 0;
         int myTipTemp = 0;
@@ -50,35 +46,9 @@ public class UpisivanjeNaTempTicket {
         String myTipConv = null;
         String imeKoe = null;
 
-        //Dohvacanje trenutnog datuma kako bi ga usporedili s parom
-        Date date = new Date();
-        myCurrentStringDate = (currentDate.format(date));
-        myCurrentStringTime = (currentTime.format(date));
+        provjeriVrijeme();
 
-        //Dohvacanje datuma od para
-        try {
-            RS = CALIzb.main(Conn, "SELECT F07DTI, F07VRI FROM parovi where F07IDP = '" + row + "'");
-            while (RS.next()) {
-                myTimDate = RS.getString("F07DTI");
-                myTimTime = RS.getString("F07VRI");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        //Remove ":" and "-" from 
-        int myCurrentStringDateInt = Integer.parseInt(myCurrentStringDate);
-        int myCurrentStringTimeInt = Integer.parseInt(myCurrentStringTime);
-        int myTimDateInt = Integer.parseInt(myTimDate);
-        int myTimTimeInt = Integer.parseInt(myTimTime);
-
-        //Test printanja
-        System.out.println("Trenutni datum: " + myCurrentStringDateInt);
-        System.out.println("Trenutno vrijeme: " + myCurrentStringTimeInt);
-        System.out.println("Datum igranja: " + myTimDateInt);
-        System.out.println("Vrijeme igranja: " + myTimTimeInt);
-
-        if (myLastID == 0) {  //Ovdje cemo provjeriti da li su datum i vrijeme para odgovarajuci, myLastID je stavljen bezveze
+        if (parIstekao == true) {  //Ovdje cemo provjeriti da li su datum i vrijeme para odgovarajuci, myLastID je stavljen bezveze
             //Trebat ce izbrisati sve kojima je prosao datum nakon logiranja te prije uplate
             //Dohvacanje zadnjeg ID-a
             try {
@@ -138,4 +108,48 @@ public class UpisivanjeNaTempTicket {
             }
         }
     }
+
+    private void provjeriVrijeme() {
+        //Generiranje varijabli vremena
+        String myCurrentStringDate;
+        String myCurrentStringTime;
+        String myTimDate = null;
+        String myTimTime = null;
+
+        //Dohvacanje trenutnog datuma kako bi ga usporedili s parom
+        Date date = new Date();
+        myCurrentStringDate = (currentDate.format(date));
+        myCurrentStringTime = (currentTime.format(date));
+
+        //Dohvacanje datuma od para
+        try {
+            RS = CALIzb.main(Conn, "SELECT F07DTI, F07VRI FROM parovi where F07IDP = '" + row + "'");
+            while (RS.next()) {
+                myTimDate = RS.getString("F07DTI");
+                myTimTime = RS.getString("F07VRI");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        //Remove ":" and "-" from 
+        myCurrentStringTime = myCurrentStringTime.replace(".", "");
+        myTimTime = myTimTime.replace(".", "");
+        
+        //myCurrentStringTime = myCurrentStringTime.substring(0, myCurrentStringTime.length()-7);
+        myTimTime = myTimTime.substring(0, myTimTime.length()-7);
+
+        int myCurrentStringDateInt = Integer.parseInt(myCurrentStringDate.replace("-", ""));
+        int myCurrentStringTimeInt = Integer.parseInt(myCurrentStringTime.replace(":", ""));
+        int myTimDateInt = Integer.parseInt(myTimDate.replace("-", ""));
+        int myTimTimeInt = Integer.parseInt(myTimTime.replace(":", ""));
+
+        //Test printanja
+        System.out.println("Trenutni datum: " + myCurrentStringDateInt);
+        System.out.println("Trenutno vrijeme: " + myCurrentStringTimeInt);
+        System.out.println("Datum igranja: " + myTimDateInt);
+        System.out.println("Vrijeme igranja: " + myTimTimeInt);
+    }
+
+
 }
