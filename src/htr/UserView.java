@@ -232,21 +232,15 @@ public class UserView extends javax.swing.JFrame {
                 } //Ako je tip razlicit
                 else {
                     RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
-                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT "+imeKoe+" FROM parovi where F07IDP = '"+row+"'),'"+MyUserID+"','(select F07SPO from parovi where F07IDP = '"+row+"')','(select F07DTI from parovi where F07IDP = '"+row+"')','(select F07VRI from parovi where F07IDP = '"+row+"')',getdate());");
+                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");
                 }
 
             } else {
                 //Ako ne postoji
                 System.out.println("Usao u ELSE");
                 //Tip 1
-                if (col == 3) {
-                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
-                } //Tip 2
-                else if (col == 4) {
-                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
-                } //Tip 3
-                else if (col == 5) {
-                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('1','2',(Select F07TM1 from parovi where F07IDP = '2'),(Select F07TM2 from parovi where F07IDP = '2'),'2',(SELECT F07KO2 FROM parovi where F07IDP = '2'),'1','3',getdate(),getdate());");
+                if (col == 3 || col == 4 || col == 5) {
+                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");
                 }
 
             }
