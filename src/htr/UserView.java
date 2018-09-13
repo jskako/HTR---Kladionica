@@ -165,11 +165,38 @@ public class UserView extends javax.swing.JFrame {
     private void UpisivanjeNaTicket(int row, int col) {
         //Row nam je ID para
         int myRowTemp = 0;
-        //Col nam je ID kolone (1,x,2) <-> (3,4,5)
+        int myTipTemp = 0;
+        int myLastID = 0;
+        int TipSport = 0;
+        String myTipConv = null;
+        String imeKoe = null;
+
+        if (col == 3) {
+            imeKoe = "F07KO1";
+        } else if (col == 4) {
+            imeKoe = "F07KO2";
+        } else if (col == 5) {
+            imeKoe = "F07KOX";
+        }
+
+        //Col nam je ID kolone (1,2,x) <-> (3,4,5)
         System.out.println(myRowTemp);
         System.out.println(myRowTemp);
 
-        //Provjera da li par na ticketu vec postoji
+        //Dohvacanje zadnjeg ID-a
+        try {
+            RS = CALIzb.main(Conn, "DECLARE @lastNumb int; set @lastNumb = (SELECT TOP 1 F09PRK FROM temp_ticket ORDER BY F09PRK DESC); select F09PRK from temp_ticket where F09PRK = @lastNumb");
+            while (RS.next()) {
+                myLastID = RS.getInt("F01ID");
+                myLastID += 1;
+            }
+            if (myLastID == 0) {
+                myLastID += 1;
+            }
+        } catch (Exception ex) {
+
+        }
+
         //Ukoliko postoji replace ga ukoliko ima razlicitu Col ili brisemo ukoliko ima istu
         //Ukoliko ne postoji dodajemo ga
         //Upisujemo koeficijente i preglede
@@ -177,14 +204,36 @@ public class UserView extends javax.swing.JFrame {
         //ZNANI PROBLEMI - Forma za slanje mail-a se suzi, mail se ne salje, napraviti placanje, napravidi admin formu, oznaciti upisane parove u tablici, 
         //napraviti uplatu i isplatu, napraviti pregled mojih racuna, napraviti bonuse
         try {
+            //Provjerajemo da li par na ticketu vec postoji
             RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '" + row + "'");
             while (RS.next()) {
                 myRowTemp = RS.getInt("F09IDT");
-
             }
             if (myRowTemp != 0) {
                 //Ako postoji
                 System.out.println("Usao u IF");
+                //Provjerajemo da li ima istu kolonu
+                RS = CALIzb.main(Conn, "select F09TIP from Temp_Ticket where (F09IDT = '" + row + "'");
+                while (RS.next()) {
+                    myTipConv = RS.getString("F09TIP");
+                }
+
+                //U F09TIP upisujemo 3,4,5 što bi znacilo 1,x,2
+                if (myTipConv.equals("1")) {
+                    myTipTemp = 3;
+                } else if (myTipConv.equals("2")) {
+                    myTipTemp = 4;
+                } else if (myTipConv.equals("X")) {
+                    myTipTemp = 5;
+                }
+                //Ako postoji s istim tipom
+                if (myTipTemp == col) {
+                    RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
+                } //Ako je tip razlicit
+                else {
+                    RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
+                    RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT "+imeKoe+" FROM parovi where F07IDP = '"+row+"'),'"+MyUserID+"','(select F07SPO from parovi where F07IDP = '"+row+"')','(select F07DTI from parovi where F07IDP = '"+row+"')','(select F07VRI from parovi where F07IDP = '"+row+"')',getdate());");
+                }
 
             } else {
                 //Ako ne postoji
