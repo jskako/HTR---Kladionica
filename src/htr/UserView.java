@@ -110,15 +110,29 @@ public class UserView extends javax.swing.JFrame {
     public void PostavljanjeTablica() {
         PunjenjeTempTablice();
         PostavljanjeBrojaParova();
+        PostavljanjeKoeficijenta();
     }
 
     private void PostavljanjeBrojaParova() {
         int brojParova;
         try {
-            RS = CALIzb.main(Conn, "SELECT COUNT(F09PRK ) F09PRK FROM Temp_Ticket WHERE F09UID='"+MyUserID+"'");
+            RS = CALIzb.main(Conn, "SELECT COUNT(F09PRK ) F09PRK FROM Temp_Ticket WHERE F09UID='" + MyUserID + "'");
             while (RS.next()) {
                 brojParova = RS.getInt("F09PRK");
-                lblParovi.setText("Broj parova: "+brojParova);
+                lblParovi.setText("Broj parova: " + brojParova);
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void PostavljanjeKoeficijenta() {
+        double koeficijent;
+        try {
+            RS = CALIzb.main(Conn, "select (EXP(SUM(LOG(NULLIF(F09KOE, 0))))) F09KOE from temp_ticket where F09UID = '" + MyUserID + "'");
+            while (RS.next()) {
+                koeficijent = RS.getDouble("F09KOE");
+                lblTecaj.setText("Tečaj: " + koeficijent);
             }
         } catch (Exception e) {
 
@@ -1108,7 +1122,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void maxUlogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxUlogActionPerformed
         // TODO add your handling code here:
-        txtIznosUplate.setText(lbl_Balance.getText().trim());
+        txtIznosUplate.setText(String.valueOf(MyUserBalance));
     }//GEN-LAST:event_maxUlogActionPerformed
 
     /**
