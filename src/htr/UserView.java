@@ -39,6 +39,8 @@ public class UserView extends javax.swing.JFrame {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     Date date = new Date();
     String rowClicked;
+    String tempClicked;
+    int tempClickedInt;
     int rowClickedInt;
     int colClickedInt;
 
@@ -51,8 +53,7 @@ public class UserView extends javax.swing.JFrame {
 
         //Brisanje starih parova iz temp tablice
         RS = CALIzb.main(Conn, "Declare @currdate date;Declare @currtime time; Set @currdate = getdate(); Set @currtime = getdate(); delete from Temp_Ticket where F09DIG < @currdate OR (F09DIG = @currdate AND F09VIG < @currtime);");
-        //Punjenje TEMP tablice
-        PunjenjeTempTablice();
+
         //Postavljanje ROW-HEIGHT tablice
         tableNogomet.setRowHeight(22);
         tableKosarka.setRowHeight(22);
@@ -88,6 +89,8 @@ public class UserView extends javax.swing.JFrame {
 
         //Punjenje tablica podacima
         PunjenjeTablicePodacima(sd);
+        //Punjenje TEMP tablice
+        PunjenjeTempTablice();
 
         //Dohvacanje vrijednosti
         getUserID();
@@ -158,6 +161,15 @@ public class UserView extends javax.swing.JFrame {
                 PunjenjeTempTablice();
             }
         });
+
+        //Temp Ticket
+        tableTemp.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //Get row to int
+                tempClicked = tableTemp.getValueAt(tableTemp.getSelectedRow(), 1).toString();
+                tempClickedInt = Integer.parseInt(tempClicked);
+            }
+        });
     }
 
     private void getUserID() {
@@ -207,7 +219,8 @@ public class UserView extends javax.swing.JFrame {
 
     private void PunjenjeTempTablice() {
         //
-        RS = CALIzb.main(Conn, "select F09PRK ID, F09TIM1 Domacin, F09TIM2 Protivnik, F09TIP Tip, F09KOE Koeficijent from temp_ticket where F09UID = '"+MyUserID+"' ORDER BY F09DVT ASC");
+        tableTemp.setModel(new DefaultTableModel());
+        RS = CALIzb.main(Conn, "select F09PRK ID, F09TIM1 Domacin, F09TIM2 Protivnik, F09TIP Tip, F09KOE Koeficijent from temp_ticket where F09UID = '" + MyUserID + "' ORDER BY F09DVT ASC");
         tableTemp.setModel(DbUtils.resultSetToTableModel(RS));
     }
 
@@ -280,6 +293,9 @@ public class UserView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         bUplati = new javax.swing.JButton();
         btnPrikazPoreza = new javax.swing.JToggleButton();
+        brisiParTemp = new javax.swing.JButton();
+        brisiSveTemp = new javax.swing.JButton();
+        maxUlog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -685,7 +701,7 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         tableTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableTemp.setEnabled(false);
+        tableTemp.setSelectionBackground(new java.awt.Color(255, 51, 51));
         jScrollPane5.setViewportView(tableTemp);
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
@@ -880,6 +896,31 @@ public class UserView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        brisiParTemp.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        brisiParTemp.setText("Izbriši par");
+        brisiParTemp.setToolTipText("");
+        brisiParTemp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        brisiParTemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brisiParTempActionPerformed(evt);
+            }
+        });
+
+        brisiSveTemp.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        brisiSveTemp.setText("Izbriši sve");
+        brisiSveTemp.setToolTipText("");
+        brisiSveTemp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        brisiSveTemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brisiSveTempActionPerformed(evt);
+            }
+        });
+
+        maxUlog.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        maxUlog.setText("Max. ulog");
+        maxUlog.setToolTipText("");
+        maxUlog.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -900,7 +941,7 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                     .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -908,8 +949,14 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(brisiParTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(brisiSveTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxUlog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -925,8 +972,8 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(MyTennisPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)))
                     .addGroup(layout.createSequentialGroup()
@@ -934,9 +981,16 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(brisiParTemp)
+                            .addComponent(brisiSveTemp)
+                            .addComponent(maxUlog))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE))
                     .addComponent(jSeparator1)))
         );
+
+        brisiParTemp.getAccessibleContext().setAccessibleName("brisiParTemp");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1006,6 +1060,20 @@ public class UserView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPrikazPorezaActionPerformed
 
+    private void brisiParTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiParTempActionPerformed
+        // TODO add your handling code here:
+        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + tempClickedInt + "'");
+        tableTemp.setModel(new DefaultTableModel());
+        PunjenjeTempTablice();
+    }//GEN-LAST:event_brisiParTempActionPerformed
+
+    private void brisiSveTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiSveTempActionPerformed
+        // TODO add your handling code here:
+        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
+        tableTemp.setModel(new DefaultTableModel());
+        PunjenjeTempTablice();
+    }//GEN-LAST:event_brisiSveTempActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1020,6 +1088,8 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JButton bOdjava;
     private javax.swing.JButton bUplatanaRacun;
     private javax.swing.JButton bUplati;
+    private javax.swing.JButton brisiParTemp;
+    private javax.swing.JButton brisiSveTemp;
     private javax.swing.JButton btnPotvrdi;
     private javax.swing.JToggleButton btnPrikazPoreza;
     private javax.swing.JLabel imgHockey;
@@ -1064,6 +1134,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Tenis;
     private javax.swing.JLabel lbl_Tip;
     private javax.swing.JLabel lbl_UserName;
+    private javax.swing.JButton maxUlog;
     private com.toedter.calendar.JDateChooser pickDate;
     private javax.swing.JTable tableHokej;
     private javax.swing.JTable tableKosarka;
