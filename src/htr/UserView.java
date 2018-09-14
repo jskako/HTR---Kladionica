@@ -9,6 +9,7 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.event.ListSelectionEvent;
@@ -37,12 +38,20 @@ public class UserView extends javax.swing.JFrame {
     ResultSet RS = null;
     String sd = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private static DecimalFormat decFormat = new DecimalFormat(".##");
     Date date = new Date();
     String rowClicked;
     String tempClicked;
     int tempClickedInt;
     int rowClickedInt;
     int colClickedInt;
+    double koeficijent;
+    double iznosUplate;
+    double pdvnaIznos;
+    double ukupniIznosSPdv;
+    double ukupanDobitak;
+    double porezNaUkupanIznos;
+    double iznosIsplate;
 
     public UserView(Connection con, String user) {
         this.Conn = con;
@@ -111,6 +120,42 @@ public class UserView extends javax.swing.JFrame {
         PunjenjeTempTablice();
         PostavljanjeBrojaParova();
         PostavljanjeKoeficijenta();
+        PostavljanjePDVnaIznos();
+        PostavljanjeUkupnogDobitka();
+        IzracunPorezaNaUkupno();
+        PostavljanjeIznosaIsplate();
+    }
+
+    private void PostavljanjeIznosaIsplate() {
+        iznosIsplate = ukupanDobitak - porezNaUkupanIznos;
+        lblIsplata.setText(String.valueOf(decFormat.format(iznosIsplate)));
+    }
+
+    private void PostavljanjePDVnaIznos() {
+        iznosUplate = Double.parseDouble(txtIznosUplate.getText().trim());
+        pdvnaIznos = (double) (iznosUplate * (5.0f / 100.0f));
+        ukupniIznosSPdv = iznosUplate - pdvnaIznos;
+        lblPorezNaIznUplate.setText("-" + decFormat.format(pdvnaIznos) + " kn (5% mt) = " + decFormat.format(ukupniIznosSPdv) + " kn");
+    }
+
+    private void IzracunPorezaNaUkupno() {
+        if (ukupanDobitak < 10000) {
+            porezNaUkupanIznos = (double) (ukupanDobitak * (10.0f / 100.0f));
+            lblPorez.setText(String.valueOf(decFormat.format(porezNaUkupanIznos)));
+        } else {
+            double tempPDV;
+            double tempIznos = ukupanDobitak;
+            tempPDV = (double) (10000 * (10.0f / 100.0f));
+            tempIznos -= 10000;
+            tempPDV = tempPDV + ((tempIznos * (15.0f / 100.0f)));
+            porezNaUkupanIznos = tempPDV;
+            lblPorez.setText(String.valueOf(decFormat.format(porezNaUkupanIznos)));
+        }
+    }
+
+    private void PostavljanjeUkupnogDobitka() {
+        ukupanDobitak = iznosUplate * koeficijent;
+        lblDobitak.setText(String.valueOf(decFormat.format(ukupanDobitak)));
     }
 
     private void PostavljanjeBrojaParova() {
@@ -127,12 +172,11 @@ public class UserView extends javax.swing.JFrame {
     }
 
     private void PostavljanjeKoeficijenta() {
-        double koeficijent;
         try {
             RS = CALIzb.main(Conn, "select (EXP(SUM(LOG(NULLIF(F09KOE, 0))))) F09KOE from temp_ticket where F09UID = '" + MyUserID + "'");
             while (RS.next()) {
                 koeficijent = RS.getDouble("F09KOE");
-                lblTecaj.setText("Tečaj: " + koeficijent);
+                lblTecaj.setText("Tečaj: " + decFormat.format(koeficijent));
             }
         } catch (Exception e) {
 
@@ -911,6 +955,8 @@ public class UserView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        lblPorezNaIznUplate.getAccessibleContext().setAccessibleName("lblPorezNaIznUplate");
+
         brisiParTemp.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         brisiParTemp.setText("Izbriši par");
         brisiParTemp.setToolTipText("");
@@ -989,7 +1035,7 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                     .addComponent(MyTennisPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1004,7 +1050,7 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(maxUlog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
