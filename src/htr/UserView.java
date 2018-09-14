@@ -50,7 +50,11 @@ public class UserView extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
 
         initComponents();
+        PocetnePostavke();
 
+    }
+
+    private void PocetnePostavke() {
         //Brisanje starih parova iz temp tablice
         RS = CALIzb.main(Conn, "Declare @currdate date;Declare @currtime time; Set @currdate = getdate(); Set @currtime = getdate(); delete from Temp_Ticket where F09DIG < @currdate OR (F09DIG = @currdate AND F09VIG < @currtime);");
 
@@ -89,8 +93,6 @@ public class UserView extends javax.swing.JFrame {
 
         //Punjenje tablica podacima
         PunjenjeTablicePodacima(sd);
-        //Punjenje TEMP tablice
-        PunjenjeTempTablice();
 
         //Dohvacanje vrijednosti
         getUserID();
@@ -103,6 +105,24 @@ public class UserView extends javax.swing.JFrame {
         //Brišemo title bar
         Frame UserView = new Frame();
         UserView.setUndecorated(true);
+    }
+
+    public void PostavljanjeTablica() {
+        PunjenjeTempTablice();
+        PostavljanjeBrojaParova();
+    }
+
+    private void PostavljanjeBrojaParova() {
+        int brojParova;
+        try {
+            RS = CALIzb.main(Conn, "SELECT COUNT(F09PRK ) F09PRK FROM Temp_Ticket WHERE F09UID='"+MyUserID+"'");
+            while (RS.next()) {
+                brojParova = RS.getInt("F09PRK");
+                lblParovi.setText("Broj parova: "+brojParova);
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     //Provjera kliknutih polja
@@ -119,7 +139,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableNogomet.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
-                PunjenjeTempTablice();
+                PostavljanjeTablica();
             }
         });
 
@@ -132,7 +152,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableTenis.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
-                PunjenjeTempTablice();
+                PostavljanjeTablica();
             }
         });
 
@@ -145,7 +165,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableKosarka.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
-                PunjenjeTempTablice();
+                PostavljanjeTablica();
             }
         });
 
@@ -158,7 +178,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableHokej.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
-                PunjenjeTempTablice();
+                PostavljanjeTablica();
             }
         });
 
@@ -166,7 +186,7 @@ public class UserView extends javax.swing.JFrame {
         tableTemp.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 //Get row to int
-                tempClicked = tableTemp.getValueAt(tableTemp.getSelectedRow(), 1).toString();
+                tempClicked = tableTemp.getValueAt(tableTemp.getSelectedRow(), 0).toString();
                 tempClickedInt = Integer.parseInt(tempClicked);
             }
         });
@@ -211,6 +231,9 @@ public class UserView extends javax.swing.JFrame {
             //Hokej
             RS = CALIzb.main(Conn, "select F07IDP ID, F07TM1 Domacin, F07TM2 Protivnik, F07KO1 '1', F07KOX X, F07KO2 '2', REPLACE( F07VRI, RIGHT(F07VRI, 11), '' ) Vrijeme from parovi where F07SPO = '3' and F07DTI = '" + Time + "' ORDER BY F07VRI ASC");
             tableTenis.setModel(DbUtils.resultSetToTableModel(RS));
+
+            //Punjenje TEMP tablice
+            PostavljanjeTablica();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -268,8 +291,6 @@ public class UserView extends javax.swing.JFrame {
         tableHokej = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tableTenis = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tableTemp = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         lblParovi = new javax.swing.JLabel();
         lblTecaj = new javax.swing.JLabel();
@@ -296,6 +317,8 @@ public class UserView extends javax.swing.JFrame {
         brisiParTemp = new javax.swing.JButton();
         brisiSveTemp = new javax.swing.JButton();
         maxUlog = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableTemp = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -682,28 +705,6 @@ public class UserView extends javax.swing.JFrame {
         tableTenis.setSelectionBackground(new java.awt.Color(231, 111, 81));
         jScrollPane4.setViewportView(tableTenis);
 
-        tableTemp.setBackground(new java.awt.Color(204, 204, 204));
-        tableTemp.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        tableTemp.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Domaćin", "Protivnik", "Vrijeme", "1", "X", "2"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tableTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableTemp.setSelectionBackground(new java.awt.Color(255, 51, 51));
-        jScrollPane5.setViewportView(tableTemp);
-
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
         jPanel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
 
@@ -920,6 +921,39 @@ public class UserView extends javax.swing.JFrame {
         maxUlog.setText("Max. ulog");
         maxUlog.setToolTipText("");
         maxUlog.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        maxUlog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maxUlogActionPerformed(evt);
+            }
+        });
+
+        tableTemp.setBackground(new java.awt.Color(204, 204, 204));
+        tableTemp.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        tableTemp.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Domaćin", "Protivnik", "Vrijeme", "1", "X", "2"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableTemp.setFillsViewportHeight(true);
+        tableTemp.setSelectionBackground(new java.awt.Color(204, 0, 51));
+        jScrollPane6.setViewportView(tableTemp);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -948,14 +982,14 @@ public class UserView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(brisiParTemp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(brisiSveTemp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(maxUlog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(maxUlog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -972,10 +1006,10 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(MyTennisPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -986,7 +1020,7 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(brisiSveTemp)
                             .addComponent(maxUlog))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE))
+                        .addComponent(jScrollPane6))
                     .addComponent(jSeparator1)))
         );
 
@@ -1062,17 +1096,20 @@ public class UserView extends javax.swing.JFrame {
 
     private void brisiParTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiParTempActionPerformed
         // TODO add your handling code here:
-        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + tempClickedInt + "'");
-        tableTemp.setModel(new DefaultTableModel());
-        PunjenjeTempTablice();
+        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09PRK = '" + tempClickedInt + "'");
+        PostavljanjeTablica();
     }//GEN-LAST:event_brisiParTempActionPerformed
 
     private void brisiSveTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiSveTempActionPerformed
         // TODO add your handling code here:
         RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
-        tableTemp.setModel(new DefaultTableModel());
-        PunjenjeTempTablice();
+        PostavljanjeTablica();
     }//GEN-LAST:event_brisiSveTempActionPerformed
+
+    private void maxUlogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxUlogActionPerformed
+        // TODO add your handling code here:
+        txtIznosUplate.setText(lbl_Balance.getText().trim());
+    }//GEN-LAST:event_maxUlogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1109,7 +1146,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblBonus;
