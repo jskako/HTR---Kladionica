@@ -45,9 +45,7 @@ public class UpisivanjeNaTempTicket {
         String myTipConv = null;
         String imeKoe = null;
         double myKoe = 0;
-
-        provjeriVrijeme();
-
+        
         try {
             if (col == 3) {
                 imeKoe = "F07KO1";
@@ -59,9 +57,14 @@ public class UpisivanjeNaTempTicket {
                 imeKoe = "F07KO2";
                 myTipConv = "2";
             }
+            else{
+                return;
+            }
         } catch (Exception el) {
             el.printStackTrace();
         }
+        
+        provjeriVrijeme();
 
         //Da li je koeficijent 0
         try {

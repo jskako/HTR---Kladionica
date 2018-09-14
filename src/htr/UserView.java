@@ -51,7 +51,8 @@ public class UserView extends javax.swing.JFrame {
 
         //Brisanje starih parova iz temp tablice
         RS = CALIzb.main(Conn, "Declare @currdate date;Declare @currtime time; Set @currdate = getdate(); Set @currtime = getdate(); delete from Temp_Ticket where F09DIG < @currdate OR (F09DIG = @currdate AND F09VIG < @currtime);");
-
+        //Punjenje TEMP tablice
+        PunjenjeTempTablice();
         //Postavljanje ROW-HEIGHT tablice
         tableNogomet.setRowHeight(22);
         tableKosarka.setRowHeight(22);
@@ -115,6 +116,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableNogomet.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                PunjenjeTempTablice();
             }
         });
 
@@ -127,6 +129,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableTenis.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                PunjenjeTempTablice();
             }
         });
 
@@ -139,6 +142,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableKosarka.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                PunjenjeTempTablice();
             }
         });
 
@@ -151,6 +155,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableHokej.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                PunjenjeTempTablice();
             }
         });
     }
@@ -200,6 +205,12 @@ public class UserView extends javax.swing.JFrame {
         }
     }
 
+    private void PunjenjeTempTablice() {
+        //
+        RS = CALIzb.main(Conn, "select F09PRK ID, F09TIM1 Domacin, F09TIM2 Protivnik, F09TIP Tip, F09KOE Koeficijent from temp_ticket where F09UID = '"+MyUserID+"' ORDER BY F09DVT ASC");
+        tableTemp.setModel(DbUtils.resultSetToTableModel(RS));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -245,7 +256,7 @@ public class UserView extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tableTenis = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tableTenis1 = new javax.swing.JTable();
+        tableTemp = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         lblParovi = new javax.swing.JLabel();
         lblTecaj = new javax.swing.JLabel();
@@ -393,7 +404,7 @@ public class UserView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(img_Logo)
-                        .addContainerGap(26, Short.MAX_VALUE))))
+                        .addContainerGap(27, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -655,9 +666,9 @@ public class UserView extends javax.swing.JFrame {
         tableTenis.setSelectionBackground(new java.awt.Color(231, 111, 81));
         jScrollPane4.setViewportView(tableTenis);
 
-        tableTenis1.setBackground(new java.awt.Color(204, 204, 204));
-        tableTenis1.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        tableTenis1.setModel(new javax.swing.table.DefaultTableModel(
+        tableTemp.setBackground(new java.awt.Color(204, 204, 204));
+        tableTemp.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        tableTemp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
@@ -673,9 +684,9 @@ public class UserView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tableTenis1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableTenis1.setEnabled(false);
-        jScrollPane5.setViewportView(tableTenis1);
+        tableTemp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableTemp.setEnabled(false);
+        jScrollPane5.setViewportView(tableTemp);
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
         jPanel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
@@ -1057,8 +1068,8 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JTable tableHokej;
     private javax.swing.JTable tableKosarka;
     private javax.swing.JTable tableNogomet;
+    private javax.swing.JTable tableTemp;
     private javax.swing.JTable tableTenis;
-    private javax.swing.JTable tableTenis1;
     private javax.swing.JTextField txtIznosUplate;
     // End of variables declaration//GEN-END:variables
 }
