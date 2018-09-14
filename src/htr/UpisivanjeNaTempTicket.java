@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 
 /**
  *
@@ -22,7 +21,7 @@ public class UpisivanjeNaTempTicket {
     private int col;
     private int MyUserID;
     private Connection Conn;
-    boolean parIstekao;
+    boolean parIstekao = false;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -48,9 +47,8 @@ public class UpisivanjeNaTempTicket {
 
         provjeriVrijeme();
 
-        if (parIstekao == true) {  //Ovdje cemo provjeriti da li su datum i vrijeme para odgovarajuci, myLastID je stavljen bezveze
-            //Trebat ce izbrisati sve kojima je prosao datum nakon logiranja te prije uplate
-            //Dohvacanje zadnjeg ID-a
+        if (parIstekao == true) {
+            System.out.println("Usao sam u par istekao");
             try {
                 RS = CALIzb.main(Conn, "SELECT TOP 1 F09PRK FROM temp_ticket ORDER BY F09PRK DESC");
                 while (RS.next()) {
@@ -61,21 +59,23 @@ public class UpisivanjeNaTempTicket {
                 ex.printStackTrace();
             }
 
-            System.out.println(myLastID);
-            System.out.println(myLastID);
-            System.out.println(myLastID);
-
-            if (col == 3) {
-                imeKoe = "F07KO1";
-                myTipConv = "1";
-            } else if (col == 4) {
-                imeKoe = "F07KOX";
-                myTipConv = "X";
-            } else if (col == 5) {
-                imeKoe = "F07KO2";
-                myTipConv = "2";
+            System.out.println(row);
+            System.out.println(col);
+            
+            try {
+                if (col == 3) {
+                    imeKoe = "F07KO1";
+                    myTipConv = "1";
+                } else if (col == 4) {
+                    imeKoe = "F07KOX";
+                    myTipConv = "X";
+                } else if (col == 5) {
+                    imeKoe = "F07KO2";
+                    myTipConv = "2";
+                }
+            } catch (Exception el) {
+                el.printStackTrace();
             }
-
             try {
                 //Provjerajemo da li par na ticketu vec postoji
                 RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '" + row + "'");
@@ -110,6 +110,7 @@ public class UpisivanjeNaTempTicket {
     }
 
     private void provjeriVrijeme() {
+        System.out.println("Usao sam u provjeru");
         //Generiranje varijabli vremena
         String myCurrentStringDate;
         String myCurrentStringTime;
@@ -135,9 +136,9 @@ public class UpisivanjeNaTempTicket {
         //Remove ":" and "-" from 
         myCurrentStringTime = myCurrentStringTime.replace(".", "");
         myTimTime = myTimTime.replace(".", "");
-        
+
         //myCurrentStringTime = myCurrentStringTime.substring(0, myCurrentStringTime.length()-7);
-        myTimTime = myTimTime.substring(0, myTimTime.length()-7);
+        myTimTime = myTimTime.substring(0, myTimTime.length() - 7);
 
         int myCurrentStringDateInt = Integer.parseInt(myCurrentStringDate.replace("-", ""));
         int myCurrentStringTimeInt = Integer.parseInt(myCurrentStringTime.replace(":", ""));
@@ -149,7 +150,18 @@ public class UpisivanjeNaTempTicket {
         System.out.println("Trenutno vrijeme: " + myCurrentStringTimeInt);
         System.out.println("Datum igranja: " + myTimDateInt);
         System.out.println("Vrijeme igranja: " + myTimTimeInt);
-    }
 
+        if (myTimDateInt > myCurrentStringDateInt) {
+            System.out.println("Vrijeme je true1");
+            parIstekao = true;
+        } else if ((myTimDateInt == myCurrentStringDateInt) && (myTimTimeInt > myCurrentStringTimeInt)) {
+            System.out.println("Vrijeme je true2");
+            parIstekao = true;
+        } else {
+            System.out.println("Vrijeme je false");
+            parIstekao = false;
+        }
+
+    }
 
 }
