@@ -44,68 +44,88 @@ public class UpisivanjeNaTempTicket {
         int myLastID = 0;
         String myTipConv = null;
         String imeKoe = null;
+        double myKoe = 0;
 
         provjeriVrijeme();
 
-        if (parIstekao == true) {
-            System.out.println("Usao sam u par istekao");
-            try {
-                RS = CALIzb.main(Conn, "SELECT TOP 1 F09PRK FROM temp_ticket ORDER BY F09PRK DESC");
-                while (RS.next()) {
-                    myLastID = RS.getInt("F09PRK");
-                    myLastID += 1;
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        try {
+            if (col == 3) {
+                imeKoe = "F07KO1";
+                myTipConv = "1";
+            } else if (col == 4) {
+                imeKoe = "F07KOX";
+                myTipConv = "X";
+            } else if (col == 5) {
+                imeKoe = "F07KO2";
+                myTipConv = "2";
             }
+        } catch (Exception el) {
+            el.printStackTrace();
+        }
 
-            System.out.println(row);
-            System.out.println(col);
-            
-            try {
-                if (col == 3) {
-                    imeKoe = "F07KO1";
-                    myTipConv = "1";
-                } else if (col == 4) {
-                    imeKoe = "F07KOX";
-                    myTipConv = "X";
-                } else if (col == 5) {
-                    imeKoe = "F07KO2";
-                    myTipConv = "2";
-                }
-            } catch (Exception el) {
-                el.printStackTrace();
+        //Da li je koeficijent 0
+        try {
+            RS = CALIzb.main(Conn, "Select " + imeKoe + " FROM parovi where F07IDP = '" + row + "'");
+            while (RS.next()) {
+                myKoe = RS.getDouble(imeKoe);
             }
-            try {
-                //Provjerajemo da li par na ticketu vec postoji
-                RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '" + row + "'");
-                while (RS.next()) {
-                    myRowTemp = RS.getInt("F09IDT");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        if (myKoe != 0) {
+            if (parIstekao == true) {
+                System.out.println("Usao sam u par istekao");
+                try {
+                    RS = CALIzb.main(Conn, "SELECT TOP 1 F09PRK FROM temp_ticket ORDER BY F09PRK DESC");
+                    while (RS.next()) {
+                        myLastID = RS.getInt("F09PRK");
+                        myLastID += 1;
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
-                if (myRowTemp != 0) {
-                    //Ako postoji
-                    //Ako postoji s istim tipom
-                    if (myTipTemp == col) {
-                        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
-                    } //Ako je tip razlicit
-                    else {
-                        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
-                        RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");
+
+                System.out.println(row);
+                System.out.println(col);
+
+                try {
+                    //Provjerajemo da li par na ticketu vec postoji
+                    RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '" + row + "'");
+                    while (RS.next()) {
+                        myRowTemp = RS.getInt("F09IDT");
+                    }
+                    if (myRowTemp != 0) {
+                        //Ako postoji
+                        //Ako postoji s istim tipom
+                        if (myTipTemp == col) {
+                            RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
+                        } //Ako je tip razlicit
+                        else {
+                            RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
+                            RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");
+                        }
+
+                    } else {
+                        //Ako ne postoji
+                        //Tip 1
+                        if (col == 3 || col == 4 || col == 5) {
+                            RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");
+                        }
+
                     }
 
-                } else {
-                    //Ako ne postoji
-                    //Tip 1
-                    if (col == 3 || col == 4 || col == 5) {
-                        RS = CALIzb.main(Conn, "insert into Temp_Ticket values('" + myLastID + "','" + row + "',(Select F07TM1 from parovi where F07IDP = '" + row + "'),(Select F07TM2 from parovi where F07IDP = '" + row + "'),'" + myTipConv + "',(SELECT " + imeKoe + " FROM parovi where F07IDP = '" + row + "'),'" + MyUserID + "',(select F07SPO from parovi where F07IDP = '" + row + "'),(select F07DTI from parovi where F07IDP = '" + row + "'),(select F07VRI from parovi where F07IDP = '" + row + "'),getdate());");
-                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
 
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } //Vrijeme ili datum su istekli
+            else {
 
             }
+        } //Koeficijent je 0
+        else {
+
         }
     }
 
