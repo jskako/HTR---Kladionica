@@ -65,7 +65,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void PocetnePostavke() {
         //Brisanje starih parova iz temp tablice
-        RS = CALIzb.main(Conn, "Declare @currdate date;Declare @currtime time; Set @currdate = getdate(); Set @currtime = getdate(); delete from Temp_Ticket where F09DIG < @currdate OR (F09DIG = @currdate AND F09VIG < @currtime);");
+        BrisanjeStarihParova();
 
         //Postavljanje ROW-HEIGHT tablice
         tableNogomet.setRowHeight(22);
@@ -116,6 +116,11 @@ public class UserView extends javax.swing.JFrame {
         UserView.setUndecorated(true);
     }
 
+    private void BrisanjeStarihParova() {
+        //Brisanje starih parova iz temp tablice
+        RS = CALIzb.main(Conn, "Declare @currdate date;Declare @currtime time; Set @currdate = getdate(); Set @currtime = getdate(); delete from Temp_Ticket where F09DIG < @currdate OR (F09DIG = @currdate AND F09VIG < @currtime);");
+    }
+
     public void PostavljanjeTablica() {
         PunjenjeTempTablice();
         PostavljanjeBrojaParova();
@@ -154,7 +159,7 @@ public class UserView extends javax.swing.JFrame {
     }
 
     private void PostavljanjeUkupnogDobitka() {
-        ukupanDobitak = iznosUplate * koeficijent;
+        ukupanDobitak = ukupniIznosSPdv * koeficijent;
         lblDobitak.setText(String.valueOf(decFormat.format(ukupanDobitak)));
     }
 
@@ -819,7 +824,7 @@ public class UserView extends javax.swing.JFrame {
 
         lblBonus.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblBonus.setForeground(new java.awt.Color(255, 255, 255));
-        lblBonus.setText("2.342,48 kn");
+        lblBonus.setText("0.000,00 kn");
         lblBonus.setToolTipText("");
 
         lblPorez.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
@@ -852,6 +857,11 @@ public class UserView extends javax.swing.JFrame {
         lblPrikazPorezaSest.setText("325,48 kn");
 
         bUplati.setText("Uplati");
+        bUplati.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUplatiActionPerformed(evt);
+            }
+        });
 
         btnPrikazPoreza.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnPrikazPoreza.setText("?");
@@ -1064,12 +1074,17 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(MySoccerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(MyBasketPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MyTennisPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jScrollPane3)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1171,10 +1186,48 @@ public class UserView extends javax.swing.JFrame {
         txtIznosUplate.setText(String.valueOf(MyUserBalance));
     }//GEN-LAST:event_maxUlogActionPerformed
 
+    private void bUplatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUplatiActionPerformed
+        // TODO add your handling code here:
+        BrisanjeStarihParova();
+        int myTempID = 0;
+        double myTempUserStanje = 0; 
+        try {
+            //Dohvacanje zadnjeg ID-a
+            RS = CALIzb.main(Conn, "SELECT TOP 1 F08IDT FROM ticket ORDER BY F08IDT DESC");
+            while (RS.next()) {
+                myTempID = RS.getInt("F08IDT");
+                myTempID += 1;
+            }
+            if (myTempID == 0) {
+                myTempID += 1;
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+
+            //Upis u ticket
+            RS = CALIzb.main(Conn, "insert into Ticket values (" + myTempID + ",Replace('" + decFormat.format(iznosIsplate) + "',',','.'),Replace('" + decFormat.format(ukupanDobitak) + "',',','.'),Replace('" + decFormat.format(ukupniIznosSPdv) + "',',','.'),Replace('0',',','.'),Replace('" + decFormat.format(porezNaUkupanIznos) + "',',','.'),Replace('" + decFormat.format(koeficijent) + "',',','.'),GETDATE(), " + MyUserID + ")");
+
+            //Dohvacanje trenutnog stanja korisnika
+            //Dohvacanje zadnjeg ID-a
+            RS = CALIzb.main(Conn, "select F03STA from user_stanje where F03UID = '"+MyUserID+"'");
+            while (RS.next()) {
+                myTempUserStanje = RS.getDouble("F03STA");
+            }
+            myTempUserStanje-=iznosIsplate;
+            RS = CALIzb.main(Conn, "update User_Stanje set F03STA = Replace('"+myTempUserStanje+"',',','.') where F03UID = '"+MyUserID+"'");
+            
+            //Upis stanja u bazu
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_bUplatiActionPerformed
+
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MyBasketPanel;
     private javax.swing.JPanel MyHockeyPanel;
