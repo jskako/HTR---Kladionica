@@ -1190,7 +1190,7 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
         BrisanjeStarihParova();
         int myTempID = 0;
-        double myTempUserStanje = 0; 
+        double myTempUserStanje = 0;
         try {
             //Dohvacanje zadnjeg ID-a
             RS = CALIzb.main(Conn, "SELECT TOP 1 F08IDT FROM ticket ORDER BY F08IDT DESC");
@@ -1207,18 +1207,17 @@ public class UserView extends javax.swing.JFrame {
         try {
 
             //Upis u ticket
-            RS = CALIzb.main(Conn, "insert into Ticket values (" + myTempID + ",Replace('" + decFormat.format(iznosIsplate) + "',',','.'),Replace('" + decFormat.format(ukupanDobitak) + "',',','.'),Replace('" + decFormat.format(ukupniIznosSPdv) + "',',','.'),Replace('0',',','.'),Replace('" + decFormat.format(porezNaUkupanIznos) + "',',','.'),Replace('" + decFormat.format(koeficijent) + "',',','.'),GETDATE(), " + MyUserID + ")");
-
-            //Dohvacanje trenutnog stanja korisnika
-            //Dohvacanje zadnjeg ID-a
-            RS = CALIzb.main(Conn, "select F03STA from user_stanje where F03UID = '"+MyUserID+"'");
-            while (RS.next()) {
-                myTempUserStanje = RS.getDouble("F03STA");
+            RS = CALIzb.main(Conn, "insert into Ticket values ('" + myTempID + "', '" + String.valueOf(decFormat.format(iznosIsplate)) + "', '" + decFormat.format(ukupanDobitak) + "', '" + decFormat.format(ukupniIznosSPdv) + "', '0','" + decFormat.format(porezNaUkupanIznos) + "', '" + decFormat.format(koeficijent) + "', GETDATE(), '" + MyUserID + "')");
+            getUserBalance();
+            myTempUserStanje = MyUserBalance - Double.parseDouble(txtIznosUplate.getText().trim());
+            if (myTempUserStanje >= 0) {
+                RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempUserStanje + "' where F03UID = '" + MyUserID + "'");
+                lbl_Balance.setText(Double.toString(myTempUserStanje));
+                //Upis stanja u bazu
+            } else {
+                PopError CALError = new PopError();
+                CALError.infoBox("Nema dovoljno sredstava na računu!", "Error!");
             }
-            myTempUserStanje-=iznosIsplate;
-            RS = CALIzb.main(Conn, "update User_Stanje set F03STA = Replace('"+myTempUserStanje+"',',','.') where F03UID = '"+MyUserID+"'");
-            
-            //Upis stanja u bazu
 
         } catch (Exception ex) {
             ex.printStackTrace();

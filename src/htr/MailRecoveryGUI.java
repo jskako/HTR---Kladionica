@@ -217,7 +217,6 @@ public class MailRecoveryGUI extends javax.swing.JFrame {
                     //Zovem funkciju
                     MailRecovery CALMRecovery = new MailRecovery();
                     CALMRecovery.MailRecovery(lbl_myMail.getText().trim(), myPassword, myUserName);
-                    System.out.println("Dosao sam nazad");
                     PopError CALSucess = new PopError();
                     CALSucess.infoBox("Podaci su poslani na mail!", "Success!");
                     dispose();
