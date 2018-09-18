@@ -153,9 +153,14 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="img_Logo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="125" max="32767" attributes="0"/>
-                          <Component id="lbl_Tip" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lbl_Balance1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbl_Tip" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lbl_Balance1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblError" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -194,6 +199,8 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="lblError" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lbl_Tip" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="lbl_Balance1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -312,6 +319,16 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Uplatom &#x10d;etri para istog tipa sporta dobijate 10% vi&#x161;e!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblError">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="3"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="ff" type="rgb"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

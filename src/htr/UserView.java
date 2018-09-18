@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -331,6 +332,7 @@ public class UserView extends javax.swing.JFrame {
         bOdjava = new javax.swing.JButton();
         lbl_Tip = new javax.swing.JLabel();
         lbl_Balance1 = new javax.swing.JLabel();
+        lblError = new javax.swing.JLabel();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
         lbl_Nogomet1 = new javax.swing.JLabel();
@@ -452,6 +454,9 @@ public class UserView extends javax.swing.JFrame {
         lbl_Balance1.setForeground(new java.awt.Color(255, 255, 255));
         lbl_Balance1.setText("Uplatom četri para istog tipa sporta dobijate 10% više!");
 
+        lblError.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 102, 102));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -479,9 +484,12 @@ public class UserView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(img_Logo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                        .addComponent(lbl_Tip)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_Balance1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbl_Tip)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_Balance1))
+                            .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(87, 87, 87))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -509,6 +517,8 @@ public class UserView extends javax.swing.JFrame {
                         .addContainerGap(27, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_Tip, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_Balance1))
@@ -1177,6 +1187,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void brisiSveTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiSveTempActionPerformed
         // TODO add your handling code here:
+        setErrorLabel("Svi parovi izbrisani!");
         RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
         PostavljanjeTablica();
     }//GEN-LAST:event_brisiSveTempActionPerformed
@@ -1207,22 +1218,33 @@ public class UserView extends javax.swing.JFrame {
         try {
 
             //Upis u ticket
-            RS = CALIzb.main(Conn, "insert into Ticket values ('" + myTempID + "', '" + String.valueOf(decFormat.format(iznosIsplate)) + "', '" + decFormat.format(ukupanDobitak) + "', '" + decFormat.format(ukupniIznosSPdv) + "', '0','" + decFormat.format(porezNaUkupanIznos) + "', '" + decFormat.format(koeficijent) + "', GETDATE(), '" + MyUserID + "')");
             getUserBalance();
             myTempUserStanje = MyUserBalance - Double.parseDouble(txtIznosUplate.getText().trim());
-            if (myTempUserStanje >= 0) {
-                RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempUserStanje + "' where F03UID = '" + MyUserID + "'");
-                lbl_Balance.setText(Double.toString(myTempUserStanje));
-                //Upis stanja u bazu
-            } else {
-                PopError CALError = new PopError();
-                CALError.infoBox("Nema dovoljno sredstava na računu!", "Error!");
-            }
+            if (tableTemp.getRowCount() != 0) {
+                if (myTempUserStanje >= 0) {
+                    RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempUserStanje + "' where F03UID = '" + MyUserID + "'");
+                    lbl_Balance.setText(Double.toString(myTempUserStanje));
+                    //Upis ticketa
+                    RS = CALIzb.main(Conn, "insert into Ticket values ('" + myTempID + "', '" + String.valueOf(decFormat.format(iznosIsplate)) + "', '" + decFormat.format(ukupanDobitak) + "', '" + decFormat.format(ukupniIznosSPdv) + "', '0','" + decFormat.format(porezNaUkupanIznos) + "', '" + decFormat.format(koeficijent) + "', GETDATE(), '" + MyUserID + "')");
+                    
 
+                } else {
+                    setErrorLabel("Nemate dovoljno sredstava na računu!");
+                }
+            } else {
+                setErrorLabel("Niste odigrali niti jedan par!");
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_bUplatiActionPerformed
+
+    public void setErrorLabel(String error) {
+        lblError.setText(error.trim());
+        Timer timer = new Timer(2000, e -> lblError.setText(""));
+        timer.setRepeats(false);
+        timer.start();
+    }
 
     /**
      * @param args the command line arguments
@@ -1263,6 +1285,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblBonus;
     private javax.swing.JLabel lblDobitak;
+    private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblIsplata;
     private javax.swing.JLabel lblParovi;
     private javax.swing.JLabel lblPorez;
