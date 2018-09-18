@@ -1245,11 +1245,11 @@ public class UserView extends javax.swing.JFrame {
 
                         mySelectedRow = tableTemp.getValueAt(i, 0).toString();
                         System.out.println(mySelectedRow);
-                        RS = CALIzb.main(Conn, "insert into Ticket_parovi values('" + myTempParID + "', '" + myTempID + "', (select F09TIM1 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09TIM2 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), select F09TIP from Temp_Ticket where F09PRK = '" + mySelectedRow + "', select F09KOE from Temp_Ticket where F09PRK = '" + mySelectedRow + "', GETDATE(), '" + MyUserID + "')");
-                        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
-                        PostavljanjeTablica();
-                        setErrorLabel("Uplata uspješna!");
+                        RS = CALIzb.main(Conn, "insert into Ticket_parovi values('" + myTempParID + "', '" + myTempID + "', (select F09TIM1 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09TIM2 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09TIP from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09KOE from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), GETDATE(), '" + MyUserID + "')");
                     }
+                    RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
+                    PostavljanjeTablica();
+                    setErrorLabel("Uplata uspješna!");
 
                 } else {
                     setErrorLabel("Nemate dovoljno sredstava na računu!");
