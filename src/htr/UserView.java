@@ -53,6 +53,7 @@ public class UserView extends javax.swing.JFrame {
     double ukupanDobitak;
     double porezNaUkupanIznos;
     double iznosIsplate;
+    Frame UserView = new Frame();
 
     public UserView(Connection con, String user) {
         this.Conn = con;
@@ -112,8 +113,7 @@ public class UserView extends javax.swing.JFrame {
         lbl_UserName.setHorizontalAlignment(lbl_UserName.CENTER);
         lbl_Balance.setText("| " + MyUserBalance + "kn");
         lbl_Balance.setHorizontalAlignment(lbl_UserName.CENTER);
-        //Brišemo title bar
-        Frame UserView = new Frame();
+        //Brišemo title bar     
         UserView.setUndecorated(true);
     }
 
@@ -437,6 +437,11 @@ public class UserView extends javax.swing.JFrame {
 
         bMojiTicketi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         bMojiTicketi.setText("Moji ticketi");
+        bMojiTicketi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bMojiTicketiActionPerformed(evt);
+            }
+        });
 
         bOdjava.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         bOdjava.setText("Odjava");
@@ -1089,15 +1094,12 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(MySoccerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(MyBasketPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MyTennisPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
                                 .addComponent(jScrollPane3)
                                 .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
@@ -1271,6 +1273,14 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
         PostavljanjeTablica();
     }//GEN-LAST:event_txtIznosUplateFocusLost
+
+    private void bMojiTicketiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMojiTicketiActionPerformed
+        // TODO add your handling code here:
+        MojiTicketi CALMojiTicketi = new MojiTicketi(Conn, MyUserID);
+        CALMojiTicketi.setLocationRelativeTo(null);
+        UserView.setUndecorated(false);
+        CALMojiTicketi.setVisible(true);
+    }//GEN-LAST:event_bMojiTicketiActionPerformed
 
     public void setErrorLabel(String error) {
         lblError.setText(error.trim());
