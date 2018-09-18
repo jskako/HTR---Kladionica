@@ -795,7 +795,12 @@ public class UserView extends javax.swing.JFrame {
 
         txtIznosUplate.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         txtIznosUplate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtIznosUplate.setText("67");
+        txtIznosUplate.setText("1");
+        txtIznosUplate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIznosUplateFocusLost(evt);
+            }
+        });
 
         lblPorezNaIznUplate.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblPorezNaIznUplate.setForeground(new java.awt.Color(255, 255, 255));
@@ -1261,6 +1266,11 @@ public class UserView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_bUplatiActionPerformed
+
+    private void txtIznosUplateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIznosUplateFocusLost
+        // TODO add your handling code here:
+        PostavljanjeTablica();
+    }//GEN-LAST:event_txtIznosUplateFocusLost
 
     public void setErrorLabel(String error) {
         lblError.setText(error.trim());
