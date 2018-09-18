@@ -1201,6 +1201,7 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
         BrisanjeStarihParova();
         int myTempID = 0;
+        String mySelectedRow = null;
         double myTempUserStanje = 0;
         try {
             //Dohvacanje zadnjeg ID-a
@@ -1226,7 +1227,13 @@ public class UserView extends javax.swing.JFrame {
                     lbl_Balance.setText(Double.toString(myTempUserStanje));
                     //Upis ticketa
                     RS = CALIzb.main(Conn, "insert into Ticket values ('" + myTempID + "', '" + String.valueOf(decFormat.format(iznosIsplate)) + "', '" + decFormat.format(ukupanDobitak) + "', '" + decFormat.format(ukupniIznosSPdv) + "', '0','" + decFormat.format(porezNaUkupanIznos) + "', '" + decFormat.format(koeficijent) + "', GETDATE(), '" + MyUserID + "')");
-                    
+
+                    //Upis parova
+                    int rows = tableTemp.getRowCount();
+                    for (int i = 0; i < rows; i++) {                 
+                        mySelectedRow = tableTemp.getValueAt(i, 0).toString();
+                        System.out.println(mySelectedRow);
+                    }
 
                 } else {
                     setErrorLabel("Nemate dovoljno sredstava na računu!");
