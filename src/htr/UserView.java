@@ -1187,7 +1187,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void brisiSveTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiSveTempActionPerformed
         // TODO add your handling code here:
-        setErrorLabel("Svi parovi izbrisani!");
+        setErrorLabel("Temp ticket izbrisan!");
         RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
         PostavljanjeTablica();
     }//GEN-LAST:event_brisiSveTempActionPerformed
@@ -1201,6 +1201,7 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
         BrisanjeStarihParova();
         int myTempID = 0;
+        int myTempParID = 0;
         String mySelectedRow = null;
         double myTempUserStanje = 0;
         try {
@@ -1230,9 +1231,24 @@ public class UserView extends javax.swing.JFrame {
 
                     //Upis parova
                     int rows = tableTemp.getRowCount();
-                    for (int i = 0; i < rows; i++) {                 
+                    //Idemo kroz tablicu
+                    for (int i = 0; i < rows; i++) {
+                        //Dohvacanje ID-a
+                        RS = CALIzb.main(Conn, "SELECT TOP 1 F081IDT FROM Ticket_parovi ORDER BY F081IDT DESC");
+                        while (RS.next()) {
+                            myTempParID = RS.getInt("F081IDT");
+                            myTempParID += 1;
+                        }
+                        if (myTempParID == 0) {
+                            myTempParID += 1;
+                        }
+
                         mySelectedRow = tableTemp.getValueAt(i, 0).toString();
                         System.out.println(mySelectedRow);
+                        RS = CALIzb.main(Conn, "insert into Ticket_parovi values('" + myTempParID + "', '" + myTempID + "', (select F09TIM1 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09TIM2 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), select F09TIP from Temp_Ticket where F09PRK = '" + mySelectedRow + "', select F09KOE from Temp_Ticket where F09PRK = '" + mySelectedRow + "', GETDATE(), '" + MyUserID + "')");
+                        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
+                        PostavljanjeTablica();
+                        setErrorLabel("Uplata uspješna!");
                     }
 
                 } else {
