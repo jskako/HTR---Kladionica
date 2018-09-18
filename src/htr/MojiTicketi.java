@@ -6,6 +6,10 @@
 package htr;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -16,6 +20,10 @@ public class MojiTicketi extends javax.swing.JFrame {
     Connection Conn;
     int myUserID;
 
+    //Spajanje na bazu
+    IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
+    ResultSet RS = null;
+
     /**
      * Creates new form MojiTicketi
      */
@@ -24,6 +32,42 @@ public class MojiTicketi extends javax.swing.JFrame {
         this.myUserID = MyUserID;
 
         initComponents();
+        PocetnePostavke();
+    }
+
+    private void PocetnePostavke() {
+        PunjenjeTablice();
+        AddActionListener();
+
+        //Postavljanje ROW-HEIGHT tablice
+        myTicketTable.setRowHeight(22);
+    }
+
+    private void PunjenjeTablice() {
+        try {
+            //Nogomet
+            RS = CALIzb.main(Conn, "select F08IDT ID, F08ULO Ulog, F08ISP Isplata, F08DOB Dobitak, F08BON Bonus, F08TEC Tečaj, F08PDV Porez, F08DVT 'Datum i vrijeme uplate' from ticket where F08UID = '" + myUserID + "'");
+            myTicketTable.setModel(DbUtils.resultSetToTableModel(RS));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void AddActionListener() {
+
+        UpisivanjeNaTempTicket CALRegistration = new UpisivanjeNaTempTicket();
+
+        //Nogomet
+        myTicketTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //Get row to int
+                //rowClicked = myTicketTable.getValueAt(myTicketTable.getSelectedRow(), 0).toString();
+                // rowClickedInt = Integer.parseInt(rowClicked);
+                //Get col to int
+                // colClickedInt = myTicketTable.getSelectedColumn();
+            }
+        });
     }
 
     /**
@@ -35,26 +79,65 @@ public class MojiTicketi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        myTicketTable = new javax.swing.JTable();
+        mainPanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        myTicketTable.setBackground(new java.awt.Color(204, 204, 204));
+        myTicketTable.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        myTicketTable.setForeground(new java.awt.Color(255, 255, 255));
+        myTicketTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        myTicketTable.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        jScrollPane1.setViewportView(myTicketTable);
+
+        mainPanel.setBackground(new java.awt.Color(26, 83, 92));
+        mainPanel.setForeground(new java.awt.Color(26, 83, 92));
+        mainPanel.setToolTipText("");
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 84, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 905, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 663, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
+    }// </editor-fold>                        /**//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JTable myTicketTable;
     // End of variables declaration//GEN-END:variables
 }
