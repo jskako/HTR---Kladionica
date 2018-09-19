@@ -114,6 +114,8 @@ public class UserView extends javax.swing.JFrame {
         lbl_UserName.setHorizontalAlignment(lbl_UserName.CENTER);
         lbl_Balance.setText("| " + MyUserBalance + "kn");
         lbl_Balance.setHorizontalAlignment(lbl_UserName.CENTER);
+        lbl_UserID.setText("ID: "+Integer.toString(MyUserID));
+        lbl_UserID.setHorizontalAlignment(lbl_UserName.CENTER);
         //Brišemo title bar     
         UserView.setUndecorated(true);
     }
@@ -327,13 +329,13 @@ public class UserView extends javax.swing.JFrame {
         lbl_Balance = new javax.swing.JLabel();
         pickDate = new com.toedter.calendar.JDateChooser();
         btnPotvrdi = new javax.swing.JButton();
-        bUplatanaRacun = new javax.swing.JButton();
-        bIsplata = new javax.swing.JButton();
+        bUIRacun = new javax.swing.JButton();
         bMojiTicketi = new javax.swing.JButton();
         bOdjava = new javax.swing.JButton();
         lbl_Tip = new javax.swing.JLabel();
         lbl_Balance1 = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
+        lbl_UserID = new javax.swing.JLabel();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
         lbl_Nogomet1 = new javax.swing.JLabel();
@@ -430,11 +432,14 @@ public class UserView extends javax.swing.JFrame {
             }
         });
 
-        bUplatanaRacun.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        bUplatanaRacun.setText("Uplata");
-
-        bIsplata.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        bIsplata.setText("Isplata");
+        bUIRacun.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        bUIRacun.setText("Uplata / Isplata");
+        bUIRacun.setToolTipText("");
+        bUIRacun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUIRacunActionPerformed(evt);
+            }
+        });
 
         bMojiTicketi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         bMojiTicketi.setText("Moji ticketi");
@@ -463,31 +468,32 @@ public class UserView extends javax.swing.JFrame {
         lblError.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 102, 102));
 
+        lbl_UserID.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lbl_UserID.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_UserID.setText("Balance");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pickDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(pickDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_UserName))
+                    .addComponent(lbl_UserID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPotvrdi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(bUplatanaRacun, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bIsplata, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bMojiTicketi)
-                .addGap(18, 18, 18)
-                .addComponent(bOdjava)
-                .addGap(170, 170, 170)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_UserName)
+                        .addComponent(btnPotvrdi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(bUIRacun, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_Balance)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(bMojiTicketi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bOdjava)
+                        .addGap(224, 224, 224)
                         .addComponent(img_Logo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -496,38 +502,42 @@ public class UserView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lbl_Balance1))
                             .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(87, 87, 87))))
+                        .addGap(87, 87, 87))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_Balance)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_Balance))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 61, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(bUplatanaRacun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bIsplata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bMojiTicketi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bOdjava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_Balance))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(img_Logo)
-                        .addContainerGap(27, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_Tip, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_Balance1))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbl_UserID)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(bUIRacun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bMojiTicketi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bOdjava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(img_Logo)
+                                .addGap(0, 16, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_Tip, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_Balance1))))
                 .addContainerGap())
         );
 
@@ -1274,6 +1284,13 @@ public class UserView extends javax.swing.JFrame {
         CALMojiTicketi.setVisible(true);
     }//GEN-LAST:event_bMojiTicketiActionPerformed
 
+    private void bUIRacunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUIRacunActionPerformed
+        // TODO add your handling code here:
+        UIOdobrenje CALUIOdob = new UIOdobrenje(Conn, MyUserID);
+        CALUIOdob.setLocationRelativeTo(null);
+        CALUIOdob.setVisible(true);
+    }//GEN-LAST:event_bUIRacunActionPerformed
+
     public void setErrorLabel(String error) {
         lblError.setText(error.trim());
         Timer timer = new Timer(2000, e -> lblError.setText(""));
@@ -1289,10 +1306,9 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JPanel MyHockeyPanel;
     private javax.swing.JPanel MySoccerPanel;
     private javax.swing.JPanel MyTennisPanel;
-    private javax.swing.JButton bIsplata;
     private javax.swing.JButton bMojiTicketi;
     private javax.swing.JButton bOdjava;
-    private javax.swing.JButton bUplatanaRacun;
+    private javax.swing.JButton bUIRacun;
     private javax.swing.JButton bUplati;
     private javax.swing.JButton brisiParTemp;
     private javax.swing.JButton brisiSveTemp;
@@ -1340,6 +1356,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Nogomet1;
     private javax.swing.JLabel lbl_Tenis;
     private javax.swing.JLabel lbl_Tip;
+    private javax.swing.JLabel lbl_UserID;
     private javax.swing.JLabel lbl_UserName;
     private javax.swing.JButton maxUlog;
     private com.toedter.calendar.JDateChooser pickDate;

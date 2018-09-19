@@ -88,6 +88,7 @@ public class MojiTicketi extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
+        pic_Ticket = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_PrikazParova = new javax.swing.JTable();
 
@@ -114,7 +115,7 @@ public class MojiTicketi extends javax.swing.JFrame {
         mainPanel.setForeground(new java.awt.Color(26, 83, 92));
         mainPanel.setToolTipText("");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Pregled ticketa");
 
@@ -125,24 +126,33 @@ public class MojiTicketi extends javax.swing.JFrame {
             }
         });
 
+        pic_Ticket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/pic_ticket.png"))); // NOI18N
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(pic_Ticket)
+                .addGap(316, 316, 316)
                 .addComponent(jLabel1)
-                .addGap(269, 269, 269)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblExit)
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblExit)
-                    .addComponent(jLabel1))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pic_Ticket)
+                            .addComponent(lblExit)))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,6 +214,7 @@ public class MojiTicketi extends javax.swing.JFrame {
     private javax.swing.JLabel lblExit;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTable myTicketTable;
+    private javax.swing.JLabel pic_Ticket;
     private javax.swing.JTable tbl_PrikazParova;
     // End of variables declaration//GEN-END:variables
 }
