@@ -65,6 +65,10 @@ public class MojiTicketi extends javax.swing.JFrame {
                 //Get row to int
                 rowClicked = myTicketTable.getValueAt(myTicketTable.getSelectedRow(), 0).toString();
                 rowClickedInt = Integer.parseInt(rowClicked);
+                if (rowClickedInt > 0) {
+                    RS = CALIzb.main(Conn, "select F081PAR1 Domacin, F081PAR2 Protivnik, F081TIP TIP, F081KOEF KOEFICIJENT from ticket_parovi where F081IDU = '"+rowClickedInt+"'  ORDER BY F018DVT ASC");
+                    tbl_PrikazParova.setModel(DbUtils.resultSetToTableModel(RS));
+                }
 
             }
         });
@@ -85,10 +89,11 @@ public class MojiTicketi extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_PrikazParova = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
         myTicketTable.setBackground(new java.awt.Color(204, 204, 204));
@@ -96,13 +101,10 @@ public class MojiTicketi extends javax.swing.JFrame {
         myTicketTable.setForeground(new java.awt.Color(255, 255, 255));
         myTicketTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Ulog", "Isplata", "Dobitak", "Bonus", "Tecaj", "Porez", "Datum i vrijeme uplate"
             }
         ));
         myTicketTable.setSelectionBackground(new java.awt.Color(0, 153, 153));
@@ -130,7 +132,7 @@ public class MojiTicketi extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(258, 258, 258)
+                .addGap(269, 269, 269)
                 .addComponent(lblExit)
                 .addContainerGap())
         );
@@ -144,18 +146,26 @@ public class MojiTicketi extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_PrikazParova.setBackground(new java.awt.Color(204, 204, 204));
+        tbl_PrikazParova.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        tbl_PrikazParova.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Domacin", "Protivnik", "Tip", "Koeficijent"
             }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbl_PrikazParova.setEnabled(false);
+        jScrollPane2.setViewportView(tbl_PrikazParova);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,9 +201,9 @@ public class MojiTicketi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblExit;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTable myTicketTable;
+    private javax.swing.JTable tbl_PrikazParova;
     // End of variables declaration//GEN-END:variables
 }
