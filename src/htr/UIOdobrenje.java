@@ -20,6 +20,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
     int rowClickedInt;
     String userIme;
     String userPrezime;
+    String userUsername;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -58,20 +59,24 @@ public class UIOdobrenje extends javax.swing.JFrame {
 
         try {
             RS = CALIzb.main(Conn, "select F01IME, F01PRE from users where F01ID = '" + userID + "'");
-            while (RS.next()) {
-                userIme = RS.getString("F01IME");
-                userPrezime = RS.getString("F01PRE");
+            if (!RS.next()) {
+                txt_UserID.setText("");
+                lbl_Ime.setText("");
+                lbl_Prezime.setText("");
+            } else {
+                RS = CALIzb.main(Conn, "select F01IME, F01PRE, F01USR from users where F01ID = '" + userID + "'");
+                while (RS.next()) {
+                    userIme = RS.getString("F01IME");
+                    userPrezime = RS.getString("F01PRE");
+                    userUsername = RS.getString("F01USR");
+
+                    txt_UserID.setText(Integer.toString(userID));
+                    lbl_Ime.setText(userIme);
+                    lbl_Prezime.setText(userPrezime);
+
+                }
             }
         } catch (Exception e) {
-        }
-        if (userIme.equals(null) || userIme.equals("")) {
-            txt_UserID.setText("");
-            lbl_Ime.setText("");
-            lbl_Prezime.setText("");
-        } else {
-            txt_UserID.setText(Integer.toString(userID));
-            lbl_Ime.setText(userIme);
-            lbl_Prezime.setText(userPrezime);
         }
     }
 
@@ -180,6 +185,11 @@ public class UIOdobrenje extends javax.swing.JFrame {
 
         b_Potvrda.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         b_Potvrda.setText("Potvrda");
+        b_Potvrda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_PotvrdaActionPerformed(evt);
+            }
+        });
 
         lbl_Izlaz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/rsz_exit.png"))); // NOI18N
         lbl_Izlaz.setToolTipText("");
@@ -240,9 +250,8 @@ public class UIOdobrenje extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(lbl_Izlaz)))
+                    .addComponent(lbl_Izlaz)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -295,6 +304,36 @@ public class UIOdobrenje extends javax.swing.JFrame {
             sldr_UI.setValue(100);
         }
     }//GEN-LAST:event_sldr_UIMouseReleased
+
+    private void b_PotvrdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_PotvrdaActionPerformed
+        // TODO add your handling code here:
+        //Hvatamo zadnji ID
+        int myNextID = 0;
+        RS = CALIzb.main(Conn, "F04UIIDSELECT TOP 1 F04UIID FROM User_UI_Odobrenje ORDER BY F04UIID DESC");
+        try {
+            while (RS.next()) {
+                myNextID = RS.getInt("F04UIID");
+                myNextID += 1;
+            }
+            if (myNextID == 0) {
+                myNextID += 1;
+            }
+        } catch (Exception e) {
+        }
+
+        //Provjera i upis
+        if (sldr_UI.getValue() == 0 || sldr_UI.getValue() == 100) {
+            if (!txt_UserID.getText().trim().equals("")) {
+                if (!txt_Iznos.getText().trim().equals("")) {
+                    if (sldr_UI.getValue() == 0) {
+                        RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('"+myNextID+"', '"+txt_Iznos+"', '0', '"+txt_Opis+"', GETDATE(), '"+userUsername+"', 'Split', '"+myUserID+"')");
+                    } else if (sldr_UI.getValue() == 100) {
+                        RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('"+myNextID+"', '"+txt_Iznos+"', '1', '"+txt_Opis+"', GETDATE(), ' ', ' ', '"+myUserID+"')");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_b_PotvrdaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
