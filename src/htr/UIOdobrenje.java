@@ -80,7 +80,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         pic_UI = new javax.swing.JLabel();
-        jSlider1 = new javax.swing.JSlider();
+        sldr_UI = new javax.swing.JSlider();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -122,6 +122,12 @@ public class UIOdobrenje extends javax.swing.JFrame {
                 .addComponent(pic_UI)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
+
+        sldr_UI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                sldr_UIMouseReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel2.setText("Uplata");
@@ -210,7 +216,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -226,7 +232,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(lbl_Izlaz)))
@@ -273,6 +279,16 @@ public class UIOdobrenje extends javax.swing.JFrame {
         GetUser(Integer.parseInt(txt_UserID.getText().trim()));
     }//GEN-LAST:event_txt_UserIDFocusLost
 
+    private void sldr_UIMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldr_UIMouseReleased
+        // TODO add your handling code here:
+        if (sldr_UI.getValue() < 50) {
+            sldr_UI.setValue(0);
+        }
+        if (sldr_UI.getValue() > 50) {
+            sldr_UI.setValue(100);
+        }
+    }//GEN-LAST:event_sldr_UIMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_Potvrda;
@@ -284,11 +300,11 @@ public class UIOdobrenje extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSlider jSlider1;
     private javax.swing.JLabel lbl_Ime;
     private javax.swing.JLabel lbl_Izlaz;
     private javax.swing.JLabel lbl_Prezime;
     private javax.swing.JLabel pic_UI;
+    private javax.swing.JSlider sldr_UI;
     private javax.swing.JTextField txt_Iznos;
     private javax.swing.JTextField txt_Opis;
     private javax.swing.JTextField txt_UserID;

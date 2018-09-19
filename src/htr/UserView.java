@@ -5,8 +5,11 @@
  */
 package htr;
 
+import com.sun.org.apache.bcel.internal.classfile.Code;
+import java.awt.Desktop;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.net.URI;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
@@ -43,6 +46,7 @@ public class UserView extends javax.swing.JFrame {
     Date date = new Date();
     String rowClicked;
     String tempClicked;
+    String userName;
     int tempClickedInt;
     int rowClickedInt;
     int colClickedInt;
@@ -109,15 +113,28 @@ public class UserView extends javax.swing.JFrame {
         //Dohvacanje vrijednosti
         getUserID();
         getUserBalance();
+        GetUserName();
 
         lbl_UserName.setText(User);
         lbl_UserName.setHorizontalAlignment(lbl_UserName.CENTER);
         lbl_Balance.setText("| " + MyUserBalance + "kn");
         lbl_Balance.setHorizontalAlignment(lbl_UserName.CENTER);
-        lbl_UserID.setText("ID: "+Integer.toString(MyUserID));
-        lbl_UserID.setHorizontalAlignment(lbl_UserName.CENTER);
+        lbl_UserID.setText("ID: " + Integer.toString(MyUserID));
+        lbl_UserID.setHorizontalAlignment(lbl_UserID.CENTER);
+        lblWB.setText("Welcome back, " + userName);
+        lblWB.setHorizontalAlignment(lblWB.CENTER);
         //Brišemo title bar     
         UserView.setUndecorated(true);
+    }
+
+    private void GetUserName() {
+        try {
+            RS = CALIzb.main(Conn, "select F01IME from Users where F01ID = '" + MyUserID + "'");
+            while (RS.next()) {
+                userName = RS.getString("F01IME");
+            }
+        } catch (Exception e) {
+        }
     }
 
     private void BrisanjeStarihParova() {
@@ -325,17 +342,15 @@ public class UserView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         img_Logo = new javax.swing.JLabel();
-        lbl_UserName = new javax.swing.JLabel();
-        lbl_Balance = new javax.swing.JLabel();
         pickDate = new com.toedter.calendar.JDateChooser();
         btnPotvrdi = new javax.swing.JButton();
         bUIRacun = new javax.swing.JButton();
         bMojiTicketi = new javax.swing.JButton();
         bOdjava = new javax.swing.JButton();
-        lbl_Tip = new javax.swing.JLabel();
-        lbl_Balance1 = new javax.swing.JLabel();
-        lblError = new javax.swing.JLabel();
         lbl_UserID = new javax.swing.JLabel();
+        lbl_Balance = new javax.swing.JLabel();
+        lbl_UserName = new javax.swing.JLabel();
+        lblWB = new javax.swing.JLabel();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
         lbl_Nogomet1 = new javax.swing.JLabel();
@@ -387,6 +402,13 @@ public class UserView extends javax.swing.JFrame {
         maxUlog = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tableTemp = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        lblError = new javax.swing.JLabel();
+        lblCopyRight = new javax.swing.JLabel();
+        lbl_Facebook = new javax.swing.JLabel();
+        lbl_Twitter = new javax.swing.JLabel();
+        lbl_linkedIN = new javax.swing.JLabel();
+        lbl_Instagram = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -397,14 +419,6 @@ public class UserView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(26, 83, 92));
 
         img_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/logoHTR.png"))); // NOI18N
-
-        lbl_UserName.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        lbl_UserName.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_UserName.setText("Username");
-
-        lbl_Balance.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lbl_Balance.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_Balance.setText("Balance");
 
         pickDate.setDateFormatString("yyyy-MM-dd");
         pickDate.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
@@ -457,55 +471,52 @@ public class UserView extends javax.swing.JFrame {
             }
         });
 
-        lbl_Tip.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        lbl_Tip.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_Tip.setText("Preporuka: ");
-
-        lbl_Balance1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        lbl_Balance1.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_Balance1.setText("Uplatom četri para istog tipa sporta dobijate 10% više!");
-
-        lblError.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        lblError.setForeground(new java.awt.Color(255, 102, 102));
-
         lbl_UserID.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lbl_UserID.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_UserID.setText("Balance");
+        lbl_UserID.setText("UserID");
+
+        lbl_Balance.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lbl_Balance.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_Balance.setText("Balance");
+
+        lbl_UserName.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        lbl_UserName.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_UserName.setText("Username");
+
+        lblWB.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        lblWB.setForeground(new java.awt.Color(255, 255, 255));
+        lblWB.setText("Welcome back, Josip.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(pickDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_UserName))
-                    .addComponent(lbl_UserID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pickDate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPotvrdi, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(bUIRacun, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bMojiTicketi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bOdjava)
-                        .addGap(224, 224, 224)
-                        .addComponent(img_Logo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_Tip)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_Balance1))
-                            .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(87, 87, 87))
+                        .addComponent(bOdjava))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_Balance)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, 0)
+                        .addComponent(lblWB)))
+                .addGap(279, 279, 279)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(img_Logo)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_UserID)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_UserName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Balance)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -514,30 +525,22 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_UserID)
                             .addComponent(lbl_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_Balance))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_UserID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(bUIRacun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bMojiTicketi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bOdjava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(img_Logo)
-                                .addGap(0, 16, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(img_Logo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblWB)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_Tip, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_Balance1))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bUIRacun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bMojiTicketi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bOdjava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -644,7 +647,7 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(imgTennis)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_Tenis)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         MyTennisPanelLayout.setVerticalGroup(
             MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1056,12 +1059,87 @@ public class UserView extends javax.swing.JFrame {
         tableTemp.setSelectionBackground(new java.awt.Color(204, 0, 51));
         jScrollPane6.setViewportView(tableTemp);
 
+        jPanel4.setBackground(new java.awt.Color(26, 83, 92));
+
+        lblError.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        lblError.setForeground(new java.awt.Color(255, 102, 102));
+
+        lblCopyRight.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lblCopyRight.setForeground(new java.awt.Color(255, 255, 255));
+        lblCopyRight.setText("CopyRight © by Jskako.");
+
+        lbl_Facebook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/icn_facebook.png"))); // NOI18N
+        lbl_Facebook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_FacebookMouseClicked(evt);
+            }
+        });
+
+        lbl_Twitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/icn_twitter .png"))); // NOI18N
+        lbl_Twitter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_TwitterMouseClicked(evt);
+            }
+        });
+
+        lbl_linkedIN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/icn_LinkedIN.png"))); // NOI18N
+        lbl_linkedIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_linkedINMouseClicked(evt);
+            }
+        });
+
+        lbl_Instagram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/icn_Instagram.png"))); // NOI18N
+        lbl_Instagram.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_InstagramMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_Facebook)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_Twitter)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_linkedIN)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_Instagram)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(218, 218, 218)
+                        .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                        .addGap(867, 867, 867))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCopyRight)
+                        .addContainerGap())))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_Instagram)
+                    .addComponent(lbl_linkedIN)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl_Twitter)
+                        .addComponent(lbl_Facebook)
+                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCopyRight, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MySoccerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1092,6 +1170,7 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(2, 2, 2))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1107,10 +1186,10 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(MyTennisPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1121,8 +1200,10 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(brisiSveTemp)
                             .addComponent(maxUlog))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane6))
-                    .addComponent(jSeparator1)))
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         brisiParTemp.getAccessibleContext().setAccessibleName("brisiParTemp");
@@ -1291,6 +1372,36 @@ public class UserView extends javax.swing.JFrame {
         CALUIOdob.setVisible(true);
     }//GEN-LAST:event_bUIRacunActionPerformed
 
+    private void lbl_FacebookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_FacebookMouseClicked
+        // TODO add your handling code here:
+        GoLink("https://www.facebook.com/jskako");
+    }//GEN-LAST:event_lbl_FacebookMouseClicked
+
+    private void lbl_TwitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_TwitterMouseClicked
+        // TODO add your handling code here:
+        GoLink("https://twitter.com/search-home");
+    }//GEN-LAST:event_lbl_TwitterMouseClicked
+
+    private void lbl_linkedINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_linkedINMouseClicked
+        // TODO add your handling code here:
+        GoLink("https://www.linkedin.com/in/josipskako");
+    }//GEN-LAST:event_lbl_linkedINMouseClicked
+
+    private void lbl_InstagramMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_InstagramMouseClicked
+        // TODO add your handling code here:
+        GoLink("https://www.instagram.com/?hl=hr");
+    }//GEN-LAST:event_lbl_InstagramMouseClicked
+
+    private void GoLink(String Link) {
+        try {
+            Desktop desktop = java.awt.Desktop.getDesktop();
+            URI oURL = new URI(Link.trim());
+            desktop.browse(oURL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setErrorLabel(String error) {
         lblError.setText(error.trim());
         Timer timer = new Timer(2000, e -> lblError.setText(""));
@@ -1327,6 +1438,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1335,6 +1447,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblBonus;
+    private javax.swing.JLabel lblCopyRight;
     private javax.swing.JLabel lblDobitak;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblIsplata;
@@ -1348,16 +1461,19 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrikazPorezaSest;
     private javax.swing.JLabel lblPrikazPorezaTri;
     private javax.swing.JLabel lblTecaj;
+    private javax.swing.JLabel lblWB;
     private javax.swing.JLabel lbl_Balance;
-    private javax.swing.JLabel lbl_Balance1;
+    private javax.swing.JLabel lbl_Facebook;
     private javax.swing.JLabel lbl_Hokej;
+    private javax.swing.JLabel lbl_Instagram;
     private javax.swing.JLabel lbl_Kosarka;
     private javax.swing.JLabel lbl_MojTicket;
     private javax.swing.JLabel lbl_Nogomet1;
     private javax.swing.JLabel lbl_Tenis;
-    private javax.swing.JLabel lbl_Tip;
+    private javax.swing.JLabel lbl_Twitter;
     private javax.swing.JLabel lbl_UserID;
     private javax.swing.JLabel lbl_UserName;
+    private javax.swing.JLabel lbl_linkedIN;
     private javax.swing.JButton maxUlog;
     private com.toedter.calendar.JDateChooser pickDate;
     private javax.swing.JTable tableHokej;
