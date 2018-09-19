@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 public class UIOdobrenje extends javax.swing.JFrame {
 
     Connection Conn;
-    int myUserID;
+    int myUserID = 0;
     int rowClickedInt;
     String userIme;
     String userPrezime;
@@ -33,6 +33,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
         this.myUserID = MyUserID;
 
         initComponents();
+
         PocetnoPodesavanje();
     }
 
@@ -54,17 +55,23 @@ public class UIOdobrenje extends javax.swing.JFrame {
     }
 
     private void GetUser(int userID) {
+
         try {
-            RS = CALIzb.main(Conn, "select F01IME, F01PRE where F01ID = '" + userID + "'");
+            RS = CALIzb.main(Conn, "select F01IME, F01PRE from users where F01ID = '" + userID + "'");
             while (RS.next()) {
                 userIme = RS.getString("F01IME");
                 userPrezime = RS.getString("F01PRE");
-                txt_UserID.setText(Integer.toString(userID));
-                lbl_Ime.setText(userIme);
-                lbl_Prezime.setText(userPrezime);
             }
         } catch (Exception e) {
-
+        }
+        if (userIme.equals(null) || userIme.equals("")) {
+            txt_UserID.setText("");
+            lbl_Ime.setText("");
+            lbl_Prezime.setText("");
+        } else {
+            txt_UserID.setText(Integer.toString(userID));
+            lbl_Ime.setText(userIme);
+            lbl_Prezime.setText(userPrezime);
         }
     }
 
