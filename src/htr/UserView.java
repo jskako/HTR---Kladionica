@@ -115,14 +115,12 @@ public class UserView extends javax.swing.JFrame {
         getUserBalance();
         GetUserName();
 
-        lbl_UserName.setText(User);
-        lbl_UserName.setHorizontalAlignment(lbl_UserName.CENTER);
-        lbl_Balance.setText("| " + MyUserBalance + "kn");
-        lbl_Balance.setHorizontalAlignment(lbl_UserName.CENTER);
-        lbl_UserID.setText("ID: " + Integer.toString(MyUserID));
-        lbl_UserID.setHorizontalAlignment(lbl_UserID.CENTER);
         lblWB.setText("Welcome back, " + userName);
         lblWB.setHorizontalAlignment(lblWB.CENTER);
+        lbl_Balance.setText("Balance: " + MyUserBalance + "kn");
+        lbl_UserID.setText("( " + User + ", ID: " + Integer.toString(MyUserID) + ")");
+        lbl_UserID.setHorizontalAlignment(lbl_UserID.CENTER);
+
         //Brišemo title bar     
         UserView.setUndecorated(true);
     }
@@ -349,7 +347,6 @@ public class UserView extends javax.swing.JFrame {
         bOdjava = new javax.swing.JButton();
         lbl_UserID = new javax.swing.JLabel();
         lbl_Balance = new javax.swing.JLabel();
-        lbl_UserName = new javax.swing.JLabel();
         lblWB = new javax.swing.JLabel();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
@@ -473,15 +470,13 @@ public class UserView extends javax.swing.JFrame {
 
         lbl_UserID.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lbl_UserID.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_UserID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_UserID.setText("UserID");
 
         lbl_Balance.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lbl_Balance.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_Balance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Balance.setText("Balance");
-
-        lbl_UserName.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        lbl_UserName.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_UserName.setText("Username");
 
         lblWB.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         lblWB.setForeground(new java.awt.Color(255, 255, 255));
@@ -505,31 +500,27 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bOdjava))
                     .addComponent(lblWB))
-                .addGap(279, 279, 279)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(img_Logo)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbl_UserID)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_UserName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_Balance)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(279, 279, 279)
+                        .addComponent(img_Logo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addComponent(lbl_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_UserID)
-                            .addComponent(lbl_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_Balance))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_UserID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(img_Logo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblWB)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -538,7 +529,8 @@ public class UserView extends javax.swing.JFrame {
                                 .addComponent(bMojiTicketi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bOdjava, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnPotvrdi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(pickDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lbl_Balance, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -1466,7 +1458,6 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Tenis;
     private javax.swing.JLabel lbl_Twitter;
     private javax.swing.JLabel lbl_UserID;
-    private javax.swing.JLabel lbl_UserName;
     private javax.swing.JLabel lbl_linkedIN;
     private javax.swing.JButton maxUlog;
     private com.toedter.calendar.JDateChooser pickDate;
