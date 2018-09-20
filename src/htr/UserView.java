@@ -5,7 +5,6 @@
  */
 package htr;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import java.awt.Desktop;
 import java.awt.Frame;
 import java.awt.Toolkit;
