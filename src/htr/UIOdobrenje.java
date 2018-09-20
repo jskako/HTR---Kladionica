@@ -8,6 +8,7 @@ package htr;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -18,9 +19,12 @@ public class UIOdobrenje extends javax.swing.JFrame {
     Connection Conn;
     int myUserID = 0;
     int rowClickedInt;
+    double UserBalance;
     String userIme;
     String userPrezime;
     String userUsername;
+    int myNextID = 0;
+    boolean naCekanju = false;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -29,9 +33,10 @@ public class UIOdobrenje extends javax.swing.JFrame {
     /**
      * Creates new form UIOdobrenje
      */
-    public UIOdobrenje(Connection conn, int MyUserID) {
+    public UIOdobrenje(Connection conn, int MyUserID, double userBalance) {
         this.Conn = conn;
         this.myUserID = MyUserID;
+        this.UserBalance = userBalance;
 
         initComponents();
 
@@ -43,6 +48,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
         //Hvatanje usera
         if (myUserID != 0) {
             GetUser(myUserID);
+            PunjenjeTablica();
         }
     }
 
@@ -90,6 +96,8 @@ public class UIOdobrenje extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         pic_UI = new javax.swing.JLabel();
         sldr_UI = new javax.swing.JSlider();
@@ -106,8 +114,26 @@ public class UIOdobrenje extends javax.swing.JFrame {
         lbl_Prezime = new javax.swing.JLabel();
         b_Potvrda = new javax.swing.JButton();
         lbl_Izlaz = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        panelCekanje = new javax.swing.JPanel();
+        naCekanjuLBL = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_PregledUplata = new javax.swing.JTable();
 
         jLabel1.setText("jLabel1");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -123,16 +149,16 @@ public class UIOdobrenje extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(32, 32, 32)
                 .addComponent(pic_UI)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(pic_UI)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         sldr_UI.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,16 +225,53 @@ public class UIOdobrenje extends javax.swing.JFrame {
             }
         });
 
+        panelCekanje.setBackground(new java.awt.Color(233, 196, 106));
+
+        naCekanjuLBL.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        naCekanjuLBL.setForeground(new java.awt.Color(255, 255, 255));
+        naCekanjuLBL.setText("Čeka se admin za odobrenje:");
+
+        tbl_PregledUplata.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbl_PregledUplata);
+
+        javax.swing.GroupLayout panelCekanjeLayout = new javax.swing.GroupLayout(panelCekanje);
+        panelCekanje.setLayout(panelCekanjeLayout);
+        panelCekanjeLayout.setHorizontalGroup(
+            panelCekanjeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+            .addGroup(panelCekanjeLayout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(naCekanjuLBL)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelCekanjeLayout.setVerticalGroup(
+            panelCekanjeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCekanjeLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(naCekanjuLBL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addComponent(panelCekanje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,44 +296,51 @@ public class UIOdobrenje extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sldr_UI, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_Izlaz)))
+                        .addGap(70, 70, 70)
+                        .addComponent(lbl_Izlaz))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_Izlaz)
-                    .addComponent(jLabel2))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_Izlaz)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_Ime)
+                            .addComponent(lbl_Prezime))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txt_Opis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(txt_Iznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(b_Potvrda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_Ime)
-                    .addComponent(lbl_Prezime))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txt_Opis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(txt_Iznos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(b_Potvrda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelCekanje, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -284,6 +354,11 @@ public class UIOdobrenje extends javax.swing.JFrame {
         // TODO add your handling code here:
         ZabraniSlova(evt);
     }//GEN-LAST:event_txt_IznosKeyTyped
+
+    private void PunjenjeTablica() {
+        RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN Iznos, F04OPI Opis, (CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END) 'Uplata/Isplata' from User_UI_Odobrenje where F04UID = '" + txt_UserID.getText().trim() + "'");
+        tbl_PregledUplata.setModel(DbUtils.resultSetToTableModel(RS));
+    }
 
     private void lbl_IzlazMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_IzlazMouseClicked
         // TODO add your handling code here:
@@ -308,8 +383,8 @@ public class UIOdobrenje extends javax.swing.JFrame {
     private void b_PotvrdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_PotvrdaActionPerformed
         // TODO add your handling code here:
         //Hvatamo zadnji ID
-        int myNextID = 0;
-        RS = CALIzb.main(Conn, "F04UIIDSELECT TOP 1 F04UIID FROM User_UI_Odobrenje ORDER BY F04UIID DESC");
+
+        RS = CALIzb.main(Conn, "SELECT TOP 1 F04UIID FROM User_UI_Odobrenje ORDER BY F04UIID DESC");
         try {
             while (RS.next()) {
                 myNextID = RS.getInt("F04UIID");
@@ -319,19 +394,31 @@ public class UIOdobrenje extends javax.swing.JFrame {
                 myNextID += 1;
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Provjera i upis
-        if (sldr_UI.getValue() == 0 || sldr_UI.getValue() == 100) {
-            if (!txt_UserID.getText().trim().equals("")) {
-                if (!txt_Iznos.getText().trim().equals("")) {
-                    if (sldr_UI.getValue() == 0) {
-                        RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('"+myNextID+"', '"+txt_Iznos+"', '0', '"+txt_Opis+"', GETDATE(), '"+userUsername+"', 'Split', '"+myUserID+"')");
-                    } else if (sldr_UI.getValue() == 100) {
-                        RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('"+myNextID+"', '"+txt_Iznos+"', '1', '"+txt_Opis+"', GETDATE(), ' ', ' ', '"+myUserID+"')");
+        try {
+            if (sldr_UI.getValue() == 0 || sldr_UI.getValue() == 100) {
+                if (!txt_UserID.getText().trim().equals("")) {
+                    if (!txt_Iznos.getText().trim().equals("")) {
+                        if (sldr_UI.getValue() == 0) {
+                            double myEntVal = Double.parseDouble(txt_Iznos.getText().trim());
+                            if (myEntVal <= UserBalance) {
+                                RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '0', '" + txt_Opis.getText().trim() + "', GETDATE(), '" + userUsername + "', 'Split', '" + myUserID + "')");
+                                dispose();
+                            } else {
+                                System.out.println("Nemate dovoljno na racunu!");
+                            }
+                        } else if (sldr_UI.getValue() == 100) {
+                            RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '1', '" + txt_Opis.getText().trim() + "', GETDATE(), ' ', ' ', '" + myUserID + "')");
+                            dispose();
+                        }
                     }
                 }
             }
+        } catch (Exception f) {
+            f.printStackTrace();
         }
     }//GEN-LAST:event_b_PotvrdaActionPerformed
 
@@ -345,12 +432,19 @@ public class UIOdobrenje extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_Ime;
     private javax.swing.JLabel lbl_Izlaz;
     private javax.swing.JLabel lbl_Prezime;
+    private javax.swing.JLabel naCekanjuLBL;
+    private javax.swing.JPanel panelCekanje;
     private javax.swing.JLabel pic_UI;
     private javax.swing.JSlider sldr_UI;
+    private javax.swing.JTable tbl_PregledUplata;
     private javax.swing.JTextField txt_Iznos;
     private javax.swing.JTextField txt_Opis;
     private javax.swing.JTextField txt_UserID;

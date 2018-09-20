@@ -504,9 +504,7 @@ public class UserView extends javax.swing.JFrame {
                         .addComponent(bMojiTicketi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bOdjava))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(lblWB)))
+                    .addComponent(lblWB))
                 .addGap(279, 279, 279)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(img_Logo)
@@ -1061,8 +1059,9 @@ public class UserView extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(26, 83, 92));
 
-        lblError.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        lblError.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 102, 102));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lblCopyRight.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lblCopyRight.setForeground(new java.awt.Color(255, 255, 255));
@@ -1109,28 +1108,23 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(lbl_linkedIN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_Instagram)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                        .addGap(867, 867, 867))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblCopyRight)
-                        .addContainerGap())))
+                .addGap(11, 11, 11)
+                .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCopyRight)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_Instagram)
-                    .addComponent(lbl_linkedIN)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lbl_Twitter)
-                        .addComponent(lbl_Facebook)
-                        .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblCopyRight, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_Instagram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_linkedIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_Twitter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_Facebook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCopyRight, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1367,7 +1361,7 @@ public class UserView extends javax.swing.JFrame {
 
     private void bUIRacunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUIRacunActionPerformed
         // TODO add your handling code here:
-        UIOdobrenje CALUIOdob = new UIOdobrenje(Conn, MyUserID);
+        UIOdobrenje CALUIOdob = new UIOdobrenje(Conn, MyUserID, MyUserBalance);
         CALUIOdob.setLocationRelativeTo(null);
         CALUIOdob.setVisible(true);
     }//GEN-LAST:event_bUIRacunActionPerformed

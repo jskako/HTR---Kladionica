@@ -357,7 +357,6 @@ public class LoginForm extends javax.swing.JFrame {
             RS = CALIzb.main(Conn, "select * from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'");
 
             if (RS.next()) {
-                System.out.println("Uspjeh");
                 // Provjera da li je user aktivan
                 RS = CALIzb.main(Conn, "select F01AKT from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'");
                 String isUserActive = null;
@@ -366,7 +365,6 @@ public class LoginForm extends javax.swing.JFrame {
                     isUserActive = RS.getString("F01AKT");
                     if (Integer.parseInt(isUserActive.trim()) == 1) {
                         // Logiram se te idem dalje
-                        System.out.println("User je aktivan!");
                         // Gledam da li je user Admin
                         RS = CALIzb.main(Conn, "select F01NIV from users where F01USR = '" + TB_myUsername.getText().trim() + "' and F01PWD = '" + TB_myPassword.getText().trim() + "'");
                         while (RS.next()) {

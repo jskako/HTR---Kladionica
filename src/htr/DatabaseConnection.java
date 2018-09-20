@@ -22,9 +22,9 @@ public class DatabaseConnection {
     String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     Connection conn = null;
     String DB_URL = null;
-    String ConnectionDB = "DESKTOP-LAGU3T1"; //DESKTOP-LAGU3T1
+    String ConnectionDB = "brik"; //DESKTOP-LAGU3T1
     int portDB = 1433;
-    String dataBaseName = "HTR"; //HTR
+    String dataBaseName = "obuka"; //HTR
     
     public void main() {
         
@@ -35,16 +35,13 @@ public class DatabaseConnection {
                     + "databaseName=" + dataBaseName + ";integratedSecurity=true;";
             // 2. Registriranje drivera
             Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to the database");
             // 3. Otvaranje i testiranje konekcije
-            conn = DriverManager.getConnection(DB_URL);
-            System.out.println("Connected to the database");
-            
+            conn = DriverManager.getConnection(DB_URL);     
             //4. Generiranje parova i zvanje log-in screen
             ResultSet RS = null;
             IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
             RS = CALIzb.main(conn, "EXEC Generiranje_Parova");
-            
+         
             LoginForm CALLogin = new LoginForm(conn);
             CALLogin.setLocationRelativeTo(null);
             CALLogin.setVisible(true);
