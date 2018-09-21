@@ -286,21 +286,19 @@ public class AdminTicketi extends javax.swing.JFrame {
 
     private void btn_PrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrikaziActionPerformed
         // TODO add your handling code here:
-        /*
-        000
-        001
-        010
-        011
-        100
-        101
-        110
-        111
-         */
 
         if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 50) {
-        //Prikazi sve
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 50) {
-
+            //Prikazi sve
+        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 0) {
+            //Prikazi isplatu za sve usere
+        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 100) {
+            //Prikazi uplatu za sve usere
+        } else if (txt_UserID.getText().isEmpty() == false && sliderTicket.getValue() == 0) {
+            //Prikazi isplatu za odredenog korisnika
+        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 100) {
+            //Prikazi uplatu za odredenog korisnika
+        } else {
+            //Prikazi sve
         }
     }//GEN-LAST:event_btn_PrikaziActionPerformed
 
