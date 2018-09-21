@@ -59,17 +59,20 @@ public class MojiTicketi extends javax.swing.JFrame {
 
         //Dohvacanje row i col numbera
         myTicketTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
             public void valueChanged(ListSelectionEvent event) {
-                String rowClicked;
+                if (!event.getValueIsAdjusting()) {
+                    String rowClicked;
 
-                //Get row to int
-                rowClicked = myTicketTable.getValueAt(myTicketTable.getSelectedRow(), 0).toString();
-                rowClickedInt = Integer.parseInt(rowClicked);
-                if (rowClickedInt > 0) {
-                    RS = CALIzb.main(Conn, "select F081PAR1 Domacin, F081PAR2 Protivnik, F081TIP TIP, F081KOEF KOEFICIJENT from ticket_parovi where F081IDU = '"+rowClickedInt+"'  ORDER BY F018DVT ASC");
-                    tbl_PrikazParova.setModel(DbUtils.resultSetToTableModel(RS));
+                    //Get row to int
+                    rowClicked = myTicketTable.getValueAt(myTicketTable.getSelectedRow(), 0).toString();
+                    rowClickedInt = Integer.parseInt(rowClicked);
+                    if (rowClickedInt > 0) {
+                        RS = CALIzb.main(Conn, "select F081PAR1 Domacin, F081PAR2 Protivnik, F081TIP TIP, F081KOEF KOEFICIJENT from ticket_parovi where F081IDU = '" + rowClickedInt + "'  ORDER BY F018DVT ASC");
+                        tbl_PrikazParova.setModel(DbUtils.resultSetToTableModel(RS));
+                    }
+
                 }
-
             }
         });
     }

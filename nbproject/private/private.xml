@@ -3,32 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/03_Create_User_Stanje.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/08_Create_Ticket.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/RegistrationForm.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/HTRMain.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/06_Create_Porezi.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/MojiTicketi.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/00_Create_Database.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/01_Create_Users.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/0_8_1_Ticket_Parovi.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/09_Create_Temp_Ticket.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/AdminView.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/UIOdobrenje.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/10_Generiranje_Parova.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/UserView.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/07_Create_Parovi.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/DatabaseConnection.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/LoginForm.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/UpisivanjeNaTempTicket.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/02_Create_Sportovi.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/MailRecovery.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/AdminKorisnici.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/IzvrsavanjeSkriptiNaBazi.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/AdminTicketi.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/SQLScripts/04_Create_UI_Odobrenje.sql</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/MailRecoveryGUI.java</file>
-            <file>file:/C:/Users/josips/Documents/GitHub/HTR---Kladionica/src/htr/UplataIsplata.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/MailRecovery.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/SQLScripts/04_Create_UI_Odobrenje.sql</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/SQLScripts/0_8_1_Ticket_Parovi.sql</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/UIOdobrenje.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/LoginForm.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/IzvrsavanjeSkriptiNaBazi.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/SQLScripts/08_Create_Ticket.sql</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/SQLScripts/09_Create_Temp_Ticket.sql</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/UpisivanjeNaTempTicket.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/MailRecoveryGUI.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/UplataIsplata.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/RegistrationForm.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/MojiTicketi.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/DatabaseConnection.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/HTRMain.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/UserView.java</file>
+            <file>file:/C:/Users/jskako/Desktop/HTR/src/htr/PopError.java</file>
         </group>
     </open-files>
 </project-private>

@@ -212,8 +212,8 @@ public class UserView extends javax.swing.JFrame {
         UpisivanjeNaTempTicket CALRegistration = new UpisivanjeNaTempTicket();
 
         //Nogomet
-        tableNogomet.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
+        tableNogomet.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
                 //Get row to int
                 rowClicked = tableNogomet.getValueAt(tableNogomet.getSelectedRow(), 0).toString();
                 rowClickedInt = Integer.parseInt(rowClicked);
@@ -225,9 +225,9 @@ public class UserView extends javax.swing.JFrame {
         });
 
         //Tenis
-        tableTenis.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                //Get row to int
+        tableTenis.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            //Get row to int
+            if (!event.getValueIsAdjusting()) {
                 rowClicked = tableTenis.getValueAt(tableTenis.getSelectedRow(), 0).toString();
                 rowClickedInt = Integer.parseInt(rowClicked);
                 //Get col to int
@@ -238,8 +238,8 @@ public class UserView extends javax.swing.JFrame {
         });
 
         //Košarka
-        tableKosarka.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
+        tableKosarka.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
                 //Get row to int
                 rowClicked = tableKosarka.getValueAt(tableKosarka.getSelectedRow(), 0).toString();
                 rowClickedInt = Integer.parseInt(rowClicked);
@@ -251,8 +251,8 @@ public class UserView extends javax.swing.JFrame {
         });
 
         //Hokej
-        tableHokej.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
+        tableHokej.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
                 //Get row to int
                 rowClicked = tableHokej.getValueAt(tableHokej.getSelectedRow(), 0).toString();
                 rowClickedInt = Integer.parseInt(rowClicked);
@@ -264,8 +264,8 @@ public class UserView extends javax.swing.JFrame {
         });
 
         //Temp Ticket
-        tableTemp.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
+        tableTemp.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
                 //Get row to int
                 tempClicked = tableTemp.getValueAt(tableTemp.getSelectedRow(), 0).toString();
                 tempClickedInt = Integer.parseInt(tempClicked);
@@ -323,7 +323,6 @@ public class UserView extends javax.swing.JFrame {
 
     private void PunjenjeTempTablice() {
         //
-        tableTemp.setModel(new DefaultTableModel());
         RS = CALIzb.main(Conn, "select F09PRK ID, F09TIM1 Domacin, F09TIM2 Protivnik, F09TIP Tip, F09KOE Koeficijent from temp_ticket where F09UID = '" + MyUserID + "' ORDER BY F09DVT ASC");
         tableTemp.setModel(DbUtils.resultSetToTableModel(RS));
     }
