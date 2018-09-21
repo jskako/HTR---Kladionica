@@ -5,7 +5,6 @@
  */
 package htr;
 
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -18,56 +17,17 @@ public class AdminTicketi extends javax.swing.JFrame {
     private Connection Conn;
     private int User;
 
-    String userIme;
-    String userPrezime;
-    String userUsername;
-
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
     ResultSet RS = null;
 
     /**
-     * Creates new form AdminTicketi
+     * Creates new form AdminIsplata
      */
     public AdminTicketi(Connection con, int user) {
         this.Conn = con;
         this.User = user;
         initComponents();
-        GetUser(User);
-    }
-
-    private void GetUser(int User) {
-
-        try {
-            RS = CALIzb.main(Conn, "select F01IME, F01PRE from users where F01ID = '" + User + "'");
-            if (!RS.next()) {
-                txt_UserID.setText("");
-                lbl_Ime.setText("");
-                lbl_Prezime.setText("");
-            } else {
-                RS = CALIzb.main(Conn, "select F01IME, F01PRE, F01USR from users where F01ID = '" + User + "'");
-                while (RS.next()) {
-                    userIme = RS.getString("F01IME");
-                    userPrezime = RS.getString("F01PRE");
-                    userUsername = RS.getString("F01USR");
-
-                    txt_UserID.setText(Integer.toString(User));
-                    lbl_Ime.setText(userIme);
-                    lbl_Prezime.setText(userPrezime);
-
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    public void ZabraniSlova(java.awt.event.KeyEvent evt) {
-        char vChar = evt.getKeyChar();
-        if ((!Character.isDigit(vChar)
-                || (vChar == KeyEvent.VK_BACK_SPACE)
-                || (vChar == KeyEvent.VK_DELETE))) {
-            evt.consume();
-        }
     }
 
     /**
@@ -79,245 +39,25 @@ public class AdminTicketi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        pic_Exit = new javax.swing.JLabel();
-        pic_Profile = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txt_UserID = new javax.swing.JTextField();
-        lbl_Prezime = new javax.swing.JLabel();
-        lbl_Ime = new javax.swing.JLabel();
-        sliderTicket = new javax.swing.JSlider();
-        lblIsplata = new javax.swing.JLabel();
-        lblUplata = new javax.swing.JLabel();
-        btn_Prikazi = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_PrikazTickets = new javax.swing.JTable();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
-
-        jPanel1.setBackground(new java.awt.Color(239, 195, 230));
-
-        pic_Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/rsz_exit.png"))); // NOI18N
-        pic_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pic_ExitMouseClicked(evt);
-            }
-        });
-
-        pic_Profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/pic_ticket.png"))); // NOI18N
-        pic_Profile.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pic_ProfileMouseClicked(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("User Tickets");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(pic_Profile)
-                .addGap(225, 225, 225)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pic_Exit)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pic_Exit))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(pic_Profile))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        jLabel2.setText("Korisnik");
-
-        txt_UserID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_UserID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_UserID.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_UserIDFocusLost(evt);
-            }
-        });
-        txt_UserID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_UserIDKeyTyped(evt);
-            }
-        });
-
-        lbl_Prezime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lbl_Prezime.setText("Ime");
-
-        lbl_Ime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lbl_Ime.setText("Prezime");
-
-        sliderTicket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                sliderTicketMouseReleased(evt);
-            }
-        });
-
-        lblIsplata.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        lblIsplata.setText("Isplata");
-
-        lblUplata.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        lblUplata.setText("Uplata");
-
-        btn_Prikazi.setBackground(new java.awt.Color(240, 166, 202));
-        btn_Prikazi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        btn_Prikazi.setText("Prikazi");
-        btn_Prikazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_PrikaziActionPerformed(evt);
-            }
-        });
-
-        tbl_PrikazTickets.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tbl_PrikazTickets);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_Prezime)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_Ime)
-                .addGap(52, 52, 52)
-                .addComponent(lblIsplata)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sliderTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUplata)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(btn_Prikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
-            .addComponent(jSeparator1)
-            .addComponent(jScrollPane1)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblUplata)
-                        .addComponent(btn_Prikazi))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblIsplata)
-                            .addComponent(lbl_Ime)
-                            .addComponent(lbl_Prezime)
-                            .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addComponent(sliderTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pic_ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pic_ExitMouseClicked
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_pic_ExitMouseClicked
-
-    private void pic_ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pic_ProfileMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pic_ProfileMouseClicked
-
-    private void txt_UserIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_UserIDFocusLost
-        // TODO add your handling code here:
-        GetUser(Integer.parseInt(txt_UserID.getText().trim()));
-    }//GEN-LAST:event_txt_UserIDFocusLost
-
-    private void txt_UserIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_UserIDKeyTyped
-        // TODO add your handling code here:
-        ZabraniSlova(evt);
-    }//GEN-LAST:event_txt_UserIDKeyTyped
-
-    private void sliderTicketMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sliderTicketMouseReleased
-        // TODO add your handling code here:
-        if (sliderTicket.getValue() < 50) {
-            sliderTicket.setValue(0);
-        }
-        if (sliderTicket.getValue() > 50) {
-            sliderTicket.setValue(100);
-        }
-    }//GEN-LAST:event_sliderTicketMouseReleased
-
-    private void btn_PrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrikaziActionPerformed
-        // TODO add your handling code here:
-
-        if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 50) {
-            //Prikazi sve
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 0) {
-            //Prikazi isplatu za sve usere
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 100) {
-            //Prikazi uplatu za sve usere
-        } else if (txt_UserID.getText().isEmpty() == false && sliderTicket.getValue() == 0) {
-            //Prikazi isplatu za odredenog korisnika
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 100) {
-            //Prikazi uplatu za odredenog korisnika
-        } else {
-            //Prikazi sve
-        }
-    }//GEN-LAST:event_btn_PrikaziActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Prikazi;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblIsplata;
-    private javax.swing.JLabel lblUplata;
-    private javax.swing.JLabel lbl_Ime;
-    private javax.swing.JLabel lbl_Prezime;
-    private javax.swing.JLabel pic_Exit;
-    private javax.swing.JLabel pic_Profile;
-    private javax.swing.JSlider sliderTicket;
-    private javax.swing.JTable tbl_PrikazTickets;
-    private javax.swing.JTextField txt_UserID;
     // End of variables declaration//GEN-END:variables
 }

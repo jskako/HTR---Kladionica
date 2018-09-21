@@ -33,11 +33,11 @@ public class AdminView extends javax.swing.JFrame {
         this.Conn = conn;
         this.User = user;
         initComponents();
-        
-        Calendar cal = Calendar.getInstance();   
+
+        Calendar cal = Calendar.getInstance();
         mainTitle.setText("Admin: " + User);
         lbl_UserName.setText(currentDate.format(cal.getTime()));
-        
+
         getUserID();
     }
 
@@ -59,8 +59,7 @@ public class AdminView extends javax.swing.JFrame {
         mainTitle = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btn_Korisnici = new javax.swing.JButton();
-        btn_Uplata = new javax.swing.JButton();
-        btn_Isplata = new javax.swing.JButton();
+        btn_UplataIsplata = new javax.swing.JButton();
         btn_Ticketi = new javax.swing.JButton();
         btn_logOut = new javax.swing.JButton();
         lbl_UserName = new javax.swing.JLabel();
@@ -112,21 +111,12 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
-        btn_Uplata.setBackground(new java.awt.Color(197, 195, 198));
-        btn_Uplata.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        btn_Uplata.setText("Uplata");
-        btn_Uplata.addActionListener(new java.awt.event.ActionListener() {
+        btn_UplataIsplata.setBackground(new java.awt.Color(197, 195, 198));
+        btn_UplataIsplata.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        btn_UplataIsplata.setText("Uplata\\Isplata");
+        btn_UplataIsplata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_UplataActionPerformed(evt);
-            }
-        });
-
-        btn_Isplata.setBackground(new java.awt.Color(197, 195, 198));
-        btn_Isplata.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        btn_Isplata.setText("Isplata");
-        btn_Isplata.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_IsplataActionPerformed(evt);
+                btn_UplataIsplataActionPerformed(evt);
             }
         });
 
@@ -160,14 +150,11 @@ public class AdminView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_Uplata, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_Korisnici, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_Korisnici, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_Isplata, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addComponent(lbl_UserName, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_UplataIsplata, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Ticketi, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,15 +165,14 @@ public class AdminView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Uplata, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Korisnici, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_UplataIsplata, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Ticketi, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_Isplata, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_logOut, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbl_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Korisnici, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -215,25 +201,19 @@ public class AdminView extends javax.swing.JFrame {
         CALKorisnici.setVisible(true);
     }//GEN-LAST:event_btn_KorisniciActionPerformed
 
-    private void btn_UplataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UplataActionPerformed
+    private void btn_UplataIsplataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UplataIsplataActionPerformed
         // TODO add your handling code here:
-        AdminUplata CALUplata = new AdminUplata(Conn, MyUserID);
-        CALUplata.setLocationRelativeTo(null);
-        CALUplata.setVisible(true);
-    }//GEN-LAST:event_btn_UplataActionPerformed
-
-    private void btn_IsplataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IsplataActionPerformed
-        // TODO add your handling code here:
-        AdminIsplata CALUsplata = new AdminIsplata(Conn, MyUserID);
-        CALUsplata.setLocationRelativeTo(null);
-        CALUsplata.setVisible(true);
-    }//GEN-LAST:event_btn_IsplataActionPerformed
+        UplataIsplata CALUplataIsplata = new UplataIsplata(Conn, MyUserID);
+        CALUplataIsplata.setLocationRelativeTo(null);
+        CALUplataIsplata.setVisible(true);
+    }//GEN-LAST:event_btn_UplataIsplataActionPerformed
 
     private void btn_TicketiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TicketiActionPerformed
         // TODO add your handling code here:
         AdminTicketi CALTicketi = new AdminTicketi(Conn, MyUserID);
         CALTicketi.setLocationRelativeTo(null);
         CALTicketi.setVisible(true);
+
     }//GEN-LAST:event_btn_TicketiActionPerformed
 
     private void btn_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logOutActionPerformed
@@ -249,10 +229,9 @@ public class AdminView extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Isplata;
     private javax.swing.JButton btn_Korisnici;
     private javax.swing.JButton btn_Ticketi;
-    private javax.swing.JButton btn_Uplata;
+    private javax.swing.JButton btn_UplataIsplata;
     private javax.swing.JButton btn_logOut;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
