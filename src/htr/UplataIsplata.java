@@ -94,12 +94,14 @@ public class UplataIsplata extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_PrikazTickets = new javax.swing.JTable();
         btn_Reset = new javax.swing.JButton();
+        btn_Prihvatiti = new javax.swing.JButton();
+        btn_Odbiti = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(239, 195, 230));
+        jPanel1.setBackground(new java.awt.Color(27, 152, 224));
 
         pic_Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/rsz_exit.png"))); // NOI18N
         pic_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,18 +119,18 @@ public class UplataIsplata extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("User Tickets");
+        jLabel1.setText("Tickets");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(pic_Profile)
-                .addGap(225, 225, 225)
+                .addGap(46, 46, 46)
+                .addComponent(pic_Profile, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(259, 259, 259)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pic_Exit)
                 .addContainerGap())
         );
@@ -138,12 +140,13 @@ public class UplataIsplata extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pic_Exit))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(pic_Profile))))
+                        .addComponent(pic_Exit)
+                        .addGap(0, 46, Short.MAX_VALUE))
+                    .addComponent(pic_Profile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -181,7 +184,7 @@ public class UplataIsplata extends javax.swing.JFrame {
         lblUplata.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         lblUplata.setText("Uplata");
 
-        btn_Prikazi.setBackground(new java.awt.Color(240, 166, 202));
+        btn_Prikazi.setBackground(new java.awt.Color(232, 241, 242));
         btn_Prikazi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btn_Prikazi.setText("Prikazi");
         btn_Prikazi.addActionListener(new java.awt.event.ActionListener() {
@@ -190,19 +193,18 @@ public class UplataIsplata extends javax.swing.JFrame {
             }
         });
 
+        tbl_PrikazTickets.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         tbl_PrikazTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tbl_PrikazTickets);
 
+        btn_Reset.setBackground(new java.awt.Color(232, 241, 242));
         btn_Reset.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         btn_Reset.setText("Reset");
         btn_Reset.addActionListener(new java.awt.event.ActionListener() {
@@ -211,33 +213,59 @@ public class UplataIsplata extends javax.swing.JFrame {
             }
         });
 
+        btn_Prihvatiti.setBackground(new java.awt.Color(232, 241, 242));
+        btn_Prihvatiti.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btn_Prihvatiti.setText("Prihvatiti");
+        btn_Prihvatiti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_PrihvatitiActionPerformed(evt);
+            }
+        });
+
+        btn_Odbiti.setBackground(new java.awt.Color(232, 241, 242));
+        btn_Odbiti.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        btn_Odbiti.setText("Odbiti");
+        btn_Odbiti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_OdbitiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_Prezime)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_Ime)
-                .addGap(18, 18, 18)
-                .addComponent(lblIsplata)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sliderTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUplata)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_Reset)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_Prikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addComponent(jSeparator1)
             .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_Prezime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_Ime)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblIsplata)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sliderTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUplata)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_Reset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(btn_Prikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(btn_Prihvatiti, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(btn_Odbiti, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,10 +273,10 @@ public class UplataIsplata extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Reset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_Prikazi)
-                        .addComponent(lblUplata)
-                        .addComponent(btn_Reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblUplata))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(sliderTicket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,7 +288,12 @@ public class UplataIsplata extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Prihvatiti)
+                    .addComponent(btn_Odbiti))
+                .addContainerGap())
         );
 
         pack();
@@ -300,18 +333,32 @@ public class UplataIsplata extends javax.swing.JFrame {
 
         if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 50) {
             //Prikazi sve
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik' from  User_UI_Odobrenje");
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje");
             tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 0) {
+        } else if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 0) {
             //Prikazi isplatu za sve usere
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 100) {
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0'");
+            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+        } else if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 100) {
             //Prikazi uplatu za sve usere
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1'");
+            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
         } else if (txt_UserID.getText().isEmpty() == false && sliderTicket.getValue() == 0) {
             //Prikazi isplatu za odredenog korisnika
-        } else if (txt_UserID.getText().isEmpty() == true && sliderTicket.getValue() == 100) {
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0' AND F04UID = '" + User + "'");
+            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+        } else if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 100) {
             //Prikazi uplatu za odredenog korisnika
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1' AND F04UID = '" + User + "'");
+            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+        } else if (txt_UserID.getText().isEmpty() == false && sliderTicket.getValue() == 50) {
+            //Prikazi sve za odredenog korisnika
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UID = '" + User + "'");
+            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
         } else {
             //Prikazi sve
+            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje");
+            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
         }
     }//GEN-LAST:event_btn_PrikaziActionPerformed
 
@@ -320,8 +367,18 @@ public class UplataIsplata extends javax.swing.JFrame {
         sliderTicket.setValue(50);
     }//GEN-LAST:event_btn_ResetActionPerformed
 
+    private void btn_PrihvatitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrihvatitiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_PrihvatitiActionPerformed
+
+    private void btn_OdbitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OdbitiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_OdbitiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Odbiti;
+    private javax.swing.JButton btn_Prihvatiti;
     private javax.swing.JButton btn_Prikazi;
     private javax.swing.JButton btn_Reset;
     private javax.swing.JLabel jLabel1;

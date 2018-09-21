@@ -7,7 +7,8 @@ CREATE TABLE [dbo].[User_UI_Odobrenje](
 	F04OPI varchar(255) NULL,         -- Opis
         F04DVI datetime NOT NULL,         -- Datum i vrijeme uplate/isplate
         F04KIS varchar(50) NULL,          -- User isplate
-        F04MIS varchar(100)  NULL,     -- Mjesto isplate
-        F04UID int NOT NULL               -- User ID
+        F04MIS varchar(100)  NULL,        -- Mjesto isplate
+        F04UID int NOT NULL,              -- User ID
+        F04STA int NOT NULL,              -- Status
         FOREIGN KEY (F04UID) REFERENCES Users(F01ID)
 	)

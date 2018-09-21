@@ -356,7 +356,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_IznosKeyTyped
 
     private void PunjenjeTablica() {
-        RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN Iznos, F04OPI Opis, (CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END) 'Uplata/Isplata' from User_UI_Odobrenje where F04UID = '" + txt_UserID.getText().trim() + "'");
+        RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN Iznos, F04OPI Opis, (CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END) 'Uplata/Isplata',  CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from User_UI_Odobrenje where F04UID = '" + txt_UserID.getText().trim() + "'");
         tbl_PregledUplata.setModel(DbUtils.resultSetToTableModel(RS));
     }
 
@@ -405,13 +405,13 @@ public class UIOdobrenje extends javax.swing.JFrame {
                         if (sldr_UI.getValue() == 0) {
                             double myEntVal = Double.parseDouble(txt_Iznos.getText().trim());
                             if (myEntVal <= UserBalance) {
-                                RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '0', '" + txt_Opis.getText().trim() + "', GETDATE(), '" + userUsername + "', 'Split', '" + myUserID + "')");
+                                RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '0', '" + txt_Opis.getText().trim() + "', GETDATE(), '" + userUsername + "', 'Split', '" + myUserID + "','0')");
                                 dispose();
                             } else {
                                 System.out.println("Nemate dovoljno na racunu!");
                             }
                         } else if (sldr_UI.getValue() == 100) {
-                            RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '1', '" + txt_Opis.getText().trim() + "', GETDATE(), ' ', ' ', '" + myUserID + "')");
+                            RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '1', '" + txt_Opis.getText().trim() + "', GETDATE(), ' ', ' ', '" + myUserID + "','0')");
                             dispose();
                         }
                     }
