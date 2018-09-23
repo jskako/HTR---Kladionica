@@ -41,11 +41,14 @@ public class UpisivanjeNaTempTicket {
         //Generiranje varijabli
         int myRowTemp = 0;
         int myTipTemp = 0;
+
         int myLastID = 0;
+        String MyLID = null;
+
         String myTipConv = null;
         String imeKoe = null;
         double myKoe = 0;
-        
+
         try {
             if (col == 3) {
                 imeKoe = "F07KO1";
@@ -56,14 +59,30 @@ public class UpisivanjeNaTempTicket {
             } else if (col == 5) {
                 imeKoe = "F07KO2";
                 myTipConv = "2";
-            }
-            else{
+            } else {
                 return;
             }
         } catch (Exception el) {
             el.printStackTrace();
         }
-        
+
+        //Dohvacanje trenutnog koeficijenta
+        try {
+            RS = CALIzb.main(Conn, "select F09TIP from temp_ticket where F09IDT = '" + row + "'");
+            while (RS.next()) {
+                MyLID = RS.getString("F09TIP");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        if (MyLID.equals("1")) {
+            myLastID = 3;
+        } else if (MyLID.equals("2")) {
+            myLastID = 4;
+        } else if (MyLID.equals("X")) {
+            myLastID = 5;
+        }
+
         provjeriVrijeme();
 
         //Da li je koeficijent 0

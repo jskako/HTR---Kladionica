@@ -16,8 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -1205,13 +1203,15 @@ public class UserView extends javax.swing.JFrame {
 
     private void btnPotvrdiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPotvrdiActionPerformed
         // TODO add your handling code here:
-        tableNogomet.setModel(new DefaultTableModel());
-        tableKosarka.setModel(new DefaultTableModel());
-        tableHokej.setModel(new DefaultTableModel());
-        tableTenis.setModel(new DefaultTableModel());
-
         sd = dateFormat.format(pickDate.getDate());
-        PunjenjeTablicePodacima(sd);
+        System.out.println(sd);
+        System.out.println(sd);
+        System.out.println(sd);
+        System.out.println(sd);
+
+        if (sd != null && !sd.isEmpty()) {
+            PunjenjeTablicePodacima(sd);
+        }
     }//GEN-LAST:event_btnPotvrdiActionPerformed
 
     private void pickDateVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_pickDateVetoableChange
