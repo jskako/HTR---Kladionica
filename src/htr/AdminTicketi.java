@@ -5,8 +5,12 @@
  */
 package htr;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -16,6 +20,12 @@ public class AdminTicketi extends javax.swing.JFrame {
 
     private Connection Conn;
     private int User;
+
+    int rowClickedInt = 0;
+    String rowClicked = null;
+
+    String userIme = null;
+    String userPrezime = null;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -28,6 +38,40 @@ public class AdminTicketi extends javax.swing.JFrame {
         this.Conn = con;
         this.User = user;
         initComponents();
+        AddActionListener();
+        Punjenje();
+    }
+
+    private void GetUser(int User) {
+
+        try {
+            RS = CALIzb.main(Conn, "select F01IME, F01PRE from users where F01ID = '" + User + "'");
+            if (!RS.next()) {
+
+            } else {
+                RS = CALIzb.main(Conn, "select F01IME, F01PRE, F01USR from users where F01ID = '" + User + "'");
+                while (RS.next()) {
+                    userIme = RS.getString("F01IME");
+                    userPrezime = RS.getString("F01PRE");
+
+                    lbl_Ime.setText(userIme);
+                    lbl_Prezime.setText(userPrezime);
+
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void Punjenje() {
+        if (txt_Korisnik.getText().trim().isEmpty()) {
+            RS = CALIzb.main(Conn, "select F08IDT ID, F08ULO Ulog, F08ISP Isplata, F08DOB Dobitak, F08BON Bonus, F08TEC Tečaj, F08PDV Porez, F08DVT 'Datum i vrijeme uplate' from ticket");
+            mojiTicketi.setModel(DbUtils.resultSetToTableModel(RS));
+        } else {
+            RS = CALIzb.main(Conn, "select F08IDT ID, F08ULO Ulog, F08ISP Isplata, F08DOB Dobitak, F08BON Bonus, F08TEC Tečaj, F08PDV Porez, F08DVT 'Datum i vrijeme uplate' from ticket where F08UID = '" + txt_Korisnik.getText().trim() + "'");
+            mojiTicketi.setModel(DbUtils.resultSetToTableModel(RS));
+        }
+
     }
 
     /**
@@ -39,25 +83,225 @@ public class AdminTicketi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        mojiTicketi = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        lbl_Ime = new javax.swing.JLabel();
+        lbl_Prezime = new javax.swing.JLabel();
+        txt_Korisnik = new javax.swing.JTextField();
+        bPrikazi = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_PrikazParova = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(27, 152, 224));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/rsz_exit.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/logoHTR.png"))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Ticketi");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(298, 298, 298)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        mojiTicketi.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        mojiTicketi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(mojiTicketi);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel1.setText("Korisnik");
+
+        lbl_Ime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lbl_Ime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_Ime.setText("Ime");
+
+        lbl_Prezime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lbl_Prezime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_Prezime.setText("Prezime");
+
+        txt_Korisnik.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txt_Korisnik.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_Korisnik.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_KorisnikFocusLost(evt);
+            }
+        });
+        txt_Korisnik.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_KorisnikKeyTyped(evt);
+            }
+        });
+
+        bPrikazi.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        bPrikazi.setText("Prikazi");
+        bPrikazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPrikaziActionPerformed(evt);
+            }
+        });
+
+        tbl_PrikazParova.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        tbl_PrikazParova.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tbl_PrikazParova);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_Korisnik, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_Ime)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_Prezime)
+                .addGap(18, 18, 18)
+                .addComponent(bPrikazi)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lbl_Ime)
+                    .addComponent(lbl_Prezime)
+                    .addComponent(txt_Korisnik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bPrikazi))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txt_KorisnikFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_KorisnikFocusLost
+        // TODO add your handling code here:
+        GetUser(Integer.parseInt(txt_Korisnik.getText().trim()));
+    }//GEN-LAST:event_txt_KorisnikFocusLost
+
+    private void txt_KorisnikKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_KorisnikKeyTyped
+        // TODO add your handling code here:
+        ZabraniSlova(evt);
+    }//GEN-LAST:event_txt_KorisnikKeyTyped
+
+    private void AddActionListener() {
+
+        //Dohvacanje row i col numbera
+        mojiTicketi.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting()) {
+                    String rowClicked;
+
+                    //Get row to int
+                    rowClicked = mojiTicketi.getValueAt(mojiTicketi.getSelectedRow(), 0).toString();
+                    rowClickedInt = Integer.parseInt(rowClicked);
+                    if (rowClickedInt > 0) {
+                        RS = CALIzb.main(Conn, "select F081PAR1 Domacin, F081PAR2 Protivnik, F081TIP TIP, F081KOEF KOEFICIJENT from ticket_parovi where F081IDU = '" + rowClickedInt + "'  ORDER BY F018DVT ASC");
+                        tbl_PrikazParova.setModel(DbUtils.resultSetToTableModel(RS));
+                    }
+
+                }
+            }
+        });
+    }
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void bPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPrikaziActionPerformed
+        // TODO add your handling code here:
+        Punjenje();
+    }//GEN-LAST:event_bPrikaziActionPerformed
+
+    public void ZabraniSlova(java.awt.event.KeyEvent evt) {
+        char vChar = evt.getKeyChar();
+        if ((!Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bPrikazi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_Ime;
+    private javax.swing.JLabel lbl_Prezime;
+    private javax.swing.JTable mojiTicketi;
+    private javax.swing.JTable tbl_PrikazParova;
+    private javax.swing.JTextField txt_Korisnik;
     // End of variables declaration//GEN-END:variables
 }
