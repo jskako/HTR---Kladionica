@@ -66,23 +66,6 @@ public class UpisivanjeNaTempTicket {
             el.printStackTrace();
         }
 
-        //Dohvacanje trenutnog koeficijenta
-        try {
-            RS = CALIzb.main(Conn, "select F09TIP from temp_ticket where F09IDT = '" + row + "'");
-            while (RS.next()) {
-                MyLID = RS.getString("F09TIP");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (MyLID.equals("1")) {
-            myLastID = 3;
-        } else if (MyLID.equals("2")) {
-            myLastID = 4;
-        } else if (MyLID.equals("X")) {
-            myLastID = 5;
-        }
-
         provjeriVrijeme();
 
         //Da li je koeficijent 0
