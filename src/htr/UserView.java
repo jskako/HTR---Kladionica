@@ -54,6 +54,10 @@ public class UserView extends javax.swing.JFrame {
     double ukupanDobitak;
     double porezNaUkupanIznos;
     double iznosIsplate;
+    int nogometBonus = 0;
+    int kosarkaBonus = 0;
+    int hokejBonus = 0;
+    int tenisBonus = 0;
     Frame UserView = new Frame();
 
     public UserView(Connection con, String user) {
@@ -1271,7 +1275,7 @@ public class UserView extends javax.swing.JFrame {
         txtIznosUplate.setText(String.valueOf(MyUserBalance));
     }//GEN-LAST:event_maxUlogActionPerformed
 
-    private void bUplatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUplatiActionPerformed
+    private void ProvjeraIUpis() {
         // TODO add your handling code here:
         BrisanjeStarihParova();
         int myTempID = 0;
@@ -1334,6 +1338,45 @@ public class UserView extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void ProvjeraBonusa() {
+        //int nogometBonus = 0;
+        //int kosarkaBonus = 0;
+        //int hokejBonus = 0;
+        //int tenisBonus = 0;
+
+        try {
+            //Dohvacanje nogometa
+            RS = CALIzb.main(Conn, "SELECT COUNT(*) F09TIS FROM temp_ticket WHERE F09TIS = '1'; ");
+            while (RS.next()) {
+                nogometBonus = RS.getInt("F09TIS");
+            }
+            //Dohvacanje kosarke
+            RS = CALIzb.main(Conn, "SELECT COUNT(*) F09TIS FROM temp_ticket WHERE F09TIS = '2'; ");
+            while (RS.next()) {
+                kosarkaBonus = RS.getInt("F09TIS");
+            }
+            //Dohvacanje Hokej
+            RS = CALIzb.main(Conn, "SELECT COUNT(*) F09TIS FROM temp_ticket WHERE F09TIS = '4'; ");
+            while (RS.next()) {
+                hokejBonus = RS.getInt("F09TIS");
+            }
+            //Dohvacanje Tenis
+            RS = CALIzb.main(Conn, "SELECT COUNT(*) F09TIS FROM temp_ticket WHERE F09TIS = '3'; ");
+            while (RS.next()) {
+                tenisBonus = RS.getInt("F09TIS");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void bUplatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUplatiActionPerformed
+        ProvjeraBonusa();
+        
+        ProvjeraIUpis();
     }//GEN-LAST:event_bUplatiActionPerformed
 
     private void txtIznosUplateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIznosUplateFocusLost
