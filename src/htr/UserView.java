@@ -17,6 +17,8 @@ import java.util.Date;
 import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import net.proteanit.sql.DbUtils;
+import javax.swing.JOptionPane;
+import javax.swing.JDialog;
 
 /**
  *
@@ -54,10 +56,22 @@ public class UserView extends javax.swing.JFrame {
     double ukupanDobitak;
     double porezNaUkupanIznos;
     double iznosIsplate;
+    double bonusIznos;
+
     int nogometBonus = 0;
     int kosarkaBonus = 0;
     int hokejBonus = 0;
     int tenisBonus = 0;
+    boolean nogBon = false;
+    boolean kosBon = false;
+    boolean hokBon = false;
+    boolean tenBon = false;
+
+    double bonsNog = 0;
+    double bonsKos = 0;
+    double bonsHok = 0;
+    double bonsTen = 0;
+
     Frame UserView = new Frame();
 
     public UserView(Connection con, String user) {
@@ -148,12 +162,37 @@ public class UserView extends javax.swing.JFrame {
         PostavljanjePDVnaIznos();
         PostavljanjeUkupnogDobitka();
         IzracunPorezaNaUkupno();
+        PostavljanjeBonusa();
         PostavljanjeIznosaIsplate();
     }
 
     private void PostavljanjeIznosaIsplate() {
-        iznosIsplate = ukupanDobitak - porezNaUkupanIznos;
+        iznosIsplate = (ukupanDobitak - porezNaUkupanIznos) + bonusIznos;
         lblIsplata.setText(String.valueOf(decFormat.format(iznosIsplate)));
+    }
+
+    private void PostavljanjeBonusa() {
+        if (nogometBonus >= 5) {
+            bonsNog = (double) (ukupanDobitak * (5.0f / 100.0f));
+            bonusIznos = bonsNog + bonsKos + bonsHok + bonsTen;
+            lblBonus.setText(String.valueOf(decFormat.format(bonusIznos)));
+        }
+        if (kosarkaBonus >= 5) {
+            bonsKos = (double) (ukupanDobitak * (5.0f / 100.0f));
+            bonusIznos = bonsNog + bonsKos + bonsHok + bonsTen;
+            lblBonus.setText(String.valueOf(decFormat.format(bonusIznos)));
+        }
+        if (hokejBonus >= 5) {
+            bonsHok = (double) (ukupanDobitak * (5.0f / 100.0f));
+            bonusIznos = bonsNog + bonsKos + bonsHok + bonsTen;
+            lblBonus.setText(String.valueOf(decFormat.format(bonusIznos)));
+        }
+        if (tenisBonus >= 5) {
+            bonsTen = (double) (ukupanDobitak * (5.0f / 100.0f));
+            bonusIznos = bonsNog + bonsKos + bonsHok + bonsTen;
+            lblBonus.setText(String.valueOf(decFormat.format(bonusIznos)));
+        }
+
     }
 
     private void PostavljanjePDVnaIznos() {
@@ -222,6 +261,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableNogomet.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                ProvjeraBonusa();
                 PostavljanjeTablica();
             }
         });
@@ -235,6 +275,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableTenis.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                ProvjeraBonusa();
                 PostavljanjeTablica();
             }
         });
@@ -248,6 +289,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableKosarka.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                ProvjeraBonusa();
                 PostavljanjeTablica();
             }
         });
@@ -261,6 +303,7 @@ public class UserView extends javax.swing.JFrame {
                 //Get col to int
                 colClickedInt = tableHokej.getSelectedColumn();
                 CALRegistration.UpisivanjeNaTempTicket(rowClickedInt, colClickedInt, MyUserID, Conn);
+                ProvjeraBonusa();
                 PostavljanjeTablica();
             }
         });
@@ -348,6 +391,7 @@ public class UserView extends javax.swing.JFrame {
         lbl_UserID = new javax.swing.JLabel();
         lbl_Balance = new javax.swing.JLabel();
         lblWB = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
         lbl_Nogomet1 = new javax.swing.JLabel();
@@ -482,6 +526,13 @@ public class UserView extends javax.swing.JFrame {
         lblWB.setForeground(new java.awt.Color(255, 255, 255));
         lblWB.setText("Welcome back, Josip.");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -500,14 +551,16 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bOdjava))
                     .addComponent(lblWB))
+                .addGap(19, 19, 19)
+                .addComponent(jButton1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(279, 279, 279)
+                        .addGap(187, 187, 187)
                         .addComponent(img_Logo))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(288, 288, 288)
+                        .addGap(196, 196, 196)
                         .addComponent(lbl_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
                 .addComponent(lbl_Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -521,7 +574,11 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(img_Logo))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblWB)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblWB)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jButton1)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -637,7 +694,7 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(imgTennis)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_Tenis)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         MyTennisPanelLayout.setVerticalGroup(
             MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1323,6 +1380,10 @@ public class UserView extends javax.swing.JFrame {
 
                         mySelectedRow = tableTemp.getValueAt(i, 0).toString();
                         System.out.println(mySelectedRow);
+                        System.out.println(mySelectedRow);
+                        System.out.println(mySelectedRow);
+                        System.out.println(mySelectedRow);
+                        System.out.println(mySelectedRow);
                         RS = CALIzb.main(Conn, "insert into Ticket_parovi values('" + myTempParID + "', '" + myTempID + "', (select F09TIM1 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09TIM2 from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09TIP from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), (select F09KOE from Temp_Ticket where F09PRK = '" + mySelectedRow + "'), GETDATE(), '" + MyUserID + "')");
                     }
                     RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09UID = '" + MyUserID + "'");
@@ -1341,10 +1402,6 @@ public class UserView extends javax.swing.JFrame {
     }
 
     private void ProvjeraBonusa() {
-        //int nogometBonus = 0;
-        //int kosarkaBonus = 0;
-        //int hokejBonus = 0;
-        //int tenisBonus = 0;
 
         try {
             //Dohvacanje nogometa
@@ -1375,8 +1432,106 @@ public class UserView extends javax.swing.JFrame {
 
     private void bUplatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUplatiActionPerformed
         ProvjeraBonusa();
-        
-        ProvjeraIUpis();
+
+        int result = -1;
+
+        //Provjera nogometa
+        if (nogometBonus == 3 || nogometBonus == 4) {
+            JOptionPane pane = new JOptionPane(
+                    "Imate " + nogometBonus + " para istoga tipa sporta (Nogomet).\nDa li ste znali da uplatom 5 parova istoga tipa sporta dobijete 10% više!\nDa li želite nastaviti s uplatom?");
+            Object[] options = new String[]{"Da", "Ne"};
+            pane.setOptions(options);
+            JDialog dialog = pane.createDialog("Prilika!");
+            dialog.setAlwaysOnTop(true);
+            dialog.show();
+            Object obj = pane.getValue();
+            for (int k = 0; k < options.length; k++) {
+                if (options[k].equals(obj)) {
+                    result = k;
+                }
+            }
+            if (result == 0) {
+                nogBon = true;
+            } else {
+                nogBon = false;
+            }
+        } else {
+            nogBon = true;
+        }
+        //Provjera hokeja
+        if (hokejBonus == 3 || hokejBonus == 4) {
+            JOptionPane pane = new JOptionPane(
+                    "Imate " + hokejBonus + " para istoga tipa sporta (Hokej).\nDa li ste znali da uplatom 5 parova istoga tipa sporta dobijete 10% više!\nDa li želite nastaviti s uplatom?");
+            Object[] options = new String[]{"Da", "Ne"};
+            pane.setOptions(options);
+            JDialog dialog = pane.createDialog("Prilika!");
+            dialog.setAlwaysOnTop(true);
+            dialog.show();
+            Object obj = pane.getValue();
+            for (int k = 0; k < options.length; k++) {
+                if (options[k].equals(obj)) {
+                    result = k;
+                }
+            }
+            if (result == 0) {
+                hokBon = true;
+            } else {
+                hokBon = false;
+            }
+        } else {
+            hokBon = true;
+        }
+        //Provjera tenisa
+        if (tenisBonus == 3 || tenisBonus == 4) {
+            JOptionPane pane = new JOptionPane(
+                    "Imate " + tenisBonus + " para istoga tipa sporta (Tenis).\nDa li ste znali da uplatom 5 parova istoga tipa sporta dobijete 10% više!\nDa li želite nastaviti s uplatom?");
+            Object[] options = new String[]{"Da", "Ne"};
+            pane.setOptions(options);
+            JDialog dialog = pane.createDialog("Prilika!");
+            dialog.setAlwaysOnTop(true);
+            dialog.show();
+            Object obj = pane.getValue();
+            for (int k = 0; k < options.length; k++) {
+                if (options[k].equals(obj)) {
+                    result = k;
+                }
+            }
+            if (result == 0) {
+                tenBon = true;
+            } else {
+                tenBon = false;
+            }
+        } else {
+            tenBon = true;
+        }
+        //Provjera kosarke
+        if (kosarkaBonus == 3 || kosarkaBonus == 4) {
+            JOptionPane pane = new JOptionPane(
+                    "Imate " + kosarkaBonus + " para istoga tipa sporta (Kosarka).\nDa li ste znali da uplatom 5 parova istoga tipa sporta dobijete 10% više!\nDa li želite nastaviti s uplatom?");
+            Object[] options = new String[]{"Da", "Ne"};
+            pane.setOptions(options);
+            JDialog dialog = pane.createDialog("Prilika!");
+            dialog.setAlwaysOnTop(true);
+            dialog.show();
+            Object obj = pane.getValue();
+            for (int k = 0; k < options.length; k++) {
+                if (options[k].equals(obj)) {
+                    result = k;
+                }
+            }
+            if (result == 0) {
+                kosBon = true;
+            } else {
+                kosBon = false;
+            }
+        } else {
+            kosBon = true;
+        }
+
+        //Zovi upis        
+        if (nogBon == true && kosBon == true && hokBon == true && tenBon == true) {
+            ProvjeraIUpis();
+        }
     }//GEN-LAST:event_bUplatiActionPerformed
 
     private void txtIznosUplateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIznosUplateFocusLost
@@ -1419,6 +1574,11 @@ public class UserView extends javax.swing.JFrame {
         GoLink("https://www.instagram.com/?hl=hr");
     }//GEN-LAST:event_lbl_InstagramMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        bUplatiActionPerformed(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void GoLink(String Link) {
         try {
             Desktop desktop = java.awt.Desktop.getDesktop();
@@ -1457,6 +1617,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel img_Logo;
     private javax.swing.JLabel img_Soccer;
     private javax.swing.JLabel img_basketball;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

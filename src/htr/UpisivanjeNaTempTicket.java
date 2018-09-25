@@ -91,8 +91,6 @@ public class UpisivanjeNaTempTicket {
                     ex.printStackTrace();
                 }
 
-                System.out.println(row);
-                System.out.println(col);
 
                 try {
                     //Provjerajemo da li par na ticketu vec postoji
