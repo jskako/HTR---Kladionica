@@ -437,7 +437,6 @@ public class UserView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         bUplati = new javax.swing.JButton();
         btnPrikazPoreza = new javax.swing.JToggleButton();
-        brisiParTemp = new javax.swing.JButton();
         brisiSveTemp = new javax.swing.JButton();
         maxUlog = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -680,7 +679,7 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(imgTennis)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_Tenis)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         MyTennisPanelLayout.setVerticalGroup(
             MyTennisPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1034,16 +1033,6 @@ public class UserView extends javax.swing.JFrame {
 
         lblPorezNaIznUplate.getAccessibleContext().setAccessibleName("lblPorezNaIznUplate");
 
-        brisiParTemp.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        brisiParTemp.setText("Izbriši par");
-        brisiParTemp.setToolTipText("");
-        brisiParTemp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        brisiParTemp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brisiParTempActionPerformed(evt);
-            }
-        });
-
         brisiSveTemp.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         brisiSveTemp.setText("Izbriši sve");
         brisiSveTemp.setToolTipText("");
@@ -1191,11 +1180,9 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(brisiParTemp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(brisiSveTemp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(maxUlog, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+                        .addComponent(brisiSveTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(maxUlog, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(2, 2, 2))
@@ -1225,7 +1212,6 @@ public class UserView extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(brisiParTemp)
                             .addComponent(brisiSveTemp)
                             .addComponent(maxUlog))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1234,8 +1220,6 @@ public class UserView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        brisiParTemp.getAccessibleContext().setAccessibleName("brisiParTemp");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1299,12 +1283,6 @@ public class UserView extends javax.swing.JFrame {
             lblPrikazPorezaSest.setVisible(false);
         }
     }//GEN-LAST:event_btnPrikazPorezaActionPerformed
-
-    private void brisiParTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiParTempActionPerformed
-        // TODO add your handling code here:
-        RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09PRK = '" + tempClickedInt + "'");
-        PostavljanjeTablica();
-    }//GEN-LAST:event_brisiParTempActionPerformed
 
     private void brisiSveTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brisiSveTempActionPerformed
         // TODO add your handling code here:
@@ -1589,7 +1567,6 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JButton bOdjava;
     private javax.swing.JButton bUIRacun;
     private javax.swing.JButton bUplati;
-    private javax.swing.JButton brisiParTemp;
     private javax.swing.JButton brisiSveTemp;
     private javax.swing.JButton btnPotvrdi;
     private javax.swing.JToggleButton btnPrikazPoreza;
