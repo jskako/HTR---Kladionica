@@ -8,6 +8,7 @@ package htr;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.event.ListSelectionEvent;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -22,6 +23,14 @@ public class UplataIsplata extends javax.swing.JFrame {
     String userIme;
     String userPrezime;
     String userUsername;
+    String rowClicked = null;
+    int rowClickedInt = 0;
+
+    int myTempUser = -1;
+    int myTempStatus = -1;
+    double myTempIznos = 0;
+    double myUserIznos = 0;
+    int myTempID = 0;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -35,6 +44,21 @@ public class UplataIsplata extends javax.swing.JFrame {
         this.User = user;
         initComponents();
         GetUser(User);
+        AddActionListener();
+    }
+
+    //Provjera kliknutih polja
+    private void AddActionListener() {
+
+        //Nogomet
+        tbl_PrikazTickets.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
+                //Get row to int
+                rowClicked = tbl_PrikazTickets.getValueAt(tbl_PrikazTickets.getSelectedRow(), 0).toString();
+                rowClickedInt = Integer.parseInt(rowClicked);
+
+            }
+        });
     }
 
     private void GetUser(int User) {
@@ -302,8 +326,88 @@ public class UplataIsplata extends javax.swing.JFrame {
         sliderTicket.setValue(50);
     }//GEN-LAST:event_btn_ResetActionPerformed
 
+    //Dohvacanje zadnjeg ID-a
+    private void ZadnjiID() {
+        try {
+            //Dohvacanje zadnjeg ID-a
+            RS = CALIzb.main(Conn, "SELECT TOP 1 F04UIID FROM User_UI_Odobrenje ORDER BY F04UIID DESC");
+            while (RS.next()) {
+                myTempID = RS.getInt("F04UIID");
+                myTempID += 1;
+            }
+            if (myTempID == 0) {
+                myTempID += 1;
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
     private void btn_PrihvatitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrihvatitiActionPerformed
-        // TODO add your handling code here:
+
+        ZadnjiID();
+
+        // Dohvacanje statusa
+        try {
+            RS = CALIzb.main(Conn, "Select F04STA from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
+            while (RS.next()) {
+                myTempStatus = RS.getInt("F04STA");
+            }
+        } catch (Exception e) {
+
+        }
+
+        //Dohvacanje usera
+        try {
+            RS = CALIzb.main(Conn, "select F04UID from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
+            while (RS.next()) {
+                myTempUser = RS.getInt("F04UID");
+            }
+        } catch (Exception e) {
+        }
+
+        //Ako vec nije prihvaceno\odbijeno
+        if (myTempStatus == 0) {
+            //Dohvacanje iznosa uplate
+            try {
+                RS = CALIzb.main(Conn, "select F04IZN from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
+                while (RS.next()) {
+                    myTempIznos = RS.getDouble("F04IZN");
+                }
+            } catch (Exception e) {
+            }
+
+            //Dohvacanje ukupnog uplacenog
+            double myTempUkStanje = 0;
+            try {
+                RS = CALIzb.main(Conn, "select F03ZUP from User_Stanje where F03UID = '" + myTempUser + "'");
+                while (RS.next()) {
+                    myTempUkStanje = RS.getDouble("F04IZN");
+                }
+            } catch (Exception e) {
+            }
+
+            //Dohvacanje trenutnog stanja usera
+            try {
+                RS = CALIzb.main(Conn, "select F03STA from user_stanje where F03UID = '" + myTempUser + "'");
+                while (RS.next()) {
+                    myUserIznos = RS.getDouble("F04IZN");
+                }
+            } catch (Exception e) {
+            }
+            double myTempIz = myTempIznos + myUserIznos;
+            double myTmpUkSt = myTempIznos + myTempUkStanje;
+            //Uplata na racun
+            RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempIz + "' where F03UID = '" + myTempUser + "'");
+            //Izmjena stanja
+            RS = CALIzb.main(Conn, "UPDATE User_UI_Odobrenje set F04STA = '1' where F04UIID = '" + rowClickedInt + "'");
+            //Izmjena ukupne uplate
+            RS = CALIzb.main(Conn, "update User_Stanje set F03ZUP = '" + myTmpUkSt + "' where F03UID = '" + myTempUser + "'");
+            dispose();
+        } else {
+            PopError CALError = new PopError();
+            CALError.infoBox("Uplata-Isplata vec obradena!", "Error!");
+        }
     }//GEN-LAST:event_btn_PrihvatitiActionPerformed
 
     private void btn_OdbitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OdbitiActionPerformed
