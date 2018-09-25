@@ -346,9 +346,9 @@ public class UplataIsplata extends javax.swing.JFrame {
 
     private void UplataIsplata() {
         try {
-            RS = CALIzb.main(Conn, "select F04UI from User_UI_Odobrenje where F04UIID = ''");
+            RS = CALIzb.main(Conn, "select F04UI from User_UI_Odobrenje where F04UIID = '"+rowClickedInt+"'");
             while (RS.next()) {
-                UplataIsplata = RS.getInt("F04STA");
+                UplataIsplata = RS.getInt("F04UI");
             }
         } catch (Exception e) {
 
