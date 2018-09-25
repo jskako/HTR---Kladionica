@@ -50,10 +50,6 @@ public class UplataIsplata extends javax.swing.JFrame {
                     userPrezime = RS.getString("F01PRE");
                     userUsername = RS.getString("F01USR");
 
-                    txt_UserID.setText(Integer.toString(User));
-                    lbl_Ime.setText(userIme);
-                    lbl_Prezime.setText(userPrezime);
-
                 }
             }
         } catch (Exception e) {
@@ -82,10 +78,6 @@ public class UplataIsplata extends javax.swing.JFrame {
         pic_Exit = new javax.swing.JLabel();
         pic_Profile = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txt_UserID = new javax.swing.JTextField();
-        lbl_Prezime = new javax.swing.JLabel();
-        lbl_Ime = new javax.swing.JLabel();
         sliderTicket = new javax.swing.JSlider();
         lblIsplata = new javax.swing.JLabel();
         lblUplata = new javax.swing.JLabel();
@@ -150,28 +142,6 @@ public class UplataIsplata extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(24, 24, 24))
         );
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        jLabel2.setText("Korisnik");
-
-        txt_UserID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txt_UserID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_UserID.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_UserIDFocusLost(evt);
-            }
-        });
-        txt_UserID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_UserIDKeyTyped(evt);
-            }
-        });
-
-        lbl_Prezime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lbl_Prezime.setText("Ime");
-
-        lbl_Ime.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lbl_Ime.setText("Prezime");
 
         sliderTicket.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -243,20 +213,12 @@ public class UplataIsplata extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_Prezime)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_Ime)
-                        .addGap(29, 29, 29)
                         .addComponent(lblIsplata)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sliderTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblUplata)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                         .addComponent(btn_Reset))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(242, 242, 242)
@@ -273,11 +235,6 @@ public class UplataIsplata extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_Prezime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbl_Ime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblIsplata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sliderTicket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblUplata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -307,16 +264,6 @@ public class UplataIsplata extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pic_ProfileMouseClicked
 
-    private void txt_UserIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_UserIDFocusLost
-        // TODO add your handling code here:
-        GetUser(Integer.parseInt(txt_UserID.getText().trim()));
-    }//GEN-LAST:event_txt_UserIDFocusLost
-
-    private void txt_UserIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_UserIDKeyTyped
-        // TODO add your handling code here:
-        ZabraniSlova(evt);
-    }//GEN-LAST:event_txt_UserIDKeyTyped
-
     private void sliderTicketMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sliderTicketMouseReleased
         // TODO add your handling code here:
         if (sliderTicket.getValue() < 50) {
@@ -329,42 +276,30 @@ public class UplataIsplata extends javax.swing.JFrame {
 
     private void btn_PrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrikaziActionPerformed
         // TODO add your handling code here:
-
-        if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 50) {
-            //Prikazi sve
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 0) {
-            //Prikazi isplatu za sve usere
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0'");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 100) {
-            //Prikazi uplatu za sve usere
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1'");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else if (txt_UserID.getText().isEmpty() == false && sliderTicket.getValue() == 0) {
-            //Prikazi isplatu za odredenog korisnika
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0' AND F04UID = '" + User + "'");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else if ((txt_UserID.getText().isEmpty() == true || txt_UserID.getText().equals("0")) && sliderTicket.getValue() == 100) {
-            //Prikazi uplatu za odredenog korisnika
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1' AND F04UID = '" + User + "'");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else if (txt_UserID.getText().isEmpty() == false && sliderTicket.getValue() == 50) {
-            //Prikazi sve za odredenog korisnika
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UID = '" + User + "'");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
-        } else {
-            //Prikazi sve
-            RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje");
-            tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+        switch (sliderTicket.getValue()) {
+            case 50:
+                //Prikazi sve
+                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje");
+                tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+                break;
+            case 0:
+                //Prikazi isplatu za sve usere
+                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0'");
+                tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+                break;
+            case 100:
+                //Prikazi uplatu za sve usere
+                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1'");
+                tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_btn_PrikaziActionPerformed
 
     private void btn_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ResetActionPerformed
         // TODO add your handling code here:
         sliderTicket.setValue(50);
-        txt_UserID.setText("");
     }//GEN-LAST:event_btn_ResetActionPerformed
 
     private void btn_PrihvatitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrihvatitiActionPerformed
@@ -382,18 +317,14 @@ public class UplataIsplata extends javax.swing.JFrame {
     private javax.swing.JButton btn_Prikazi;
     private javax.swing.JButton btn_Reset;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblIsplata;
     private javax.swing.JLabel lblUplata;
-    private javax.swing.JLabel lbl_Ime;
-    private javax.swing.JLabel lbl_Prezime;
     private javax.swing.JLabel pic_Exit;
     private javax.swing.JLabel pic_Profile;
     private javax.swing.JSlider sliderTicket;
     private javax.swing.JTable tbl_PrikazTickets;
-    private javax.swing.JTextField txt_UserID;
     // End of variables declaration//GEN-END:variables
 }
