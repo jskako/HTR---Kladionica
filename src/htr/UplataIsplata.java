@@ -31,6 +31,7 @@ public class UplataIsplata extends javax.swing.JFrame {
     double myTempIznos = 0;
     double myUserIznos = 0;
     int myTempID = 0;
+    int UplataIsplata = 0;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -343,9 +344,33 @@ public class UplataIsplata extends javax.swing.JFrame {
         }
     }
 
+    private void UplataIsplata() {
+        try {
+            RS = CALIzb.main(Conn, "select F04UI from User_UI_Odobrenje where F04UIID = ''");
+            while (RS.next()) {
+                UplataIsplata = RS.getInt("F04STA");
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void DohvacanjeUsera() {
+        //Dohvacanje usera
+        try {
+            RS = CALIzb.main(Conn, "select F04UID from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
+            while (RS.next()) {
+                myTempUser = RS.getInt("F04UID");
+            }
+        } catch (Exception e) {
+        }
+    }
+
     private void btn_PrihvatitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PrihvatitiActionPerformed
 
         ZadnjiID();
+        DohvacanjeUsera();
+        UplataIsplata();
 
         // Dohvacanje statusa
         try {
@@ -355,15 +380,6 @@ public class UplataIsplata extends javax.swing.JFrame {
             }
         } catch (Exception e) {
 
-        }
-
-        //Dohvacanje usera
-        try {
-            RS = CALIzb.main(Conn, "select F04UID from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
-            while (RS.next()) {
-                myTempUser = RS.getInt("F04UID");
-            }
-        } catch (Exception e) {
         }
 
         //Ako vec nije prihvaceno\odbijeno
@@ -382,7 +398,7 @@ public class UplataIsplata extends javax.swing.JFrame {
             try {
                 RS = CALIzb.main(Conn, "select F03ZUP from User_Stanje where F03UID = '" + myTempUser + "'");
                 while (RS.next()) {
-                    myTempUkStanje = RS.getDouble("F04IZN");
+                    myTempUkStanje = RS.getDouble("F03ZUP");
                 }
             } catch (Exception e) {
             }
@@ -391,19 +407,41 @@ public class UplataIsplata extends javax.swing.JFrame {
             try {
                 RS = CALIzb.main(Conn, "select F03STA from user_stanje where F03UID = '" + myTempUser + "'");
                 while (RS.next()) {
-                    myUserIznos = RS.getDouble("F04IZN");
+                    myUserIznos = RS.getDouble("F03STA");
                 }
             } catch (Exception e) {
             }
-            double myTempIz = myTempIznos + myUserIznos;
-            double myTmpUkSt = myTempIznos + myTempUkStanje;
-            //Uplata na racun
-            RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempIz + "' where F03UID = '" + myTempUser + "'");
-            //Izmjena stanja
-            RS = CALIzb.main(Conn, "UPDATE User_UI_Odobrenje set F04STA = '1' where F04UIID = '" + rowClickedInt + "'");
-            //Izmjena ukupne uplate
-            RS = CALIzb.main(Conn, "update User_Stanje set F03ZUP = '" + myTmpUkSt + "' where F03UID = '" + myTempUser + "'");
-            dispose();
+
+            if (UplataIsplata == 1) {
+                double myTempIz = myTempIznos + myUserIznos;
+                double myTmpUkSt = myTempIznos + myTempUkStanje;
+                //Uplata na racun
+                RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempIz + "' where F03UID = '" + myTempUser + "'");
+                //Izmjena stanja
+                RS = CALIzb.main(Conn, "UPDATE User_UI_Odobrenje set F04STA = '1' where F04UIID = '" + rowClickedInt + "'");
+                //Izmjena ukupne uplate
+                RS = CALIzb.main(Conn, "update User_Stanje set F03ZUP = '" + myTmpUkSt + "' where F03UID = '" + myTempUser + "'");
+                PopError CALError = new PopError();
+                CALError.infoBox("Uplata uspješno obradena!", "Success!");
+                dispose();
+            } else {
+                if (myUserIznos > myTempIznos) {
+                    double myTempIz = myUserIznos - myTempIznos;
+                    double myTmpUkSt = myTempUkStanje + myTempIznos;
+                    //Uplata na racun
+                    RS = CALIzb.main(Conn, "update User_Stanje set F03STA = '" + myTempIz + "' where F03UID = '" + myTempUser + "'");
+                    //Izmjena stanja
+                    RS = CALIzb.main(Conn, "UPDATE User_UI_Odobrenje set F04STA = '1' where F04UIID = '" + rowClickedInt + "'");
+                    //Izmjena ukupne uplate
+                    RS = CALIzb.main(Conn, "update User_Stanje set F03ZUP = '" + myTmpUkSt + "' where F03UID = '" + myTempUser + "'");
+                    PopError CALError = new PopError();
+                    CALError.infoBox("Isplata uspješno obradena!", "Success!");
+                    dispose();
+                } else {
+                    PopError CALError = new PopError();
+                    CALError.infoBox("Nemate dovoljno sredstava na racunu!", "Error!");
+                }
+            }
         } else {
             PopError CALError = new PopError();
             CALError.infoBox("Uplata-Isplata vec obradena!", "Error!");
@@ -412,6 +450,7 @@ public class UplataIsplata extends javax.swing.JFrame {
 
     private void btn_OdbitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OdbitiActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_btn_OdbitiActionPerformed
 
 
