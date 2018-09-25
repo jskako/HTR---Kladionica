@@ -304,17 +304,17 @@ public class UplataIsplata extends javax.swing.JFrame {
         switch (sliderTicket.getValue()) {
             case 50:
                 //Prikazi sve
-                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje");
+                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' When F04STA = '1' THEN 'Prihvaceno' ELSE 'Odbijeno' END AS 'Status' from  User_UI_Odobrenje");
                 tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
                 break;
             case 0:
                 //Prikazi isplatu za sve usere
-                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0'");
+                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' When F04STA = '1' THEN 'Prihvaceno' ELSE 'Odbijeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '0'");
                 tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
                 break;
             case 100:
                 //Prikazi uplatu za sve usere
-                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' ELSE 'Obrađeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1'");
+                RS = CALIzb.main(Conn, "select F04UIID ID, F04IZN  Iznos, CASE WHEN F04UI = 0 THEN 'Isplata' ELSE 'Uplata' END AS 'Uplata\\Isplata', CASE WHEN F04UID = '' THEN 'Nema' ELSE (Select F01USR from Users where F01ID = F04UID ) END AS 'Korisnik', CASE WHEN F04STA = '0' THEN 'Nije obrađeno' WHEN F04STA = '1' THEN 'Prihvaceno' ELSE 'Odbijeno' END AS 'Status' from  User_UI_Odobrenje where F04UI = '1'");
                 tbl_PrikazTickets.setModel(DbUtils.resultSetToTableModel(RS));
                 break;
             default:
@@ -346,7 +346,7 @@ public class UplataIsplata extends javax.swing.JFrame {
 
     private void UplataIsplata() {
         try {
-            RS = CALIzb.main(Conn, "select F04UI from User_UI_Odobrenje where F04UIID = '"+rowClickedInt+"'");
+            RS = CALIzb.main(Conn, "select F04UI from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
             while (RS.next()) {
                 UplataIsplata = RS.getInt("F04UI");
             }
@@ -450,6 +450,29 @@ public class UplataIsplata extends javax.swing.JFrame {
 
     private void btn_OdbitiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OdbitiActionPerformed
         // TODO add your handling code here:
+        ZadnjiID();
+        DohvacanjeUsera();
+        UplataIsplata();
+
+        // Dohvacanje statusa
+        try {
+            RS = CALIzb.main(Conn, "Select F04STA from User_UI_Odobrenje where F04UIID = '" + rowClickedInt + "'");
+            while (RS.next()) {
+                myTempStatus = RS.getInt("F04STA");
+            }
+        } catch (Exception e) {
+
+        }
+
+        if (myTempStatus == 0) {
+            RS = CALIzb.main(Conn, "UPDATE User_UI_Odobrenje set F04STA = '2' where F04UIID = '" + rowClickedInt + "'");
+            PopError CALError = new PopError();
+            CALError.infoBox("Uplata-Isplata uspješno odbijena!", "Success!");
+            dispose();
+        } else {
+            PopError CALError = new PopError();
+            CALError.infoBox("Uplata-Isplata vec obradena!", "Error!");
+        }
 
     }//GEN-LAST:event_btn_OdbitiActionPerformed
 
