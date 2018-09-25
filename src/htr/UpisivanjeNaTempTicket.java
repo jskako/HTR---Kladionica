@@ -22,6 +22,7 @@ public class UpisivanjeNaTempTicket {
     private int MyUserID;
     private Connection Conn;
     boolean parIstekao = false;
+    String myCurrentTip = null;
 
     //Spajanje na bazu
     IzvrsavanjeSkriptiNaBazi CALIzb = new IzvrsavanjeSkriptiNaBazi();
@@ -40,30 +41,53 @@ public class UpisivanjeNaTempTicket {
 
         //Generiranje varijabli
         int myRowTemp = 0;
+
+        //Varijable za provjeru
         int myTipTemp = 0;
 
         int myLastID = 0;
-        String MyLID = null;
 
         String myTipConv = null;
         String imeKoe = null;
         double myKoe = 0;
 
         try {
-            if (col == 3) {
-                imeKoe = "F07KO1";
-                myTipConv = "1";
-            } else if (col == 4) {
-                imeKoe = "F07KOX";
-                myTipConv = "X";
-            } else if (col == 5) {
-                imeKoe = "F07KO2";
-                myTipConv = "2";
-            } else {
-                return;
+            switch (col) {
+                case 3:
+                    imeKoe = "F07KO1";
+                    myTipConv = "1";
+                    break;
+                case 4:
+                    imeKoe = "F07KOX";
+                    myTipConv = "X";
+                    break;
+                case 5:
+                    imeKoe = "F07KO2";
+                    myTipConv = "2";
+                    break;
+                default:
+                    return;
             }
         } catch (Exception el) {
             el.printStackTrace();
+        }
+
+        //Ukoliko postoji dohvati njegov tip
+        try {
+            RS = CALIzb.main(Conn, "select F09TIP F09TIP from Temp_Ticket where F09IDT = '" + row + "'");
+            while (RS.next()) {
+                myCurrentTip = RS.getString("F09TIP");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        if ("1".equals(myCurrentTip)) {
+            myTipTemp = 3;
+        } else if ("X".equals(myCurrentTip)) {
+            myTipTemp = 4;
+        } else if ("2".equals(myCurrentTip)) {
+            myTipTemp = 5;
         }
 
         provjeriVrijeme();
@@ -91,15 +115,17 @@ public class UpisivanjeNaTempTicket {
                     ex.printStackTrace();
                 }
 
-
                 try {
                     //Provjerajemo da li par na ticketu vec postoji
                     RS = CALIzb.main(Conn, "select F09IDT from Temp_Ticket where F09IDT = '" + row + "'");
                     while (RS.next()) {
                         myRowTemp = RS.getInt("F09IDT");
                     }
+
                     if (myRowTemp != 0) {
                         //Ako postoji
+                        //Provjerajemo trenutni tip
+
                         //Ako postoji s istim tipom
                         if (myTipTemp == col) {
                             RS = CALIzb.main(Conn, "delete from Temp_Ticket where F09IDT = '" + row + "'");
