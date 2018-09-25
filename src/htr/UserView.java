@@ -391,7 +391,6 @@ public class UserView extends javax.swing.JFrame {
         lbl_UserID = new javax.swing.JLabel();
         lbl_Balance = new javax.swing.JLabel();
         lblWB = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         MySoccerPanel = new javax.swing.JPanel();
         img_Soccer = new javax.swing.JLabel();
         lbl_Nogomet1 = new javax.swing.JLabel();
@@ -526,13 +525,6 @@ public class UserView extends javax.swing.JFrame {
         lblWB.setForeground(new java.awt.Color(255, 255, 255));
         lblWB.setText("Welcome back, Josip.");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -551,14 +543,12 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bOdjava))
                     .addComponent(lblWB))
-                .addGap(19, 19, 19)
-                .addComponent(jButton1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
+                        .addGap(279, 279, 279)
                         .addComponent(img_Logo))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
+                        .addGap(288, 288, 288)
                         .addComponent(lbl_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
                 .addComponent(lbl_Balance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -574,11 +564,7 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(img_Logo))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblWB)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jButton1)))
+                        .addComponent(lblWB)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1574,11 +1560,6 @@ public class UserView extends javax.swing.JFrame {
         GoLink("https://www.instagram.com/?hl=hr");
     }//GEN-LAST:event_lbl_InstagramMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        bUplatiActionPerformed(null);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void GoLink(String Link) {
         try {
             Desktop desktop = java.awt.Desktop.getDesktop();
@@ -1617,7 +1598,6 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel img_Logo;
     private javax.swing.JLabel img_Soccer;
     private javax.swing.JLabel img_basketball;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

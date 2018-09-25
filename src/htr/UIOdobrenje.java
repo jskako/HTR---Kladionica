@@ -8,6 +8,7 @@ package htr;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.Timer;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -119,6 +120,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
         naCekanjuLBL = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_PregledUplata = new javax.swing.JTable();
+        myMsg = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -139,8 +141,6 @@ public class UIOdobrenje extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setUndecorated(true);
         setResizable(false);
-
-        jPanel1.setBackground(new java.awt.Color(26, 83, 92));
 
         pic_UI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/htr/Images/pic_money.png"))); // NOI18N
 
@@ -263,6 +263,10 @@ public class UIOdobrenje extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        myMsg.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        myMsg.setForeground(new java.awt.Color(255, 51, 102));
+        myMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,38 +277,44 @@ public class UIOdobrenje extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_Opis)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbl_Ime)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbl_Prezime)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sldr_UI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addGap(70, 70, 70)
+                                .addComponent(lbl_Izlaz))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_Iznos, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(b_Potvrda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel5))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txt_Opis)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txt_UserID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lbl_Ime)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lbl_Prezime)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txt_Iznos, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(b_Potvrda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sldr_UI, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(70, 70, 70)
-                        .addComponent(lbl_Izlaz))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(myMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(75, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,10 +324,12 @@ public class UIOdobrenje extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_Izlaz)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(sldr_UI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -338,7 +350,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
                             .addComponent(b_Potvrda, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(panelCekanje, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -408,7 +420,10 @@ public class UIOdobrenje extends javax.swing.JFrame {
                                 RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '0', '" + txt_Opis.getText().trim() + "', GETDATE(), '" + userUsername + "', 'Split', '" + myUserID + "','0')");
                                 dispose();
                             } else {
-                                System.out.println("Nemate dovoljno na racunu!");
+                                myMsg.setText("Nemate dovoljno na racunu!");
+                                Timer timer = new Timer(2000, e -> myMsg.setText(""));
+                                timer.setRepeats(false);
+                                timer.start();
                             }
                         } else if (sldr_UI.getValue() == 100) {
                             RS = CALIzb.main(Conn, "insert into User_UI_Odobrenje values ('" + myNextID + "', '" + txt_Iznos.getText().trim() + "', '1', '" + txt_Opis.getText().trim() + "', GETDATE(), ' ', ' ', '" + myUserID + "','0')");
@@ -440,6 +455,7 @@ public class UIOdobrenje extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_Ime;
     private javax.swing.JLabel lbl_Izlaz;
     private javax.swing.JLabel lbl_Prezime;
+    private javax.swing.JLabel myMsg;
     private javax.swing.JLabel naCekanjuLBL;
     private javax.swing.JPanel panelCekanje;
     private javax.swing.JLabel pic_UI;
